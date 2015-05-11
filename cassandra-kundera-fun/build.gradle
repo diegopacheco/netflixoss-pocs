@@ -26,3 +26,7 @@ dependencies {
     compile group: 'com.impetus.kundera.client', name: 'kundera-cassandra-pelops', version: '2.16'
     compile group: 'com.impetus.kundera.core',   name: 'fallback-impl', version: '2.16'
 }
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2'
+}
