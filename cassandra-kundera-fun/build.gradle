@@ -27,7 +27,7 @@ dependencies {
     compile group: 'com.impetus.kundera.client', name: 'kundera-cassandra', version: '2.16'
     compile group: 'com.impetus.kundera.client', name: 'kundera-cassandra-pelops', version: '2.16'
     compile group: 'com.impetus.kundera.core',   name: 'fallback-impl', version: '2.16'
-	compile group: 'org.apache.cassandra',   	 name: 'cassandra-thrift', version: '2.15'
+	compile group: 'org.apache.cassandra',   	 name: 'cassandra-thrift', version: '2.1.5'
 }
 
 task wrapper(type: Wrapper) {
