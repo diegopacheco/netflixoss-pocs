@@ -20,5 +20,22 @@ public class KunderaExampleService {
 		em.persist(user);
 		em.close();
 		emf.close();
+		
+		queryBenchmark(300);
+		
 	}
+	
+	private static void queryBenchmark(Integer numberOfTimes){
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("cassandra_pu");
+		EntityManager em = emf.createEntityManager();
+		
+		for(int i = 0; i<= numberOfTimes; i++){
+			User result = em.find(User.class,"0001" + i);
+			System.out.println("result: " + result);
+		}
+		
+		em.close();
+		emf.close();
+	}
+	
 }
