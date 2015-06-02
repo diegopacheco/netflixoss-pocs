@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+version = '1.0'
+mainClassName = "com.github.diegopacheco.sandbox.java.kafka"
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/releases"
+    }
+    maven {
+        url "http://kundera.googlecode.com/svn/maven2/maven-missing-resources"
+    }
+    maven {
+        url "http://mvn.riptano.com/content/repositories/public"
+    }
+    maven{
+       url "https://github.com/s7/mvnrepo/raw/master"	
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2'
+}
