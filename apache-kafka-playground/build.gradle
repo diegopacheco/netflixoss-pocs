@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+	compile 'org.apache.kafka:kafka_2.11:0.8.2.1'
 	compile 'org.apache.kafka:kafka-clients:0.8.2.1' 
 }
 
