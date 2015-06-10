@@ -1,0 +1,7 @@
+CREATE KEYSPACE mykeyspace WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+
+CREATE TABLE person (
+  id text PRIMARY KEY,
+  name text,
+  age int
+);
