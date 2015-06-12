@@ -22,6 +22,9 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SocketOptions;
 import com.datastax.driver.core.exceptions.InvalidQueryException;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 
 public class MainRunner {
 	
@@ -58,7 +61,8 @@ public class MainRunner {
 	    
 	    minitor(session);
 	    insertDatastax(session);
-	    benchFor(session,5000);
+	    //benchFor(session,5000);
+	    benchAsyncFor(session,5000);
         clean(session);
 	}
 
@@ -127,6 +131,41 @@ public class MainRunner {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	private static void benchAsyncFor(Session session,int num) {
+		final CyclicBarrier gate = new CyclicBarrier(num+1);
+		
+		for(int i=0;i<=num;i++){
+	    
+			new Thread(new Runnable(){
+				@Override
+				public void run() {
+					
+					try {
+						gate.await();
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+					
+					for(int i=0;i<=100000;i++){
+						try {
+							selectAsyncDatastax(session);
+						} catch (Exception e) {
+							throw new RuntimeException(e);
+						}
+					}
+				}
+			}).start();
+			
+	    }
+		
+		try {
+			gate.await();
+			System.out.println("all threads started");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	private static void insertDatastax(Session session) {
 		PreparedStatement insertStatement = session.prepare(insertInto(keyspace, "test")
@@ -156,5 +195,31 @@ public class MainRunner {
         	String data = input.getString("id") + " - " + input.getString("descricao");
         	//System.out.println(data);
         }
+	}
+	
+	private static void selectAsyncDatastax(Session session) {
+		
+		PreparedStatement retrieveStatement = session.prepare(
+				select()
+	            .from(keyspace, "test")
+	            .where(eq("id", bindMarker())));
+		
+	    BoundStatement statement2 = new BoundStatement(retrieveStatement);
+	    statement2.setString(0, "diego");
+	    ListenableFuture<ResultSet> result = session.executeAsync(statement2);
+	    
+	    Futures.addCallback(result, new FutureCallback<ResultSet>() {
+	    	  public void onSuccess(ResultSet rs) {
+	    		  //System.out.println("Done: " + rs);
+	    		  for(Row input: rs){
+	    			  String data = input.getString("id") + " - " + input.getString("descricao");
+	    			 // System.out.println(data);
+	    		  }
+	    	  }
+	    	  public void onFailure(Throwable e) {
+	    	      throw new RuntimeException(e);
+	    	  }
+	    });
+       
 	}
 }
