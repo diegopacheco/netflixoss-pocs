@@ -42,18 +42,22 @@ public class MainRunner {
 	    try {
             session.execute("USE " + keyspace);
         } catch (InvalidQueryException e) {
-            session.execute("CREATE KEYSPACE " + keyspace +
-                " with replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}");
-
-            session.execute("CREATE TABLE " + keyspace + "." + "test" + " (" +
-                "id text PRIMARY KEY," +
-                "descricao text" +
-                ")");
+            createDatastaxSchema(session);
         } 
 	    
 	    insertDatastax(session);
-	    benchFor(session,1000);
+	    benchFor(session,10);
         clean(session);
+	}
+
+	private static void createDatastaxSchema(Session session) {
+		session.execute("CREATE KEYSPACE " + keyspace +
+		    " with replication = {'class': 'SimpleStrategy', 'replication_factor' : 1}");
+
+		session.execute("CREATE TABLE " + keyspace + "." + "test" + " (" +
+		    "id text PRIMARY KEY," +
+		    "descricao text" +
+		    ")");
 	}
 
 	private static void clean(Session session) {
