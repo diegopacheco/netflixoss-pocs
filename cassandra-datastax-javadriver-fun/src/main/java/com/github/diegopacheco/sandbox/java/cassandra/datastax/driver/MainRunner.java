@@ -62,6 +62,7 @@ public class MainRunner {
 
 	private static void clean(Session session) {
 		session.execute("DROP KEYSPACE " + keyspace);
+		System.exit(0);
 	}
 
 	private static void benchFor(Session session,int num) {
