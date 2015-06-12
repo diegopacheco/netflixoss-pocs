@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+version = '1.0'
+mainClassName = ""
+
+repositories {
+    mavenCentral()
+	maven(){
+		url "https://repo.springsource.org/libs-release"
+	}
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+	compile 'com.datastax.cassandra:cassandra-driver-core:2.0.10'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2'
+}

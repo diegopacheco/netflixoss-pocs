@@ -5,12 +5,6 @@
     <persistence-unit name="cassandra_pu">
         <provider>com.impetus.kundera.KunderaPersistence</provider>
         <properties>
-
-			<property name="kundera.pool.size.max.total"  value="5000"/>
-            <property name="kundera.pool.size.max.active" value="5000"/>
-        	<property name="kundera.pool.size.max.idle"   value="5000"/>
-        	<property name="kundera.pool.size.min.idle"   value="5000"/>
-
             <property name="kundera.nodes" value="127.0.0.1"/>
             <property name="kundera.port" value="9160"/>
             <property name="kundera.keyspace" value="KunderaExamples"/>
@@ -19,6 +13,12 @@
             <property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
             <property name="kundera.ddl.auto.prepare" value="update" />
             <!-- <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/> -->
+            
+			<property name="kundera.pool.size.max.total"  value="400"/>
+            <property name="kundera.pool.size.max.active" value="400"/>
+        	<property name="kundera.pool.size.max.idle"   value="400"/>
+        	<property name="kundera.pool.size.min.idle"   value="400"/>
+            
         </properties>
     </persistence-unit>
 </persistence>

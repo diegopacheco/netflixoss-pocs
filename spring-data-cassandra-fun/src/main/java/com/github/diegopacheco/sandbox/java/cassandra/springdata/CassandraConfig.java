@@ -61,5 +61,6 @@ public class CassandraConfig {
 	public SimpleService simpleService(){
 		return new SimpleService();
 	}
-	
+
+
 }
