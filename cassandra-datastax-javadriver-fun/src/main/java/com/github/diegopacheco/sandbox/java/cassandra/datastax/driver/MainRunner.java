@@ -5,8 +5,13 @@ import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.select;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Host;
 import com.datastax.driver.core.HostDistance;
 import com.datastax.driver.core.PoolingOptions;
 import com.datastax.driver.core.PreparedStatement;
@@ -45,9 +50,26 @@ public class MainRunner {
             createDatastaxSchema(session);
         } 
 	    
+	    minitor(session);
 	    insertDatastax(session);
 	    benchFor(session,10);
         clean(session);
+	}
+
+	private static void minitor(Session session) {
+		ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1);
+	    scheduled.scheduleAtFixedRate(new Runnable() {
+	        @Override
+	        public void run() {
+	            Session.State state = session.getState();
+	            for (Host host : state.getConnectedHosts()) {
+	                int connections = state.getOpenConnections(host);
+	                int inFlightQueries = state.getInFlightQueries(host);
+	                System.out.printf("%s connections=%d current load=%d max load=%d%n",
+	                    host, connections, inFlightQueries, connections * 128);
+	            }
+	        }
+	    }, 1, 1, TimeUnit.SECONDS);
 	}
 
 	private static void createDatastaxSchema(Session session) {
