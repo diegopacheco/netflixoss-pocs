@@ -5,6 +5,7 @@ import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.insertInto;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.select;
 
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -52,7 +53,7 @@ public class MainRunner {
 	    
 	    minitor(session);
 	    insertDatastax(session);
-	    benchFor(session,10);
+	    benchFor(session,5000);
         clean(session);
 	}
 
@@ -88,14 +89,38 @@ public class MainRunner {
 	}
 
 	private static void benchFor(Session session,int num) {
+		final CyclicBarrier gate = new CyclicBarrier(num+1);
+		
 		for(int i=0;i<=num;i++){
-	    	new Thread(new Runnable(){
+	    
+			new Thread(new Runnable(){
 				@Override
 				public void run() {
-					selectDatastax(session);
+					
+					try {
+						gate.await();
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+					
+					for(int i=0;i<=100000;i++){
+						try {
+							selectDatastax(session);
+						} catch (Exception e) {
+							throw new RuntimeException(e);
+						}
+					}
 				}
 			}).start();
+			
 	    }
+		
+		try {
+			gate.await();
+			System.out.println("all threads started");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private static void insertDatastax(Session session) {
@@ -120,10 +145,11 @@ public class MainRunner {
 	    BoundStatement statement2 = new BoundStatement(retrieveStatement);
 	    statement2.setString(0, "diego");
         ResultSet result = session.execute(statement2);
-        System.out.println(result);
+        //System.out.println(result);
         
         for(Row input: result){
-        	System.out.println(input.getString("id") + " - " + input.getString("descricao"));
+        	String data = input.getString("id") + " - " + input.getString("descricao");
+        	//System.out.println(data);
         }
 	}
 }
