@@ -16,6 +16,7 @@ import com.datastax.driver.core.Host;
 import com.datastax.driver.core.HostDistance;
 import com.datastax.driver.core.PoolingOptions;
 import com.datastax.driver.core.PreparedStatement;
+import com.datastax.driver.core.ProtocolOptions;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
@@ -42,6 +43,10 @@ public class MainRunner {
 				  withPoolingOptions(pools).
 				  withSocketOptions(new SocketOptions().setTcpNoDelay(true)).
 				  build();
+		
+		cluster.getConfiguration().
+				getProtocolOptions().
+				setCompression(ProtocolOptions.Compression.SNAPPY);
 		
 		Session session = cluster.connect();
 		 
