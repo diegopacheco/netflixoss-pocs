@@ -1,0 +1,49 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+version = '1.0'
+sourceCompatibility = 1.8
+
+mainClassName = "com.github.diegopacheco.java.sanbox.cassandradatastax.main.MainApp"
+applicationDefaultJvmArgs = ["-Djava.net.preferIPv4Stack=true","-Djava.net.preferIPv6Addresses=false","-server","-Xmx2048m","-Xms128m"]
+
+run {
+	if (System.getProperty('DEBUG', 'false') == 'true') {
+		jvmArgs '-Xdebug',
+			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
+	}
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+
+buildscript {
+	repositories {
+			mavenLocal()
+			jcenter()
+	}
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+	}
+}
+
+dependencies {
+	
+	configurations {
+		runtime.exclude  group: 'log4j'
+	}
+	
+	compile ('ch.qos.logback:logback-core:1.1.3')
+	compile ('ch.qos.logback:logback-classic:1.1.3')
+	compile ('org.slf4j:slf4j-api:1.7.12')
+	
+	compile ('com.datastax.cassandra:cassandra-driver-mapping:2.1.7.1')
+	compile ('org.xerial.snappy:snappy-java:1.1.1.7')
+	
+}
