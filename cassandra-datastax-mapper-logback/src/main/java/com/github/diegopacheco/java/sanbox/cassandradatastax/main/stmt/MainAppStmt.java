@@ -1,4 +1,4 @@
-package com.github.diegopacheco.java.sanbox.cassandradatastax.main;
+package com.github.diegopacheco.java.sanbox.cassandradatastax.main.stmt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,18 +10,14 @@ import com.datastax.driver.core.PoolingOptions;
 import com.datastax.driver.core.ProtocolOptions;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SocketOptions;
-import com.datastax.driver.mapping.Mapper;
-import com.datastax.driver.mapping.MappingManager;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.mapping.Result;
 
-public class MainApp {
+public class MainAppStmt {
 	
 	private static final Logger logger   = LoggerFactory.getLogger("com.github.diegopacheco.java.sanbox.cassandradatastax.main.MainApp");
 	private static final Cluster cluster = clusterConnect();
 	private static final Session session = cluster.connect("datastax_mapper_test");
-	private static final MappingManager manager  = new MappingManager(session);
-	private static final Mapper<User> userMapper = manager.mapper(User.class);
-	private static final UserAccessor userAccessor = manager.createAccessor(UserAccessor.class);
 	private static final Integer TOTAL_RUNS = 200; 
 	
 	private static void startup(){
@@ -33,15 +29,25 @@ public class MainApp {
 		
 		startup();
 		
-		final Result<User> users = null;
+		final Result<User2> users = null;
 		
 		for(int i=0;i<=TOTAL_RUNS;i++){
-		 	new Thread(new Runnable() {
+			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					User u1 = new User("Diego", "diegoSQN@gmail.com",1984);
-					userMapper.save(u1);
-					userAccessor.getAll();
+					User2 u1 = new User2("Diego", "diegoSQN@gmail.com",1984);
+					
+					session.execute(QueryBuilder.insertInto("datastax_mapper_test","users")
+							        .value("user_id", u1.getUserId())
+							        .value("name", u1.getName())
+							        .value("email", u1.getEmail())
+							        .value("year", u1.getYear()));
+					
+					session.execute(
+							QueryBuilder
+							.select()
+							.from("datastax_mapper_test","users"));
+					
 				}
 			}).start();
 			 
@@ -49,7 +55,7 @@ public class MainApp {
 		logger.info("Users from accessor: " + users);
 		
 		if (users!=null){
-			for(User u : users){
+			for(User2 u : users){
 				System.out.println(u);
 			}
 		}

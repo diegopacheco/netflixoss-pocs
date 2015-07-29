@@ -1,7 +1,9 @@
-package com.github.diegopacheco.java.sanbox.cassandradatastax.main;
+package com.github.diegopacheco.java.sanbox.cassandradatastax.main.stmt.rx;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.List;
+
+import rx.Observable;
+import rx.Subscriber;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Cluster.Builder;
@@ -10,48 +12,39 @@ import com.datastax.driver.core.PoolingOptions;
 import com.datastax.driver.core.ProtocolOptions;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SocketOptions;
-import com.datastax.driver.mapping.Mapper;
-import com.datastax.driver.mapping.MappingManager;
-import com.datastax.driver.mapping.Result;
 
-public class MainApp {
+public class MainAppStmtRX {
 	
-	private static final Logger logger   = LoggerFactory.getLogger("com.github.diegopacheco.java.sanbox.cassandradatastax.main.MainApp");
 	private static final Cluster cluster = clusterConnect();
 	private static final Session session = cluster.connect("datastax_mapper_test");
-	private static final MappingManager manager  = new MappingManager(session);
-	private static final Mapper<User> userMapper = manager.mapper(User.class);
-	private static final UserAccessor userAccessor = manager.createAccessor(UserAccessor.class);
-	private static final Integer TOTAL_RUNS = 200; 
+	private static final SessionBackpressureRunner sbr = new SessionBackpressureRunner(session);
 	
-	private static void startup(){
-		logger.info("Connected to Cassandra Cluster: " + cluster + " on Session: " + session);
-	}
+	private static final Integer TOTAL_RUNS = 20000; 
 	
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		startup();
-		
-		final Result<User> users = null;
+		Observable.just( Command.of("Hello"),Command.of("World"), Command.of("RX")  )
+				.buffer(1)
+        		.subscribe(new Subscriber<Object>() {
+					public void onCompleted() {
+						System.out.println("DONE ALL FINITO!");
+					}
+					public void onError(Throwable e) {
+						System.out.println("Eror:" + e);
+					}
+					@SuppressWarnings("unchecked")
+					public void onNext(Object c) {
+						((List<Command>)c).get(0).run();
+						System.out.println(c);							
+					}
+				});
 		
 		for(int i=0;i<=TOTAL_RUNS;i++){
-		 	new Thread(new Runnable() {
-				@Override
+			new Thread(new Runnable() {
 				public void run() {
-					User u1 = new User("Diego", "diegoSQN@gmail.com",1984);
-					userMapper.save(u1);
-					userAccessor.getAll();
+					sbr.run("go");
 				}
 			}).start();
-			 
-		}
-		logger.info("Users from accessor: " + users);
-		
-		if (users!=null){
-			for(User u : users){
-				System.out.println(u);
-			}
 		}
 	}
 
