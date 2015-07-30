@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+version = '1.0'
+sourceCompatibility = 1.8
+
+mainClassName = "com"
+applicationDefaultJvmArgs = ["-Djava.net.preferIPv4Stack=true","-Djava.net.preferIPv6Addresses=false","-server","-Xmx2048m","-Xms128m"]
+
+run {
+	if (System.getProperty('DEBUG', 'false') == 'true') {
+		jvmArgs '-Xdebug',
+			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
+	}
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+
+buildscript {
+	repositories {
+			mavenLocal()
+			jcenter()
+	}
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+	}
+}
+
+dependencies {
+	compile('io.reactivex:rxjava:1.0.13')
+}
