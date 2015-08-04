@@ -1,0 +1,11 @@
+buildscript {
+	repositories {
+		mavenLocal()
+	}
+	dependencies {
+		classpath group: 'gradle-simple-plugin',
+				  name: 'gradle-simple-plugin',
+				  version: '1.0'
+	}
+}
+apply plugin: 'gradle-simple-plugin'

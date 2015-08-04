@@ -1,0 +1,9 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+group='gradle-simple-plugin'
+version='1.0'
+
+dependencies {
+	compile gradleApi()
+}

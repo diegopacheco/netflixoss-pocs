@@ -1,0 +1,55 @@
+apply plugin: GreetingPlugin
+
+greeting {
+    message = 'Hi'
+    greeter = 'Gradle'
+}
+
+class GreetingPlugin implements Plugin<Project> {
+    void apply(Project project) {
+        project.extensions.create("greeting", GreetingPluginExtension)
+        project.task('hello') << {
+            println "${project.greeting.message} from ${project.greeting.greeter}"
+        }
+    }
+}
+
+class GreetingPluginExtension {
+    String message
+    String greeter
+}
+
+allprojects  {
+	apply plugin: 'java'
+    apply plugin: 'eclipse'
+
+	version = '1.0'
+	sourceCompatibility = 1.8
+
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+
+	buildscript {
+		repositories {
+				mavenLocal()
+				jcenter()
+		}
+	}
+
+	eclipse {
+		classpath {
+			downloadSources = true
+		}
+	}
+
+	dependencies {
+		testCompile('junit:junit:4.12')
+	}
+
+	task wrapper(type: Wrapper) {
+	    gradleVersion = '2.2'
+	}
+}
+
