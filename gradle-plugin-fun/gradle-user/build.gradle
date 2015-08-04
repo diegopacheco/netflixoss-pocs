@@ -9,3 +9,4 @@ buildscript {
 	}
 }
 apply plugin: 'gradle-simple-plugin'
+apply from: 'https://gist.githubusercontent.com/diegopacheco/e62ce6e3ea440f56024f/raw/195b6ea1124f3adb23d5a6246dc36f527cc4ca9c/script.gradle'

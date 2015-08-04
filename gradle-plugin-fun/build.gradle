@@ -53,7 +53,8 @@ allprojects  {
 	}
 }
 
-
+// This works very well
+/*
 configure([project(':gradle-user')]) {
   apply plugin: 'application'
   mainClassName = "com.github.diegopacheco.graldeplugin.user.Main"
@@ -61,3 +62,4 @@ configure([project(':gradle-user')]) {
   run {
   }
 }
+*/
