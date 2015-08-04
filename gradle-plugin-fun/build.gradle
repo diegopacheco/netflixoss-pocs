@@ -11,7 +11,7 @@ class GreetingPlugin implements Plugin<Project> {
         project.task('hello') << {
             println "${project.greeting.message} from ${project.greeting.greeter}"
         }
-    }
+	}
 }
 
 class GreetingPluginExtension {
@@ -53,3 +53,11 @@ allprojects  {
 	}
 }
 
+
+configure([project(':gradle-user')]) {
+  apply plugin: 'application'
+  mainClassName = "com.github.diegopacheco.graldeplugin.user.Main"
+  applicationDefaultJvmArgs = [""]
+  run {
+  }
+}
