@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+	   url "https://oss.sonatype.org/content/groups/public/"
+	}
+}
+
+eclipse {
+	classpath {
+	   downloadSources=true
+	}
+}
+
+dependencies {
+	compile([
+			  'com.netflix.ribbon:ribbon-core:2.1.0',
+			  'com.netflix.ribbon:ribbon-httpclient:2.1.0',
+			  'com.netflix.ribbon:ribbon-transport:2.1.0',
+			  'com.netflix.ribbon:ribbon-httpasyncclient:0.3.13',
+			  
+			  'org.glassfish.jersey.core:jersey-server:2.19',
+			  'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.19',
+			  'org.slf4j:slf4j-jdk14:1.7.12'
+			  
+			  ])
+}
