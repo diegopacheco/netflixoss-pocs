@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+	   url "https://oss.sonatype.org/content/groups/public/"
+	}
+}
+
+dependencies {
+	compile([ 
+		'org.glassfish.jersey.test-framework:jersey-test-framework-core:2.19',
+		'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-jetty:2.19'
+	])
+}
