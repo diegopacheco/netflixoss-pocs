@@ -4,9 +4,6 @@ import io.netty.buffer.ByteBuf;
 
 import java.nio.charset.Charset;
 
-import rx.Observable;
-
-import com.netflix.config.ConfigurationManager;
 import com.netflix.ribbon.ClientOptions;
 import com.netflix.ribbon.Ribbon;
 import com.netflix.ribbon.RibbonResponse;
@@ -29,15 +26,14 @@ public class RibbonTemplateCodeFun {
 		
 		HttpRequestTemplate<ByteBuf> apiTemplate = httpRG.newTemplateBuilder("apiCall",ByteBuf.class)
 		            .withMethod("GET")
-		            .withUriTemplate("api")
+		            .withUriTemplate("/api")
 		            .withFallbackProvider(new ApiFallbackHandler())
 		            .withResponseValidator(new ApiResponseValidator())
-		            .withHeader("MY_HEADER_ROCKS", "1234567891011213")
 		            .build();
-		
 		System.out.println("Template: " + apiTemplate);
 		
 		RibbonResponse<ByteBuf> result = apiTemplate.requestBuilder()
+									 .withHeader("MY_HEADER_ROCKS", "1234567891011213")
 					                 .build()
 					                 .withMetadata().execute();
 		System.out.println("Result: " + result);
