@@ -33,7 +33,7 @@ public class RibbonTemplateCodeFun {
 		System.out.println("Template: " + apiTemplate);
 		
 		RibbonResponse<ByteBuf> result = apiTemplate.requestBuilder()
-									 .withHeader("MY_HEADER_ROCKS", "1234567891011213")
+									 .withHeader("MY_HEADER", "1234567891011213")
 					                 .build()
 					                 .withMetadata().execute();
 		System.out.println("Result: " + result);
