@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+	   url "https://oss.sonatype.org/content/groups/public/"
+	}
+	maven { 
+		url "http://clojars.org/repo" 
+	}
+}
+
+eclipse {
+	classpath {
+	   downloadSources=true
+	}
+}
+
+dependencies {
+	compile([
+			  'org.apache.storm:storm-core:0.9.5',
+			  'org.apache.storm:storm-kafka:0.9.5'
+			])
+}
