@@ -1,0 +1,6 @@
+$ bower install angular
+$ npm install karma --save-dev
+$ npm install karma-jasmine karma-chrome-launcher --save-dev
+$ bashgit
+$ karma init
+$ node_modules/karma/bin/karma start
