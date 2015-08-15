@@ -1,6 +1,6 @@
-var phonecatApp = angular.module('phonecatApp', []);
+var phonecatControllers = angular.module('phonecatControllers', []);
 
-phonecatApp.controller('PhoneListCtrl', function ($scope) {
+phonecatControllers.controller('PhoneListCtrl', function ($scope) {
   $scope.name = "World"; 	
   $scope.phones = [
     {'name': 'Nexus S',
