@@ -21,3 +21,8 @@ phonecatApp.controller('PhoneListCtrl', function ($scope) {
   ];  
   $scope.orderProp = 'age';
 });
+
+phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams',
+  function($scope, $routeParams) {
+    $scope.phoneId = $routeParams.phoneId;
+}]);
