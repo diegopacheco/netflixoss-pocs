@@ -4,3 +4,11 @@ $ npm install karma-jasmine karma-chrome-launcher --save-dev
 $ bashgit
 $ karma init
 $ node_modules/karma/bin/karma start
+$ npm install http-server -g 
+$ http-server app
+
+LINKS: 
+
+https://docs.angularjs.org/tutorial/step_00
+
+http://stackoverflow.com/questions/27742070/angularjs-error-cross-origin-requests-are-only-supported-for-protocol-schemes
