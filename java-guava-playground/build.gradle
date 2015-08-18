@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+	   url "https://oss.sonatype.org/content/groups/public/"
+	}
+}
+
+eclipse {
+	classpath {
+	   downloadSources=true
+	}
+}
+
+dependencies {
+	compile([
+				'com.google.guava:guava:18.0',
+				'net.jodah:expiringmap:0.5.0'				
+			])
+}
