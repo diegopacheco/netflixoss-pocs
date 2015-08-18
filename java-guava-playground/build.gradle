@@ -21,6 +21,7 @@ eclipse {
 dependencies {
 	compile([
 				'com.google.guava:guava:18.0',
-				'net.jodah:expiringmap:0.5.0'				
+				'net.jodah:expiringmap:0.5.0',
+				'org.apache.commons:commons-collections4:4.0'
 			])
 }
