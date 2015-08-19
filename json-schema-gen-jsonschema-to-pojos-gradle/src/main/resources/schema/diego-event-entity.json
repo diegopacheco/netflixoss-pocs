@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://schema.github.com.sandbox.diego/diego-entity-schema#",
+  "description": "Diego Event Schema", 
+  "type": "object",
+  "javaType": "com.github.diegopacheco.sandbox.java.jsonschema.pojos",
+  "additionalProperties": false,
+  "type" : "object",
+   "properties" : {
+       "id" : {
+          "type" : "string",
+          "description" : "id property"
+       },
+       "name" : {
+          "type" : "string",
+          "description" : "name property"
+       },       
+       "friends" : {
+		  "type" : "array",
+          "items" : { "name": "string" },
+		   "uniqueItems":true, 
+          "description" : "friends property"
+       } 
+   }
+}

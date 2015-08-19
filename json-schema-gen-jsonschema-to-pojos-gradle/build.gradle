@@ -1,0 +1,64 @@
+buildscript {
+	repositories {
+	  mavenCentral()
+	}
+	dependencies {
+	    classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:0.4.0'
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jsonschema2pojo'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+	   url "https://oss.sonatype.org/content/groups/public/"
+	}
+}
+
+eclipse {
+	classpath {
+	   downloadSources=true
+	}
+}
+
+compileJava.dependsOn('generateJsonSchema2Pojo')
+tasks.eclipseClasspath.dependsOn(generateJsonSchema2Pojo)
+
+sourceSets {
+  main {
+	java {
+	  srcDirs = ['src/main/java', 'src/generated-sources']
+	}
+	resources {
+	  srcDir 'src/main/resources'
+	}
+  }
+}
+
+//sourceSets.main.java.srcDir "src/generated-sources"
+
+jsonSchema2Pojo {
+	includeJsr303Annotations = false
+	includeHashcodeAndEquals = false
+	includeToString = true
+	usePrimitives = true
+	generateBuilders = true
+	source = files("${sourceSets.main.output.resourcesDir}/schema")
+	targetDirectory = file("src/generated-sources")
+	propertyWordDelimiters = ['_'] as char[]
+}
+
+dependencies {
+	compile([
+			   'commons-lang:commons-lang:2.6',
+			   'javax.validation:validation-api:1.1.0.CR2',
+			   'com.fasterxml.jackson.core:jackson-databind:2.1.4'
+			])
+}
