@@ -12,9 +12,9 @@ applicationDefaultJvmArgs = [
 								 "-server",
 								 "-Xmx2048m",
 								 "-Xms128m",
-								 "-DapiCall.ribbon.MaxAutoRetriesNextServer=2"
+								 "-DapiCall.ribbon.MaxAutoRetriesNextServer=2",
 								 "-DapiCall.ribbon.ConnectTimeout=10000",
-								 "-DapiCall.ribbon.ReadTimeout=20000",
+								 "-DapiCall.ribbon.ReadTimeout=20000"
 							 ]
 
 run {
