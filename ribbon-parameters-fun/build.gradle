@@ -6,7 +6,16 @@ version = '1.0'
 sourceCompatibility = 1.8
 
 mainClassName = "com.diegopacheco.sandbox.java.netflix.ribbon.parameters.main.RibbonClientMain"
-applicationDefaultJvmArgs = ["-Djava.net.preferIPv4Stack=true","-Djava.net.preferIPv6Addresses=false","-server","-Xmx2048m","-Xms128m"]
+applicationDefaultJvmArgs = [
+								 "-Djava.net.preferIPv4Stack=true",
+								 "-Djava.net.preferIPv6Addresses=false",
+								 "-server",
+								 "-Xmx2048m",
+								 "-Xms128m",
+								 "-DapiCall.ribbon.MaxAutoRetriesNextServer=2"
+								 "-DapiCall.ribbon.ConnectTimeout=10000",
+								 "-DapiCall.ribbon.ReadTimeout=20000",
+							 ]
 
 run {
 	if (System.getProperty('DEBUG', 'false') == 'true') {

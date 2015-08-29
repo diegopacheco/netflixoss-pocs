@@ -15,21 +15,17 @@ import io.netty.buffer.ByteBuf;
 //
 public class RibbonClientMain {
 	
-	static{
-		System.setProperty("ribbon.listOfServers","http://api.openweathermap.org/data/2.5/");
-	}
-	
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws Exception{
 		
 		HttpResourceGroup httpRG = Ribbon.createHttpResourceGroup("apiCall",
 	            ClientOptions.create()
                 .withMaxAutoRetriesNextServer(1)
-                .withConfigurationBasedServerList("http://api.openweathermap.org/data/2.5/"));
+                .withConfigurationBasedServerList("http://api.openweathermap.org.null"));
 		
 		HttpRequestTemplate<ByteBuf> apiTemplate = httpRG.newTemplateBuilder("apiCall",ByteBuf.class)
 		            .withMethod("GET")
-		            .withUriTemplate("weather?q=Sunnyvale")
+		            .withUriTemplate("/data/2.5/weather?q=Sunnyvale")
 		            .withFallbackProvider(new ApiFallbackHandler())
 		            .withResponseValidator(new ApiResponseValidator())
 		            .build();
