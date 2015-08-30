@@ -63,10 +63,7 @@ public class RibbonClientUsingEureka {
 		
 		Gson gson = new Gson();
 		Map<String, String> mapResult = gson.fromJson(json, new TypeToken<Map<String, String>>() {}.getType()); 
-		
-		System.out.println("Result description: " + mapResult.get("description"));
-		System.out.println("Result country: " + mapResult.get("country"));
-		System.out.println("Result temp: " + mapResult.get("temp"));
+		System.out.println("Result weather: " + mapResult.get("weather"));
 		
 		System.exit(0);
 		
