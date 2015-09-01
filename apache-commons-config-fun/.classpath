@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="C:/Users/diego/.m2/repository/ch/qos/logback/logback-classic/1.0.13/logback-classic-1.0.13.jar"/>
+	<classpathentry sourcepath="C:/Users/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.7.12/d58539043ddadebbe0df9f1ee82e00bcbe86e22c/slf4j-log4j12-1.7.12-sources.jar" kind="lib" path="C:/Users/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.7.12/485f77901840cf4e8bf852f2abb9b723eb8ec29/slf4j-log4j12-1.7.12.jar"/>
+	<classpathentry sourcepath="C:/Users/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-jdk14/1.7.12/bab9a3bd809632edfcb2bda08b6966abc1d3928d/slf4j-jdk14-1.7.12-sources.jar" kind="lib" path="C:/Users/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-jdk14/1.7.12/aec22f0b809be5a94afb4a7fe3a239c0c0eee013/slf4j-jdk14-1.7.12.jar"/>
+	<classpathentry sourcepath="C:/Users/diego/.gradle/caches/modules-2/files-2.1/commons-configuration/commons-configuration/1.10/2427d5eaf4011f855a95bd523febda041728393b/commons-configuration-1.10-sources.jar" kind="lib" path="C:/Users/diego/.gradle/caches/modules-2/files-2.1/commons-configuration/commons-configuration/1.10/2b36e4adfb66d966c5aef2d73deb6be716389dc9/commons-configuration-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/diego/.m2/repository/ch/qos/logback/logback-core/1.0.13/logback-core-1.0.13.jar"/>
+	<classpathentry sourcepath="C:/Users/diego/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar" kind="lib" path="C:/Users/diego/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+	<classpathentry sourcepath="C:/Users/diego/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar" kind="lib" path="C:/Users/diego/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+	<classpathentry sourcepath="C:/Users/diego/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar" kind="lib" path="C:/Users/diego/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+	<classpathentry sourcepath="C:/Users/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.12/58697792617f38bf86d8e26bc004aac505e516a9/slf4j-api-1.7.12-sources.jar" kind="lib" path="C:/Users/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.12/8e20852d05222dc286bf1c71d78d0531e177c317/slf4j-api-1.7.12.jar"/>
+</classpath>
