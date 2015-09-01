@@ -1,0 +1,64 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+version = '1.0'
+sourceCompatibility = 1.8
+
+mainClassName = "com.github.diegopacheco.sandbox.java.netflix.pocs.ribbon.hystrix.wrapper.MainWrapperCall"
+applicationDefaultJvmArgs = [
+								 "-Djava.net.preferIPv4Stack=true",
+								 "-Djava.net.preferIPv6Addresses=false",
+								 "-server",
+								 "-Xmx2048m",
+								 "-Xms128m",
+								 "-DapiCall2.ribbon.MaxAutoRetriesNextServer=5",
+								 "-DapiCall2.ribbon.ConnectTimeout=10000",
+								 "-DapiCall2.ribbon.ReadTimeout=20000"
+							 ]
+
+run {
+	if (System.getProperty('DEBUG', 'false') == 'true') {
+		jvmArgs '-Xdebug',
+			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
+	}
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+
+buildscript {
+	repositories {
+			mavenLocal()
+			jcenter()
+	}
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+	}
+}
+
+dependencies {
+	compile([
+			  'com.netflix.ribbon:ribbon:2.1.0',
+			  'com.netflix.ribbon:ribbon-core:2.1.0',
+			  'com.netflix.ribbon:ribbon-httpclient:2.1.0',
+			  'com.netflix.ribbon:ribbon-transport:2.1.0',
+			  'com.netflix.ribbon:ribbon-loadbalancer:2.1.0',
+			  'com.netflix.ribbon:ribbon-httpasyncclient:0.3.13',
+			  'ch.qos.logback:logback-classic:1.0.13',
+			  'org.slf4j:slf4j-log4j12:1.7.12',
+			  'org.slf4j:slf4j-jdk14:1.7.12',
+			  'com.netflix.ribbon:ribbon-eureka:2.1.0',
+			  'com.netflix.eureka:eureka-core:1.2.1',
+			  'com.google.code.gson:gson:2.3.1',
+			  'com.netflix.hystrix:hystrix-core:1.4.14',
+			  'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.4.14',
+			  'com.netflix.hystrix:hystrix-metrics-event-stream:1.4.14',
+			  'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.4.14'				  
+		    ])
+}
