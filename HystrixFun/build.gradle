@@ -1,3 +1,5 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
 apply plugin: 'scala'
 
 sourceSets {
@@ -25,6 +27,7 @@ repositories {
 }
 
 dependencies {
-	compile(['org.scala-lang:scala-library:2.11.5',
-			  'io.gatling:gatling-core:2.1.5'])
+	compile(['org.scala-lang:scala-library:2.11.7',
+			'org.scala-lang:scala-compiler:2.11.7',
+			  'io.gatling:gatling-core:2.1.7'])
 }

@@ -2,6 +2,7 @@ apply plugin: "java"
 apply plugin: "groovy"
 apply plugin: "war"
 apply plugin: "jetty"
+apply plugin: "eclipse"
 
 sourceCompatibility = 1.8 
 targetCompatibility = 1.8 
