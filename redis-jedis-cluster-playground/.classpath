@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
+	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer" exported="true"/>
+	<classpathentry kind="output" path="bin"/>
+	<classpathentry sourcepath="C:/Users/diego/.gradle/caches/modules-2/files-2.1/redis.clients/jedis/2.7.3/92e002a6186207ae20f28df36d29eb016a0e87e6/jedis-2.7.3-sources.jar" kind="lib" path="C:/Users/diego/.gradle/caches/modules-2/files-2.1/redis.clients/jedis/2.7.3/5f6b152b43424aed4ace4e545879cf17945d1daa/jedis-2.7.3.jar" exported="true"/>
+	<classpathentry kind="lib" path="C:/Users/diego/.m2/repository/org/apache/commons/commons-pool2/2.3/commons-pool2-2.3.jar" exported="true"/>
+</classpath>
