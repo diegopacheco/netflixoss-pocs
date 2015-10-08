@@ -67,6 +67,7 @@ public class SimpleClusterMain {
 	}
 	
 	private static JedisCluster createCluster(){
+		float init = System.currentTimeMillis();
 		Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30001));
 		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30002));
@@ -75,6 +76,8 @@ public class SimpleClusterMain {
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30002));
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30003));
 		JedisCluster jc = new JedisCluster(jedisClusterNodes);
+		float end = System.currentTimeMillis();
+		System.out.println("Cluster Created(California|Oregon) in : " + (end -init) + " ms");
 		return jc;
 	}
 	
