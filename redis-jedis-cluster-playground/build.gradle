@@ -48,3 +48,20 @@ dependencies {
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.2'
 }
+
+jar {
+	from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+		exclude "META-INF/*.SF"
+		exclude "META-INF/*.DSA"
+		exclude "META-INF/*.RSA"
+	}
+
+	manifest {
+		attributes 'Implementation-Title': 'Foobar',
+				'Implementation-Version': version,
+				'Built-By': System.getProperty('user.name'),
+				'Built-Date': new Date(),
+				'Built-JDK': System.getProperty('java.version'),
+				'Main-Class': mainClassName
+	}
+}
