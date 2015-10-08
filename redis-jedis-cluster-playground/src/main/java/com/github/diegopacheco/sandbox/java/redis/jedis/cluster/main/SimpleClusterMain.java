@@ -10,7 +10,7 @@ import redis.clients.jedis.JedisCluster;
 public class SimpleClusterMain {
 
 	public static void main(String[] args) {
-		test10kInserts();
+		test1kInserts();
 	}
 	
 	public static void test10kInsertsAndGets(){
@@ -48,6 +48,24 @@ public class SimpleClusterMain {
 		}
 		float end = System.currentTimeMillis();
 		System.out.println("TIME to Inserts 10k IDS : " + (end -init) + " ms");
+	}
+	
+	public static void test1kInserts(){
+		Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
+		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30001));
+		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30002));
+		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30003));
+		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30001));
+		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30002));
+		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30003));
+		JedisCluster jc = new JedisCluster(jedisClusterNodes);
+		
+		float init = System.currentTimeMillis();
+		for(int i=0; i<= 999; i++){
+			jc.set("foo3"+i, "bar"+i);
+		}
+		float end = System.currentTimeMillis();
+		System.out.println("TIME to Inserts 1k IDS : " + (end -init) + " ms");
 	}
 	
 	public static void simpleTest(){
