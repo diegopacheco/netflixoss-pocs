@@ -21,7 +21,7 @@ public class SimpleClusterMain {
 			jc.get("foo"+i);
 		}
 		double end = System.currentTimeMillis();
-		System.out.println("TIME to Insert/Get 10k IDS : " + (end - init) + " ms");
+		printBench("Insert/Get 10k IDS",init,end);
 	}
 	
 	public static void test10kInserts(){
@@ -32,7 +32,7 @@ public class SimpleClusterMain {
 			jc.set("foo2"+i, "bar"+i);
 		}
 		double end = System.currentTimeMillis();
-		System.out.println("TIME to Inserts 10k IDS : " + (end - init) + " ms");
+		printBench("Inserts 10k IDS",init,end);
 	}
 	
 	public static void test1kInserts(){
@@ -43,7 +43,7 @@ public class SimpleClusterMain {
 			jc.set("foo3"+i, "bar"+i);
 		}
 		double end = System.currentTimeMillis();
-		System.out.println("TIME to Inserts 1k IDS : " + (end - init) + " ms");
+		printBench("Inserts 1k IDS",init,end);
 	}
 	
 	public static void test1kInsertsAndGets(){
@@ -55,7 +55,7 @@ public class SimpleClusterMain {
 			jc.get("foo4"+i);
 		}
 		double end = System.currentTimeMillis();
-		System.out.println("TIME to Inserts/Gets 1k IDS : " + (end - init) + " ms");
+		printBench("Inserts/Gets 1k IDS",init,end);
 	}
 	
 	public static void simpleTest(){
@@ -64,6 +64,11 @@ public class SimpleClusterMain {
 		
 		String value = jc.get("foo");
 		System.out.println(value);
+	}
+	
+	private static void printBench(String msg,double init, double end){
+		int seconds = (int) ((end - init) / 1000) % 60 ;
+		System.out.println("TIME to " + msg + ": " + (end - init) + " ms - " + seconds + " s" );
 	}
 	
 	private static JedisCluster createCluster(){
@@ -80,6 +85,4 @@ public class SimpleClusterMain {
 		System.out.println("Cluster Created(California|Oregon) in : " + (end - init) + " ms");
 		return jc;
 	}
-	
-	
 }
