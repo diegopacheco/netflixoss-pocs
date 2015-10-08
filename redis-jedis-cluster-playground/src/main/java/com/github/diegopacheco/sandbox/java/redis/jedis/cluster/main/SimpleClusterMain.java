@@ -23,12 +23,13 @@ public class SimpleClusterMain {
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30003));
 		JedisCluster jc = new JedisCluster(jedisClusterNodes);
 		
+		float init = System.currentTimeMillis();
 		for(int i=0; i<= 9999; i++){
 			jc.set("foo"+i, "bar"+i);
-			String value = jc.get("foo"+i);
-			System.out.println(value);
+			jc.get("foo"+i);
 		}
-		
+		float end = System.currentTimeMillis();
+		System.out.println("TIME to Insert/Get 10k IDS : " + (end -init) + " ms");
 	}
 	
 	public static void simpleTest(){
