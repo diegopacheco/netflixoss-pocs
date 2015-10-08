@@ -41,7 +41,8 @@ eclipse {
 
 dependencies {
 	compile([
-			  'redis.clients:jedis:2.7.3'			  
+			  'redis.clients:jedis:2.7.3',
+			  'biz.paluch.redis:lettuce:4.0.Final'
 		    ])
 }
 
