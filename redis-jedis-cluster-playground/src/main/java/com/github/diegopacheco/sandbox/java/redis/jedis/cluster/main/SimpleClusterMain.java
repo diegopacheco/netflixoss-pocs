@@ -21,7 +21,7 @@ public class SimpleClusterMain {
 			jc.get("foo"+i);
 		}
 		double end = System.currentTimeMillis();
-		System.out.println("TIME to Insert/Get 10k IDS : " + (end -init) + " ms");
+		System.out.println("TIME to Insert/Get 10k IDS : " + (end - init) + " ms");
 	}
 	
 	public static void test10kInserts(){
@@ -32,7 +32,7 @@ public class SimpleClusterMain {
 			jc.set("foo2"+i, "bar"+i);
 		}
 		double end = System.currentTimeMillis();
-		System.out.println("TIME to Inserts 10k IDS : " + (end -init) + " ms");
+		System.out.println("TIME to Inserts 10k IDS : " + (end - init) + " ms");
 	}
 	
 	public static void test1kInserts(){
@@ -43,7 +43,7 @@ public class SimpleClusterMain {
 			jc.set("foo3"+i, "bar"+i);
 		}
 		double end = System.currentTimeMillis();
-		System.out.println("TIME to Inserts 1k IDS : " + (end -init) + " ms");
+		System.out.println("TIME to Inserts 1k IDS : " + (end - init) + " ms");
 	}
 	
 	public static void test1kInsertsAndGets(){
@@ -67,7 +67,7 @@ public class SimpleClusterMain {
 	}
 	
 	private static JedisCluster createCluster(){
-		float init = System.currentTimeMillis();
+		double init = System.currentTimeMillis();
 		Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30001));
 		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30002));
@@ -76,8 +76,8 @@ public class SimpleClusterMain {
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30002));
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30003));
 		JedisCluster jc = new JedisCluster(jedisClusterNodes);
-		float end = System.currentTimeMillis();
-		System.out.println("Cluster Created(California|Oregon) in : " + (end -init) + " ms");
+		double end = System.currentTimeMillis();
+		System.out.println("Cluster Created(California|Oregon) in : " + (end - init) + " ms");
 		return jc;
 	}
 	
