@@ -49,13 +49,13 @@ public class SimpleClusterMain {
 	public static void test1kInsertsAndGets(){
 		JedisCluster jc = createCluster();	
 		
-		float init = System.currentTimeMillis();
+		double init = System.currentTimeMillis();
 		for(int i=0; i<= 999; i++){
 			jc.set("foo4"+i, "bar"+i);
 			jc.get("foo4"+i);
 		}
-		float end = System.currentTimeMillis();
-		System.out.println("TIME to Inserts/Gets 1k IDS : " + (end -init) + " ms");
+		double end = System.currentTimeMillis();
+		System.out.println("TIME to Inserts/Gets 1k IDS : " + (end - init) + " ms");
 	}
 	
 	public static void simpleTest(){
