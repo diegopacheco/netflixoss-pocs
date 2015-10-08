@@ -15,34 +15,34 @@ public class SimpleClusterMain {
 	public static void test10kInsertsAndGets(){
 		JedisCluster jc = createCluster();
 		
-		float init = System.currentTimeMillis();
+		double init = System.currentTimeMillis();
 		for(int i=0; i<= 9999; i++){
 			jc.set("foo"+i, "bar"+i);
 			jc.get("foo"+i);
 		}
-		float end = System.currentTimeMillis();
+		double end = System.currentTimeMillis();
 		System.out.println("TIME to Insert/Get 10k IDS : " + (end -init) + " ms");
 	}
 	
 	public static void test10kInserts(){
 		JedisCluster jc = createCluster();
 		
-		float init = System.currentTimeMillis();
+		double init = System.currentTimeMillis();
 		for(int i=0; i<= 9999; i++){
 			jc.set("foo2"+i, "bar"+i);
 		}
-		float end = System.currentTimeMillis();
+		double end = System.currentTimeMillis();
 		System.out.println("TIME to Inserts 10k IDS : " + (end -init) + " ms");
 	}
 	
 	public static void test1kInserts(){
 		JedisCluster jc = createCluster();	
 		
-		float init = System.currentTimeMillis();
+		double init = System.currentTimeMillis();
 		for(int i=0; i<= 999; i++){
 			jc.set("foo3"+i, "bar"+i);
 		}
-		float end = System.currentTimeMillis();
+		double end = System.currentTimeMillis();
 		System.out.println("TIME to Inserts 1k IDS : " + (end -init) + " ms");
 	}
 	
