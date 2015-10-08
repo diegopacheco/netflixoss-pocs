@@ -10,6 +10,7 @@ public class SimpleClusterMain {
 
 	public static void main(String[] args) {
 		test1kInsertsAndGets();
+		test1kGets();
 	}
 	
 	public static void test10kInsertsAndGets(){
@@ -56,6 +57,17 @@ public class SimpleClusterMain {
 		}
 		double end = System.currentTimeMillis();
 		printBench("Inserts/Gets 1k IDS",init,end);
+	}
+	
+	public static void test1kGets(){
+		JedisCluster jc = createCluster();	
+		
+		double init = System.currentTimeMillis();
+		for(int i=0; i<= 999; i++){
+			jc.get("foo4"+i);
+		}
+		double end = System.currentTimeMillis();
+		printBench("Gets 1k IDS",init,end);
 	}
 	
 	public static void simpleTest(){
