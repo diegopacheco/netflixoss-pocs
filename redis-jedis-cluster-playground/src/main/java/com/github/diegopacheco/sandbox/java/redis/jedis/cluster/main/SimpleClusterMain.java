@@ -9,73 +9,41 @@ import redis.clients.jedis.JedisCluster;
 public class SimpleClusterMain {
 
 	public static void main(String[] args) {
-		test1kInsertsAndGets();
-		test1kGets();
-	}
-	
-	public static void test10kInsertsAndGets(){
-		JedisCluster jc = createCluster();
-		
-		double init = System.currentTimeMillis();
-		for(int i=0; i<= 9999; i++){
-			jc.set("foo"+i, "bar"+i);
-			jc.get("foo"+i);
+		for(int i=0;i<=2;i++){
+			testInsertN(100);
+			testGetN(100);
+			
+			testInsertN(1000);
+			testGetN(1000);
+			
+			testInsertN(10000);
+			testGetN(10000);
+			
+			testInsertN(100000);
+			testGetN(100000);
 		}
-		double end = System.currentTimeMillis();
-		printBench("Insert/Get 10k IDS",init,end);
 	}
 	
-	public static void test10kInserts(){
-		JedisCluster jc = createCluster();
-		
-		double init = System.currentTimeMillis();
-		for(int i=0; i<= 9999; i++){
-			jc.set("foo2"+i, "bar"+i);
-		}
-		double end = System.currentTimeMillis();
-		printBench("Inserts 10k IDS",init,end);
-	}
-	
-	public static void test1kInserts(){
+	public static void testGetN(int numIds){
 		JedisCluster jc = createCluster();	
 		
 		double init = System.currentTimeMillis();
-		for(int i=0; i<= 999; i++){
-			jc.set("foo3"+i, "bar"+i);
+		for(int i=0; i<= numIds-1; i++){
+			jc.get("redisKeysN"+i);
 		}
 		double end = System.currentTimeMillis();
-		printBench("Inserts 1k IDS",init,end);
+		printBench("Gets " + numIds + " IDS",init,end);
 	}
 	
-	public static void test1kInsertsAndGets(){
+	public static void testInsertN(int numIds){
 		JedisCluster jc = createCluster();	
 		
 		double init = System.currentTimeMillis();
-		for(int i=0; i<= 999; i++){
-			jc.set("foo4"+i, "bar"+i);
-			jc.get("foo4"+i);
+		for(int i=0; i<= numIds-1; i++){
+			jc.set("redisKeysN"+i,"value"+i);
 		}
 		double end = System.currentTimeMillis();
-		printBench("Inserts/Gets 1k IDS",init,end);
-	}
-	
-	public static void test1kGets(){
-		JedisCluster jc = createCluster();	
-		
-		double init = System.currentTimeMillis();
-		for(int i=0; i<= 999; i++){
-			jc.get("foo4"+i);
-		}
-		double end = System.currentTimeMillis();
-		printBench("Gets 1k IDS",init,end);
-	}
-	
-	public static void simpleTest(){
-		JedisCluster jc = createCluster();
-		jc.set("foo", "bar");
-		
-		String value = jc.get("foo");
-		System.out.println(value);
+		printBench("Sets " + numIds + " IDS",init,end);
 	}
 	
 	private static void printBench(String msg,double init, double end){
