@@ -62,7 +62,7 @@ public class SimpleClusterMain {
 	}
 	
 	public static void testInsertNTthreads(int numIds){
-		ExecutorService execService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+		ExecutorService execService = Executors.newFixedThreadPool(numIds);
 		JedisCluster jc = createCluster();	
 		
 		double init = System.currentTimeMillis();
@@ -86,7 +86,7 @@ public class SimpleClusterMain {
 	}
 	
 	public static void testInsertNTthreadsForkJoin(int numIds){
-		ExecutorService execService = new ForkJoinPool(numIds);
+		ExecutorService execService = new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 2);
 		JedisCluster jc = createCluster();	
 		
 		double init = System.currentTimeMillis();
