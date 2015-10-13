@@ -10,14 +10,14 @@ public class LettuceClusterMain {
 			testInsertN(100);
 			testGetN(100);
 			
-//			testInsertN(1000);
-//			testGetN(1000);
-//			
-//			testInsertN(10000);
-//			testGetN(10000);
-//			
-//			testInsertN(100000);
-//			testGetN(100000);
+			testInsertN(1000);
+			testGetN(1000);
+			
+			testInsertN(10000);
+			testGetN(10000);
+			
+			testInsertN(100000);
+			testGetN(100000);
 		}
 	}
 	
