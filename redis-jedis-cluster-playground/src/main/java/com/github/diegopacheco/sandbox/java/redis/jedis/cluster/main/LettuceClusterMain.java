@@ -22,7 +22,7 @@ public class LettuceClusterMain {
 	}
 	
 	public void simpleTest(){
-		  RedisClient client = RedisClient.create("redis://127.0.0.1:30001");
+		  RedisClient client = RedisClient.create("redis://127.0.0.1:30006");
 		  StatefulRedisConnection<String, String> connection = client.connect();
 		  RedisFuture<String> value = connection.async().get("key");
 		  System.out.println(value);
@@ -59,7 +59,7 @@ public class LettuceClusterMain {
 	
 	private static RedisClient createCluster(){
 		double init = System.currentTimeMillis();
-		RedisClient client = RedisClient.create("redis://127.0.0.1:30001");
+		RedisClient client = RedisClient.create("redis://127.0.0.1:30006");
 		double end = System.currentTimeMillis();
 		System.out.println("Cluster Created(California|Oregon) in : " + (end - init) + " ms");
 		return client;
