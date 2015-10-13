@@ -105,9 +105,9 @@ public class JedisClusterMain {
 	private static JedisCluster createCluster(){
 		double init = System.currentTimeMillis();
 		Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
-		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30001));
-		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30002));
-		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30003));
+		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30004));
+		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30005));
+		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30006));
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30001));
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30002));
 		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30003));
