@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
@@ -12,17 +13,17 @@ public class SimpleClusterMain {
 
 	public static void main(String[] args) {
 		for(int i=0;i<=2;i++){
-			testInsertNTthreads(100);
-			testGetNTthreads(100);
+			testInsertNTthreadsForkJoin(100);
+			testGetNTthreadsForkJoin(100);
 			
-			testInsertNTthreads(1000);
-			testGetNTthreads(1000);
+			testInsertNTthreadsForkJoin(1000);
+			testGetNTthreadsForkJoin(1000);
 			
-			testInsertNTthreads(10000);
-			testGetNTthreads(10000);
+			testInsertNTthreadsForkJoin(10000);
+			testGetNTthreadsForkJoin(10000);
 			
-			testInsertNTthreads(100000);
-			testGetNTthreads(100000);
+			testInsertNTthreadsForkJoin(100000);
+			testGetNTthreadsForkJoin(100000);
 		}
 	}
 	
@@ -62,6 +63,30 @@ public class SimpleClusterMain {
 	
 	public static void testInsertNTthreads(int numIds){
 		ExecutorService execService = Executors.newFixedThreadPool(numIds);
+		JedisCluster jc = createCluster();	
+		
+		double init = System.currentTimeMillis();
+		for(int i=0; i<= numIds-1; i++){
+			execService.execute(new Callback(jc,i,false));
+		}
+		double end = System.currentTimeMillis();
+		printBench("Gets " + numIds + " IDS",init,end);
+	}
+	
+	public static void testGetNTthreadsForkJoin(int numIds){
+		ExecutorService execService = new ForkJoinPool(numIds);
+		JedisCluster jc = createCluster();	
+		
+		double init = System.currentTimeMillis();
+		for(int i=0; i<= numIds-1; i++){
+			execService.execute(new Callback(jc,i,true));
+		}
+		double end = System.currentTimeMillis();
+		printBench("Gets " + numIds + " IDS",init,end);
+	}
+	
+	public static void testInsertNTthreadsForkJoin(int numIds){
+		ExecutorService execService = new ForkJoinPool(numIds);
 		JedisCluster jc = createCluster();	
 		
 		double init = System.currentTimeMillis();
