@@ -55,7 +55,7 @@ public class SimpleClusterMain {
 		
 		double init = System.currentTimeMillis();
 		for(int i=0; i<= numIds-1; i++){
-			execService.execute(new Callback(jc,i,true));
+			execService.execute(new JedisCallback(jc,i,true));
 		}
 		double end = System.currentTimeMillis();
 		printBench("Gets " + numIds + " IDS",init,end);
@@ -67,7 +67,7 @@ public class SimpleClusterMain {
 		
 		double init = System.currentTimeMillis();
 		for(int i=0; i<= numIds-1; i++){
-			execService.execute(new Callback(jc,i,false));
+			execService.execute(new JedisCallback(jc,i,false));
 		}
 		double end = System.currentTimeMillis();
 		printBench("Gets " + numIds + " IDS",init,end);
@@ -79,7 +79,7 @@ public class SimpleClusterMain {
 		
 		double init = System.currentTimeMillis();
 		for(int i=0; i<= numIds-1; i++){
-			execService.execute(new Callback(jc,i,true));
+			execService.execute(new JedisCallback(jc,i,true));
 		}
 		double end = System.currentTimeMillis();
 		printBench("Gets " + numIds + " IDS",init,end);
@@ -91,7 +91,7 @@ public class SimpleClusterMain {
 		
 		double init = System.currentTimeMillis();
 		for(int i=0; i<= numIds-1; i++){
-			execService.execute(new Callback(jc,i,false));
+			execService.execute(new JedisCallback(jc,i,false));
 		}
 		double end = System.currentTimeMillis();
 		printBench("Gets " + numIds + " IDS",init,end);
