@@ -5,7 +5,7 @@ apply plugin: 'eclipse'
 version = '1.0'
 sourceCompatibility = 1.8
 
-mainClassName = "com.github.diegopacheco.sandbox.java.redis.jedis.cluster.main.LettuceClusterMain"
+mainClassName = "com.github.diegopacheco.sandbox.java.redis.jedis.cluster.main.SimpleClusterMain"
 applicationDefaultJvmArgs = [
 								 "-Djava.net.preferIPv4Stack=true",
 								 "-Djava.net.preferIPv6Addresses=false",
