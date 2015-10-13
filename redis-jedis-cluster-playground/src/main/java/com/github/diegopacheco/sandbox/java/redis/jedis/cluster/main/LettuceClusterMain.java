@@ -1,6 +1,7 @@
 package com.github.diegopacheco.sandbox.java.redis.jedis.cluster.main;
 
 import com.lambdaworks.redis.RedisClient;
+import com.lambdaworks.redis.RedisFuture;
 import com.lambdaworks.redis.api.StatefulRedisConnection;
 
 public class LettuceClusterMain {
@@ -9,21 +10,21 @@ public class LettuceClusterMain {
 			testInsertN(100);
 			testGetN(100);
 			
-			testInsertN(1000);
-			testGetN(1000);
-			
-			testInsertN(10000);
-			testGetN(10000);
-			
-			testInsertN(100000);
-			testGetN(100000);
+//			testInsertN(1000);
+//			testGetN(1000);
+//			
+//			testInsertN(10000);
+//			testGetN(10000);
+//			
+//			testInsertN(100000);
+//			testGetN(100000);
 		}
 	}
 	
 	public void simpleTest(){
 		  RedisClient client = RedisClient.create("redis://127.0.0.1:30001");
 		  StatefulRedisConnection<String, String> connection = client.connect();
-		  String value = connection.sync().get("key");
+		  RedisFuture<String> value = connection.async().get("key");
 		  System.out.println(value);
 	}
 	
@@ -33,7 +34,7 @@ public class LettuceClusterMain {
 		
 		double init = System.currentTimeMillis();
 		for(int i=0; i<= numIds-1; i++){
-			connection.sync().get("redisKeysN"+i);
+			connection.async().get("redisKeysN"+i);
 		}
 		double end = System.currentTimeMillis();
 		printBench("Gets " + numIds + " IDS",init,end);
@@ -45,7 +46,7 @@ public class LettuceClusterMain {
 		
 		double init = System.currentTimeMillis();
 		for(int i=0; i<= numIds-1; i++){
-			connection.sync().set("redisKeysN"+i,"value"+i);
+			connection.async().set("redisKeysN"+i,"value"+i);
 		}
 		double end = System.currentTimeMillis();
 		printBench("Gets " + numIds + " IDS",init,end);
