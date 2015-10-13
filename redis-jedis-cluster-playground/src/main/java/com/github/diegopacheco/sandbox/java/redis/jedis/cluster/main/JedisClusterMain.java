@@ -13,17 +13,17 @@ public class JedisClusterMain {
 
 	public static void main(String[] args) {
 		for(int i=0;i<=2;i++){
-			testInsertNTthreads(100);
-			testGetNTthreads(100);
+			testInsertNTthreadsForkJoin(100);
+			testGetNTthreadsForkJoin(100);
 			
-			testInsertNTthreads(1000);
-			testGetNTthreads(1000);
+			testInsertNTthreadsForkJoin(1000);
+			testGetNTthreadsForkJoin(1000);
 			
-			testInsertNTthreads(10000);
-			testGetNTthreads(10000);
+			testInsertNTthreadsForkJoin(10000);
+			testGetNTthreadsForkJoin(10000);
 			
-			testInsertNTthreads(100000);
-			testGetNTthreads(100000);
+			testInsertNTthreadsForkJoin(100000);
+			testGetNTthreadsForkJoin(100000);
 		}
 	}
 	
