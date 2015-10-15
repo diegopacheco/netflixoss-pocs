@@ -43,7 +43,7 @@ public class XMemcachedMainBench {
 		
 		double init = System.currentTimeMillis();
 		for(int i=0;i<=(n-1);i++){
-			cluster.get("key"+i, 0);
+			cluster.gets("key"+i);
 		}
 		double end = System.currentTimeMillis();
 		printBench("Get " + n + " IDS ",init,end);
