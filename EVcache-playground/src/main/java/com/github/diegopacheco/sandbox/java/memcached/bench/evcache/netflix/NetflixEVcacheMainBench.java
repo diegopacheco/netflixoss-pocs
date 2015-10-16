@@ -87,7 +87,7 @@ public class NetflixEVcacheMainBench {
 //        BasicConfigurator.configure();
 //        log.info("Logger intialized");
 		System.setProperty("evcache.pool.provider", "com.netflix.evcache.pool.standalone.SimpleEVCacheClientPoolImpl");
-		System.setProperty("EVCACHE_CUSTOMER.EVCacheClientPool.hosts", "127.0.0.1:11211");
+		System.setProperty("EVCACHE_CUSTOMER.EVCacheClientPool.hosts", "127.0.0.1:11211,127.0.0.1:11212,127.0.0.1:11213,192.169.1.108:11211,192.169.1.108:11212,192.169.1.108:11213");
 		EVCacheClientPoolManager.getInstance().initEVCache("EVCACHE_CUSTOMER");
 		Thread.sleep(2000);
 		
