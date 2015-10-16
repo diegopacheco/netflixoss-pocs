@@ -28,7 +28,7 @@ public class NetflixEVcacheMainBench {
 		System.out.println("EVCache: " + evCache);
 		
 		evCache.set("Hello", "World", 90000);
-		String value = evCache.get("Hello");
+		String value = evCache.<String>get("Hello");
 		System.out.println("Value: " + value);
 		
 		System.exit(0);
