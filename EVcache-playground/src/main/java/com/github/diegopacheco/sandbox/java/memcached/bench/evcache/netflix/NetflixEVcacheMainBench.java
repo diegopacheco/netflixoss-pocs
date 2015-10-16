@@ -8,7 +8,7 @@ import com.netflix.evcache.pool.EVCacheClientPool;
 import com.netflix.evcache.pool.EVCacheClientPoolManager;
 
 public class NetflixEVcacheMainBench {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Throwable {
 		EVCacheClientPoolManager.getInstance().initEVCache("SimpleEvCacheBench");
 		EVCacheClientPoolManager pm = EVCacheClientPoolManager.getInstance();
 		
@@ -32,7 +32,28 @@ public class NetflixEVcacheMainBench {
 			public int getMaxSize() {
 				return 100;
 			}
+		},"",0);
+		
+		String result = client.get("key1", new EVCacheTranscoder<String>() {
+			@Override
+			public boolean asyncDecode(CachedData arg0) {
+				return false;
+			}
+			@Override
+			public String decode(CachedData arg0) {
+				return null;
+			}
+			@Override
+			public CachedData encode(String arg0) {
+				return null;
+			}
+			@Override
+			public int getMaxSize() {
+				return 100;
+			}
 		});
+		
+		System.out.println(result);
 		
 	}
 }
