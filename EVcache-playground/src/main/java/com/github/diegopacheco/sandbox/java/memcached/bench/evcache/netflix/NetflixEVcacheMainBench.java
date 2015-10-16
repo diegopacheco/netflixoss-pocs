@@ -82,7 +82,7 @@ public class NetflixEVcacheMainBench {
 
 	private static EVCache createCluster() throws Throwable {
 		System.setProperty("net.spy.log.LoggerImpl", "net.spy.memcached.compat.log.Log4JLogger");
-        System.setProperty("log4j.rootLogger", "ERROR");
+        System.setProperty("log4j.rootLogger", "FATAL");
         BasicConfigurator.configure();
         log.info("Logger intialized");
 		
