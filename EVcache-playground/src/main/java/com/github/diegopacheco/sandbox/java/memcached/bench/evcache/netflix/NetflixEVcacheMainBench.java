@@ -1,6 +1,7 @@
 package com.github.diegopacheco.sandbox.java.memcached.bench.evcache.netflix;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,11 +82,10 @@ public class NetflixEVcacheMainBench {
 	}
 
 	private static EVCache createCluster() throws Throwable {
-		System.setProperty("net.spy.log.LoggerImpl", "net.spy.memcached.compat.log.Log4JLogger");
-        System.setProperty("log4j.rootLogger", "FATAL");
-        BasicConfigurator.configure();
-        log.info("Logger intialized");
-		
+//		System.setProperty("net.spy.log.LoggerImpl", "net.spy.memcached.compat.log.Log4JLogger");
+//        System.setProperty("log4j.rootLogger", "FATAL");
+//        BasicConfigurator.configure();
+//        log.info("Logger intialized");
 		System.setProperty("evcache.pool.provider", "com.netflix.evcache.pool.standalone.SimpleEVCacheClientPoolImpl");
 		System.setProperty("EVCACHE_CUSTOMER.EVCacheClientPool.hosts", "127.0.0.1:11211");
 		EVCacheClientPoolManager.getInstance().initEVCache("EVCACHE_CUSTOMER");
