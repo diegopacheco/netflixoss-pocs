@@ -15,7 +15,7 @@ public class NetflixEVcacheMainBench {
 		EVCache evCache = (new EVCache.Builder()).setAppName("EVCACHE_CUSTOMER").setCacheName("cid").enableZoneFallback().build();
 		System.out.println("EVCache: " + evCache);
 		
-		evCache.set("Hello", "World", 900);
+		evCache.set("Hello", "World", 90000);
 		String value = evCache.get("Hello");
 		System.out.println("Value: " + value);
 		
