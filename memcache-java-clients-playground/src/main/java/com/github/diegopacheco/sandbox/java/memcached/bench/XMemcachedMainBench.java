@@ -83,10 +83,11 @@ public class XMemcachedMainBench {
 		clusterIPs.add(AddrUtil.getAddresses("192.169.1.108:11212").get(0));
 		clusterIPs.add(AddrUtil.getAddresses("192.169.1.108:11213").get(0));
 		
-		 XMemcachedClientBuilder builder = new XMemcachedClientBuilder(clusterIPs);
-	     MemcachedClient client = builder.build();
-	     client.setPrimitiveAsString(true);
-	     return client;
+		XMemcachedClientBuilder builder = new XMemcachedClientBuilder(clusterIPs);
+	    MemcachedClient client = builder.build();
+	    client.setPrimitiveAsString(true);
+	    return client;
+	    
 	}
 	
 	private static void printBench(String msg,double init, double end){
