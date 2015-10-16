@@ -1,5 +1,9 @@
 package com.github.diegopacheco.sandbox.java.memcached.bench;
 
+import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.rubyeye.xmemcached.GetsResponse;
 import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.XMemcachedClientBuilder;
@@ -69,7 +73,17 @@ public class XMemcachedMainBench {
 	}
 	
 	private static MemcachedClient createCluster() throws Throwable{
-		 XMemcachedClientBuilder builder = new XMemcachedClientBuilder(AddrUtil.getAddresses("127.0.0.1:11211"));
+		
+		List<InetSocketAddress> clusterIPs = new ArrayList<>();
+		clusterIPs.add(AddrUtil.getAddresses("127.0.0.1:11211").get(0));
+		clusterIPs.add(AddrUtil.getAddresses("127.0.0.1:11212").get(0));
+		clusterIPs.add(AddrUtil.getAddresses("127.0.0.1:11213").get(0));
+		
+		clusterIPs.add(AddrUtil.getAddresses("192.169.1.108:11211").get(0));
+		clusterIPs.add(AddrUtil.getAddresses("192.169.1.108:11212").get(0));
+		clusterIPs.add(AddrUtil.getAddresses("192.169.1.108:11213").get(0));
+		
+		 XMemcachedClientBuilder builder = new XMemcachedClientBuilder(clusterIPs);
 	     MemcachedClient client = builder.build();
 	     client.setPrimitiveAsString(true);
 	     return client;
