@@ -1,59 +1,26 @@
 package com.github.diegopacheco.sandbox.java.memcached.bench.evcache.netflix;
 
-import net.spy.memcached.CachedData;
-
-import com.netflix.evcache.EVCacheTranscoder;
-import com.netflix.evcache.pool.EVCacheClient;
-import com.netflix.evcache.pool.EVCacheClientPool;
+import com.netflix.evcache.EVCache;
 import com.netflix.evcache.pool.EVCacheClientPoolManager;
+
 
 public class NetflixEVcacheMainBench {
 	public static void main(String[] args) throws Throwable {
-		EVCacheClientPoolManager.getInstance().initEVCache("SimpleEvCacheBench");
-		EVCacheClientPoolManager pm = EVCacheClientPoolManager.getInstance();
 		
-		EVCacheClientPool pool = pm.getEVCacheClientPool("SimpleEvCacheBench");
-		EVCacheClient client = pool.getEVCacheClient();
+		System.setProperty("evcache.pool.provider", "com.netflix.evcache.pool.standalone.SimpleEVCacheClientPoolImpl");
+		System.setProperty("EVCACHE_CUSTOMER.EVCacheClientPool.hosts", "127.0.0.1:11211>");
 		
-		client.set("key1",new EVCacheTranscoder<String>() {
-			@Override
-			public boolean asyncDecode(CachedData arg0) {
-				return false;
-			}
-			@Override
-			public String decode(CachedData arg0) {
-				return null;
-			}
-			@Override
-			public CachedData encode(String arg0) {
-				return null;
-			}
-			@Override
-			public int getMaxSize() {
-				return 100;
-			}
-		},"",0);
+		EVCacheClientPoolManager.getInstance().initEVCache("EVCACHE_CUSTOMER");
 		
-		String result = client.get("key1", new EVCacheTranscoder<String>() {
-			@Override
-			public boolean asyncDecode(CachedData arg0) {
-				return false;
-			}
-			@Override
-			public String decode(CachedData arg0) {
-				return null;
-			}
-			@Override
-			public CachedData encode(String arg0) {
-				return null;
-			}
-			@Override
-			public int getMaxSize() {
-				return 100;
-			}
-		});
+		EVCache evCache = (new EVCache.Builder()).setAppName("EVCACHE_CUSTOMER").setCacheName("cid").enableZoneFallback().build();
+		System.out.println("EVCache: " + evCache);
 		
-		System.out.println(result);
+		evCache.set("Hello", "World", 900);
+		String value = evCache.get("Hello");
+		System.out.println("Value: " + value);
+		
+		evCache.delete("Hello");
+		System.exit(0);
 		
 	}
 }
