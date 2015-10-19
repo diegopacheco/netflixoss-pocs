@@ -17,17 +17,17 @@ public class NetflixEVcacheMainBench {
 			benchInsert(10);
 			benchGet(10);
 			
-			benchInsert(100);
-			benchGet(100);
-			
-			benchInsert(1000);
-			benchGet(1000);
-			
-			benchInsert(10000);
-			benchGet(10000);
-			
-			benchInsert(100000);
-			benchGet(100000);
+//			benchInsert(100);
+//			benchGet(100);
+//			
+//			benchInsert(1000);
+//			benchGet(1000);
+//			
+//			benchInsert(10000);
+//			benchGet(10000);
+//			
+//			benchInsert(100000);
+//			benchGet(100000);
 		}
 		
 		System.exit(0);
@@ -81,10 +81,10 @@ public class NetflixEVcacheMainBench {
 	}
 
 	private static EVCache createCluster() throws Throwable {
-//		  System.setProperty("net.spy.log.LoggerImpl", "net.spy.memcached.compat.log.Log4JLogger");
-//        System.setProperty("log4j.rootLogger", "FATAL");
-//        BasicConfigurator.configure();
-//        log.info("Logger intialized");
+		System.setProperty("net.spy.log.LoggerImpl", "net.spy.memcached.compat.log.Log4JLogger");
+        System.setProperty("log4j.rootLogger", "FATAL");
+        BasicConfigurator.configure();
+        log.info("Logger intialized");
 		
 		//System.setProperty("evcache.pool.provider", "com.netflix.evcache.pool.standalone.SimpleEVCacheClientPoolImpl");
 		//System.setProperty("EVCACHE_CUSTOMER.EVCacheClientPool.hosts", "127.0.0.1:11211,127.0.0.1:11212,127.0.0.1:11213,192.169.1.108:11211,192.169.1.108:11212,192.169.1.108:11213");
@@ -95,7 +95,7 @@ public class NetflixEVcacheMainBench {
                 "127.0.0.1:11211,127.0.0.1:11212,127.0.0.1:11213,192.169.1.108:11211,192.169.1.108:11212,192.169.1.108:11213");
 		
 		EVCacheClientPoolManager.getInstance().initEVCache("EVCACHE_CUSTOMER");
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		
 		EVCache evCache = (new EVCache.Builder()).setAppName("EVCACHE_CUSTOMER").setCacheName("cid").enableZoneFallback().build();
 		return evCache;
