@@ -22,14 +22,14 @@ run {
 }
 
 repositories {
-	mavenLocal()
 	jcenter()
+	mavenLocal()
 }
 
 buildscript {
 	repositories {
-			mavenLocal()
 			jcenter()
+			mavenLocal()
 	}
 }
 
