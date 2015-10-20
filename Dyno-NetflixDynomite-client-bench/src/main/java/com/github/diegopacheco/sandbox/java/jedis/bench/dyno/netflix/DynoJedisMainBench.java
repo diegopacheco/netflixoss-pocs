@@ -16,13 +16,13 @@ public class DynoJedisMainBench {
 //			final List<Host> hosts = new ArrayList<Host>();
 //			   @Override
 //			   public Collection<Host> getHosts() {
-//			    hosts.add(new Host("127.0.0.1", 8102, Status.Up).setRack("us-west-1a"));
+//			    hosts.add(new Host("127.0.0.1", 8102, Status.Up).setRack("us-west-2"));
 //			    return hosts;
 //			   }
 //		};
 //		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 //        		.withApplicationName("MY_APP")
-//        		.withDynomiteClusterName("us-west-1a")
+//        		.withDynomiteClusterName("us-west-2")
 //        		.withHostSupplier(customHostSupplier)
 //        		.build();
 //		
@@ -48,7 +48,7 @@ public class DynoJedisMainBench {
 		.withApplicationName("app")
 		.withDynomiteClusterName("app_cluster")
 		.withHostSupplier(localHostSupplier)
-		.withCPConfig(new ConnectionPoolConfigurationImpl("app"))
+		.withCPConfig(new ConnectionPoolConfigurationImpl("app").setLocalDC("us-west-2"))
 		.withPort(port)
 		.build();
 
