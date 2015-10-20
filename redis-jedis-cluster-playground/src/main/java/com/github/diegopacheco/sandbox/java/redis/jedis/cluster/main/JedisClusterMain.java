@@ -13,17 +13,17 @@ public class JedisClusterMain {
 
 	public static void main(String[] args) {
 		for(int i=0;i<=2;i++){
-			testInsertNTthreadsForkJoin(100);
-			testGetNTthreadsForkJoin(100);
+			testInsertNTthreads(100);
+			testGetNTthreads(100);
 			
-			testInsertNTthreadsForkJoin(1000);
-			testGetNTthreadsForkJoin(1000);
+			testInsertNTthreads(1000);
+			testGetNTthreads(1000);
 			
-			testInsertNTthreadsForkJoin(10000);
-			testGetNTthreadsForkJoin(10000);
+			testInsertNTthreads(10000);
+			testGetNTthreads(10000);
 			
-			testInsertNTthreadsForkJoin(100000);
-			testGetNTthreadsForkJoin(100000);
+			testInsertNTthreads(100000);
+			testGetNTthreads(100000);
 		}
 	}
 	
@@ -106,11 +106,11 @@ public class JedisClusterMain {
 		double init = System.currentTimeMillis();
 		Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30004));
-		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30005));
-		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30006));
-		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30001));
-		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30002));
-		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30003));
+//		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30005));
+//		jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30006));
+//		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30001));
+//		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30002));
+//		jedisClusterNodes.add(new HostAndPort("192.169.1.115", 30003));
 		JedisCluster jc = new JedisCluster(jedisClusterNodes);
 		double end = System.currentTimeMillis();
 		System.out.println("Cluster Created(California|Oregon) in : " + (end - init) + " ms");
