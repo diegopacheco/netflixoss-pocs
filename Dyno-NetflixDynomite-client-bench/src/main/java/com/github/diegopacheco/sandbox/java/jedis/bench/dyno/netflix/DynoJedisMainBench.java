@@ -22,7 +22,7 @@ public class DynoJedisMainBench {
 	
 	private static Logger log = LoggerFactory.getLogger(DynoJedisMainBench.class);
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Throwable {
 		
 //		final HostSupplier customHostSupplier = new HostSupplier() {
 //			final List<Host> hosts = new ArrayList<Host>();
@@ -89,28 +89,30 @@ public class DynoJedisMainBench {
 			   }
 		};
 		
-		final String json = "[{\"token\":\"3303027599\",\"hostname\":\"127.0.0.1\",\"zone\":\"us-west-2\"}]\"";
-		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
-		    @Override
-		    public String getTopologyJsonPayload(String hostname) {
-		        return json;
-		    }
-			@Override
-			public String getTopologyJsonPayload(Set<Host> activeHosts) {
-				return json;
-			}
-		};
+//		final String json = "[{\"token\":\"3303027599\",\"hostname\":\"127.0.0.1\",\"zone\":\"us-west-2\"}]\"";
+//		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
+//		    @Override
+//		    public String getTopologyJsonPayload(String hostname) {
+//		        return json;
+//		    }
+//			@Override
+//			public String getTopologyJsonPayload(Set<Host> activeHosts) {
+//				return json;
+//			}
+//		};
 		
-		ConnectionPoolConfigurationImpl  cpi 
-		= new ArchaiusConnectionPoolConfiguration("MY_APP").setPort(8102).withTokenSupplier(testTokenMapSupplier);
+//		ConnectionPoolConfigurationImpl  cpi 
+//		= new ArchaiusConnectionPoolConfiguration("MY_APP").setPort(8102).withTokenSupplier(testTokenMapSupplier);
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 					.withApplicationName("MY_APP")
 		            .withDynomiteClusterName("MY_CLUSTER")
-		            //.withHostSupplier(customHostSupplier)
-		            .withCPConfig(cpi)
+		            .withHostSupplier(customHostSupplier)
+		            //.withCPConfig(cpi)
 		            .build();
-
+		
+		Thread.sleep(5000l);
+		
         dynoClient.set("foo", "puneetTest");
         System.out.println("Value: " + dynoClient.get("foo"));
         dynoClient.stopClient();
