@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.netflix.dyno.connectionpool.Host;
 import com.netflix.dyno.connectionpool.Host.Status;
 import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.jedis.DynoJedisClient;
 
 public class DynoJedisMainBench {
+	
+	private static Logger log = LoggerFactory.getLogger(DynoJedisMainBench.class);
+	
 	public static void main(String[] args) {
 		
 //		final HostSupplier customHostSupplier = new HostSupplier() {
@@ -51,6 +58,22 @@ public class DynoJedisMainBench {
 //		.withCPConfig(new ConnectionPoolConfigurationImpl("app").setLocalDC("us-west-2"))
 //		.withPort(port)
 //		.build();
+
+//		final String json = "[{\"token\":\"3303027599\",\"hostname\":\"127.0.0.1\",\"zone\":\"us-west-2\"}]\"";
+//		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
+//		    @Override
+//		    public String getTopologyJsonPayload(String hostname) {
+//		        return json;
+//		    }
+//			@Override
+//			public String getTopologyJsonPayload(Set<Host> activeHosts) {
+//				return json;
+//			}
+//		};			
+		
+        System.setProperty("log4j.rootLogger", "ERROR");
+        BasicConfigurator.configure();
+        log.info("Logger intialized");
 		
 		final HostSupplier customHostSupplier = new HostSupplier() {
 			final List<Host> hosts = new ArrayList<Host>();
@@ -59,13 +82,14 @@ public class DynoJedisMainBench {
 			    hosts.add(new Host("127.0.0.1", 8102, Status.Up));
 			    return hosts;
 			   }
-			};
+		};
 			
-			DynoJedisClient dynoClient = new DynoJedisClient.Builder()
-						.withApplicationName("MY_APP")
-			            .withDynomiteClusterName("MY_CLUSTER")
-			            .withHostSupplier(customHostSupplier)
-			            .build();
+		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
+					.withApplicationName("MY_APP")
+		            .withDynomiteClusterName("MY_CLUSTER")
+		            .withPort(8102)
+		            .withHostSupplier(customHostSupplier)
+		            .build();
 
         dynoClient.set("foo", "puneetTest");
         System.out.println("Value: " + dynoClient.get("foo"));
