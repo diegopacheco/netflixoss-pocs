@@ -16,7 +16,7 @@ public class DynoJedisMainBench {
 			final List<Host> hosts = new ArrayList<Host>();
 			   @Override
 			   public Collection<Host> getHosts() {
-			    hosts.add(new Host("127.0.0.1", 8101, Status.Up).setRack("us-west-1a"));
+			    hosts.add(new Host("127.0.0.1", 22122, Status.Up).setRack("us-west-1a"));
 			    return hosts;
 			   }
 		};
