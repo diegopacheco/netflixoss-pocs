@@ -3,6 +3,7 @@ package com.github.diegopacheco.sandbox.java.jedis.bench.dyno.netflix;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
@@ -11,6 +12,10 @@ import org.slf4j.LoggerFactory;
 import com.netflix.dyno.connectionpool.Host;
 import com.netflix.dyno.connectionpool.Host.Status;
 import com.netflix.dyno.connectionpool.HostSupplier;
+import com.netflix.dyno.connectionpool.TokenMapSupplier;
+import com.netflix.dyno.connectionpool.impl.ConnectionPoolConfigurationImpl;
+import com.netflix.dyno.connectionpool.impl.lb.AbstractTokenMapSupplier;
+import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
 import com.netflix.dyno.jedis.DynoJedisClient;
 
 public class DynoJedisMainBench {
@@ -83,12 +88,27 @@ public class DynoJedisMainBench {
 			    return hosts;
 			   }
 		};
-			
+		
+		final String json = "[{\"token\":\"3303027599\",\"hostname\":\"127.0.0.1\",\"zone\":\"us-west-2\"}]\"";
+		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
+		    @Override
+		    public String getTopologyJsonPayload(String hostname) {
+		        return json;
+		    }
+			@Override
+			public String getTopologyJsonPayload(Set<Host> activeHosts) {
+				return json;
+			}
+		};
+		
+		ConnectionPoolConfigurationImpl  cpi 
+		= new ArchaiusConnectionPoolConfiguration("MY_APP").setPort(8102).withTokenSupplier(testTokenMapSupplier);
+		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 					.withApplicationName("MY_APP")
 		            .withDynomiteClusterName("MY_CLUSTER")
-		            .withPort(8102)
-		            .withHostSupplier(customHostSupplier)
+		            //.withHostSupplier(customHostSupplier)
+		            .withCPConfig(cpi)
 		            .build();
 
         dynoClient.set("foo", "puneetTest");
