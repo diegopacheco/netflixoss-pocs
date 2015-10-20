@@ -89,26 +89,26 @@ public class DynoJedisMainBench {
 			   }
 		};
 		
-//		final String json = "[{\"token\":\"3303027599\",\"hostname\":\"127.0.0.1\",\"zone\":\"us-west-2\"}]\"";
-//		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
-//		    @Override
-//		    public String getTopologyJsonPayload(String hostname) {
-//		        return json;
-//		    }
-//			@Override
-//			public String getTopologyJsonPayload(Set<Host> activeHosts) {
-//				return json;
-//			}
-//		};
+		final String json = "[{\"token\":\"437425602\",\"hostname\":\"127.0.0.1\",\"zone\":\"localdc\"}]\"";
+		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
+		    @Override
+		    public String getTopologyJsonPayload(String hostname) {
+		        return json;
+		    }
+			@Override
+			public String getTopologyJsonPayload(Set<Host> activeHosts) {
+				return json;
+			}
+		};
 		
-//		ConnectionPoolConfigurationImpl  cpi 
-//		= new ArchaiusConnectionPoolConfiguration("MY_APP").setPort(8102).withTokenSupplier(testTokenMapSupplier);
+		ConnectionPoolConfigurationImpl  cpi 
+		= new ArchaiusConnectionPoolConfiguration("MY_APP").setPort(22222).setLocalDC("localdc").withTokenSupplier(testTokenMapSupplier);
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 					.withApplicationName("MY_APP")
 		            .withDynomiteClusterName("MY_CLUSTER")
-		            .withHostSupplier(customHostSupplier)
-		            //.withCPConfig(cpi)
+		            .withCPConfig(cpi)
+		            //.withHostSupplier(customHostSupplier)
 		            .build();
 		
 		Thread.sleep(5000l);
