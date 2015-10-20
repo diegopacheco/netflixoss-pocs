@@ -23,7 +23,7 @@ public class DynoJedisMainBench {
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
         		.withApplicationName("MY_APP")
-        		.withDynomiteClusterName("MY_CLUSTER")
+        		.withDynomiteClusterName("us-west-1a")
         		.withHostSupplier(customHostSupplier)
         		.build();
 
