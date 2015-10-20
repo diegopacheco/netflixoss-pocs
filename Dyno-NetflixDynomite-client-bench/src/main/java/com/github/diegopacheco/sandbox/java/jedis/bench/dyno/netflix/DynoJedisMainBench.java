@@ -35,7 +35,7 @@ public class DynoJedisMainBench {
 //                      .setMaxConnsPerHost(5)
 //        ).build();		
 		
-		final int port = 6379; 
+		final int port = 8102; 
 		final Host localHost = new Host("127.0.0.1", port, Status.Up);
 		final HostSupplier localHostSupplier = new HostSupplier() {
 			@Override
