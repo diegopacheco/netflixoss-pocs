@@ -13,7 +13,6 @@ import com.netflix.dyno.connectionpool.Host;
 import com.netflix.dyno.connectionpool.Host.Status;
 import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
-import com.netflix.dyno.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.dyno.connectionpool.impl.lb.AbstractTokenMapSupplier;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
 import com.netflix.dyno.jedis.DynoJedisClient;
@@ -101,13 +100,14 @@ public class DynoJedisMainBench {
 			}
 		};
 		
-		ConnectionPoolConfigurationImpl  cpi 
-		= new ArchaiusConnectionPoolConfiguration("MY_APP").setPort(22222).setLocalDC("localdc").withTokenSupplier(testTokenMapSupplier);
-		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 					.withApplicationName("MY_APP")
 		            .withDynomiteClusterName("MY_CLUSTER")
-		            .withCPConfig(cpi)
+		            .withCPConfig( new ArchaiusConnectionPoolConfiguration("MY_APP")
+		            					.setPort(8101)
+		            					.setLocalDC("localdc")
+		            					.withTokenSupplier(testTokenMapSupplier)
+		            					.setMaxConnsPerHost(5) )
 		            //.withHostSupplier(customHostSupplier)
 		            .build();
 		
