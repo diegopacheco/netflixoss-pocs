@@ -25,17 +25,17 @@ public class DynoJedisMainBench {
 			benchInsert(10);
 			benchGet(10);
 			
-//			benchInsert(100);
-//			benchGet(100);
-//			
-//			benchInsert(1000);
-//			benchGet(1000);
-//			
-//			benchInsert(10000);
-//			benchGet(10000);
-//			
-//			benchInsert(100000);
-//			benchGet(100000);
+			benchInsert(100);
+			benchGet(100);
+			
+			benchInsert(1000);
+			benchGet(1000);
+			
+			benchInsert(10000);
+			benchGet(10000);
+			
+			benchInsert(100000);
+			benchGet(100000);
 		}
 		
 		System.exit(0);
