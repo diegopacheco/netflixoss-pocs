@@ -113,10 +113,12 @@ public class DynoJedisMainBench {
 		
 		Thread.sleep(5000l);
 		
+		System.out.println("Setting FOO on Dynomite");
         dynoClient.set("foo", "puneetTest");
-        System.out.println("Value: " + dynoClient.get("foo"));
-        dynoClient.stopClient();
         
+        System.out.println("Value: " + dynoClient.get("foo"));
+
+        // dynoClient.stopClient();
 		System.exit(0);
 	}
 }
