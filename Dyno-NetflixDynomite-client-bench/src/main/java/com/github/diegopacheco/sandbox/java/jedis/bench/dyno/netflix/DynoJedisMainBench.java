@@ -108,7 +108,7 @@ public class DynoJedisMainBench {
 		            					.setLocalDC("localdc")
 		            					.withTokenSupplier(testTokenMapSupplier)
 		            					.setMaxConnsPerHost(5) )
-		            //.withHostSupplier(customHostSupplier)
+		            .withHostSupplier(customHostSupplier)
 		            .build();
 		
 		Thread.sleep(5000l);
