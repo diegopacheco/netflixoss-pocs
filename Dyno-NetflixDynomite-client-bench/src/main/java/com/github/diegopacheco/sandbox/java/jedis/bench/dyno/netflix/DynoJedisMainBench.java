@@ -48,7 +48,7 @@ public class DynoJedisMainBench {
 		.withApplicationName("app")
 		.withDynomiteClusterName("app_cluster")
 		.withHostSupplier(localHostSupplier)
-		.withCPConfig(new ConnectionPoolConfigurationImpl("app").setLocalDC("us-east-1e"))
+		.withCPConfig(new ConnectionPoolConfigurationImpl("app"))
 		.withPort(port)
 		.build();
 
