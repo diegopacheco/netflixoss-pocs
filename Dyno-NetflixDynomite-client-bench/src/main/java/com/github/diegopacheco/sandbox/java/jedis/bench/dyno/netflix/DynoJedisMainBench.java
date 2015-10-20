@@ -84,7 +84,7 @@ public class DynoJedisMainBench {
 			final List<Host> hosts = new ArrayList<Host>();
 			   @Override
 			   public Collection<Host> getHosts() {
-			    hosts.add(new Host("127.0.0.1", 8102, Status.Up));
+			    hosts.add(new Host("127.0.0.1", 8101, Status.Up).setRack("localdc"));
 			    return hosts;
 			   }
 		};
