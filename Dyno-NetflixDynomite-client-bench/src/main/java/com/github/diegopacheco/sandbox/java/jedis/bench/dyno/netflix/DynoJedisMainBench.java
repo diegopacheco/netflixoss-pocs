@@ -7,6 +7,7 @@ import java.util.List;
 import com.netflix.dyno.connectionpool.Host;
 import com.netflix.dyno.connectionpool.Host.Status;
 import com.netflix.dyno.connectionpool.HostSupplier;
+import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
 import com.netflix.dyno.jedis.DynoJedisClient;
 
 public class DynoJedisMainBench {
@@ -21,11 +22,20 @@ public class DynoJedisMainBench {
 			   }
 		};
 		
-		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
-        		.withApplicationName("MY_APP")
-        		.withDynomiteClusterName("us-west-1a")
-        		.withHostSupplier(customHostSupplier)
-        		.build();
+//		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
+//        		.withApplicationName("MY_APP")
+//        		.withDynomiteClusterName("us-west-1a")
+//        		.withHostSupplier(customHostSupplier)
+//        		.build();
+		
+		 DynoJedisClient dynoClient = new DynoJedisClient.Builder()
+         .withApplicationName("MY_APP")
+         .withDynomiteClusterName("MY_APP_CLUSTER")
+         .withCPConfig(new ArchaiusConnectionPoolConfiguration("MY_APP")
+                       .setPort(8102)
+                       .setMaxTimeoutWhenExhausted(1000)
+                       .setMaxConnsPerHost(5)
+         ).build();
 
 		dynoClient.set("foo", "puneetTest");
 		System.out.println("Value: " + dynoClient.get("foo"));
