@@ -103,7 +103,6 @@ public class DynoClusterJedisMainBench {
 		printBench("Get " + n + " IDS ",init,end);
 	}
 	
-	
 	public static void simpleTest() throws Throwable {
 
 //      System.setProperty("log4j.rootLogger", "ERROR");
