@@ -56,7 +56,10 @@ public class DynoClusterJedisMainBench {
 			   }
 		};
 		
-		final String json = "[{\"token\":\"1383429731\",\"hostname\":\"127.0.0.1\",\"zone\":\"localdc\"}]\"";
+		final String json = "["
+								+ " {\"token\":\"1383429731\",\"hostname\":\"10.0.1.67\",\"zone\":\"localdc\"}, "
+								+ " {\"token\":\"1383429731\",\"hostname\":\"192.169.1.148\",\"zone\":\"localdc\"} "
+							+ " ]\"";
 		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
 		    @Override
 		    public String getTopologyJsonPayload(String hostname) {
