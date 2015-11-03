@@ -1,5 +1,6 @@
 package com.github.diegopacheco.sandbox.java.jedis.bench.dyno.netflix;
 
+import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +38,10 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 	}
 	
 	private static DynoJedisClient createCluster() throws Throwable {
+		
+        System.setProperty("log4j.rootLogger", "ERROR");
+        BasicConfigurator.configure();
+        log.info("Logger intialized");
 		
 		EurekaInstanceConfig eurekaConfig = new MyDataCenterInstanceConfig();
 		ApplicationInfoManager applicationInfoManager = ApplicationInfoManager.getInstance();
