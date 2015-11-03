@@ -50,7 +50,7 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 		EurekaClientConfig config = new DefaultEurekaClientConfig();
 		DiscoveryClient discoveryClient = new DiscoveryClient(applicationInfoManager,config);
 		
-		Thread.sleep(30000L); // 30s
+		Thread.sleep(60000L); // 60s
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 		.withApplicationName("MY_APP")
