@@ -39,9 +39,9 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 	
 	private static DynoJedisClient createCluster() throws Throwable {
 		
-        System.setProperty("log4j.rootLogger", "ERROR");
-        BasicConfigurator.configure();
-        log.info("Logger intialized");
+//        System.setProperty("log4j.rootLogger", "ERROR");
+//        BasicConfigurator.configure();
+//        log.info("Logger intialized");
 		
 		EurekaInstanceConfig eurekaConfig = new MyDataCenterInstanceConfig();
 		ApplicationInfoManager applicationInfoManager = ApplicationInfoManager.getInstance();
