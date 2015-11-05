@@ -54,7 +54,7 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 		.withApplicationName("MY_APP")
-        .withDynomiteClusterName("dc") // MY_CLUSTER
+        .withDynomiteClusterName("PRANADYNOMITEOREGON1") // MY_CLUSTER
         .withDiscoveryClient(discoveryClient) 
 //        .withCPConfig( new ArchaiusConnectionPoolConfiguration("MY_APP")
 //        					.setPort(8101)
