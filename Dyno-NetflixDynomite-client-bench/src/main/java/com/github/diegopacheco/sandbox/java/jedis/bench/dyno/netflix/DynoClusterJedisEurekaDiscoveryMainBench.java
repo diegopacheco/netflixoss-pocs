@@ -53,10 +53,10 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 		Thread.sleep(60000L); // 60s
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
-		.withApplicationName("MY_APP")
+		.withApplicationName("PRANADYNOMITEOREGON1")
         .withDynomiteClusterName("PRANADYNOMITEOREGON1") // MY_CLUSTER
         .withDiscoveryClient(discoveryClient) 
-        .withCPConfig( new ArchaiusConnectionPoolConfiguration("MY_APP")
+        .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
         					.setPort(8101)
         					.setLocalDC("localdc")
         					.setMaxConnsPerHost(100) )
