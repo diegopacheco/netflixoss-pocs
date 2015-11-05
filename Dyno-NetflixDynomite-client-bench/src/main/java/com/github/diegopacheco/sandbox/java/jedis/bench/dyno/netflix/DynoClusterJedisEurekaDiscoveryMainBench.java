@@ -1,6 +1,5 @@
 package com.github.diegopacheco.sandbox.java.jedis.bench.dyno.netflix;
 
-import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +10,7 @@ import com.netflix.discovery.DefaultEurekaClientConfig;
 import com.netflix.discovery.DiscoveryClient;
 import com.netflix.discovery.EurekaClientConfig;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
+import com.netflix.dyno.contrib.EurekaHostsSupplier;
 import com.netflix.dyno.jedis.DynoJedisClient;
 
 public class DynoClusterJedisEurekaDiscoveryMainBench {
@@ -56,6 +56,7 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 		.withApplicationName("PRANADYNOMITEOREGON1")
         .withDynomiteClusterName("PRANADYNOMITEOREGON1") // MY_CLUSTER
         .withDiscoveryClient(discoveryClient) 
+        .withHostSupplier(new EurekaHostsSupplier("PRANADYNOMITEOREGON1",discoveryClient))
         .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
         					.setPort(8101)
         					.setLocalDC("localdc")
