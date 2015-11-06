@@ -50,17 +50,18 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 		EurekaClientConfig config = new DefaultEurekaClientConfig();
 		DiscoveryClient discoveryClient = new DiscoveryClient(applicationInfoManager,config);
 		
-		Thread.sleep(60000L); // 60s
+//		Thread.sleep(60000L); // 60s
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 		.withApplicationName("PRANADYNOMITEOREGON1")
         .withDynomiteClusterName("PRANADYNOMITEOREGON1") // MY_CLUSTER
+        .withPort(8101)
         .withDiscoveryClient(discoveryClient) 
         .withHostSupplier(new EurekaHostsSupplier("PRANADYNOMITEOREGON1",discoveryClient))
-        .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
-        					.setPort(8101)
-        					.setLocalDC("localdc")
-        					.setMaxConnsPerHost(100) )
+//        .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
+//        					.setPort(8101)
+//        					.setLocalDC("localdc")
+//        					.setMaxConnsPerHost(100) )
         .build();
 		return dynoClient;
 }
