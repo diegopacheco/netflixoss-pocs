@@ -56,14 +56,13 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 		.withApplicationName("PRANADYNOMITEOREGON1")
         .withDynomiteClusterName("PRANADYNOMITEOREGON1") // MY_CLUSTER
-        .withPort(8101)
         .withDiscoveryClient(discoveryClient) 
         .withHostSupplier(new EurekaHostsSupplier("PRANADYNOMITEOREGON1",discoveryClient))
         .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
         					.setPort(8101)
         					.setLocalDC("dc")
         					.setMaxConnsPerHost(100)
-        					.withTokenSupplier(new HttpEndpointBasedTokenMapSupplier("http://127.0.0.1:22222/cluster_describe",22222))
+        					.withTokenSupplier(new HttpEndpointBasedTokenMapSupplier("http://{hostname}:22222/cluster_describe",22222))
         			)
         .build();
 		return dynoClient;
