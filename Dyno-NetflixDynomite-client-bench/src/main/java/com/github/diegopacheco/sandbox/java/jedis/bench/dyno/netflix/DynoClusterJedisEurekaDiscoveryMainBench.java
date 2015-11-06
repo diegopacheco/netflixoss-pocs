@@ -60,7 +60,7 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
         .withHostSupplier(new EurekaHostsSupplier("PRANADYNOMITEOREGON1",discoveryClient))
 //        .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
 //        					.setPort(8101)
-//        					.setLocalDC("localdc")
+//        					.setLocalDC("dc")
 //        					.setMaxConnsPerHost(100) )
         .build();
 		return dynoClient;
