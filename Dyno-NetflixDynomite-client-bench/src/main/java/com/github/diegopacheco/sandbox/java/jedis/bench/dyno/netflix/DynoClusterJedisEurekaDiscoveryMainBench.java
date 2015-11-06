@@ -9,6 +9,7 @@ import com.netflix.appinfo.MyDataCenterInstanceConfig;
 import com.netflix.discovery.DefaultEurekaClientConfig;
 import com.netflix.discovery.DiscoveryClient;
 import com.netflix.discovery.EurekaClientConfig;
+import com.netflix.dyno.connectionpool.impl.lb.HttpEndpointBasedTokenMapSupplier;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
 import com.netflix.dyno.contrib.EurekaHostsSupplier;
 import com.netflix.dyno.jedis.DynoJedisClient;
@@ -58,10 +59,12 @@ private static Logger log = LoggerFactory.getLogger(DynoClusterJedisMainBench.cl
         .withPort(8101)
         .withDiscoveryClient(discoveryClient) 
         .withHostSupplier(new EurekaHostsSupplier("PRANADYNOMITEOREGON1",discoveryClient))
-//        .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
-//        					.setPort(8101)
-//        					.setLocalDC("dc")
-//        					.setMaxConnsPerHost(100) )
+        .withCPConfig( new ArchaiusConnectionPoolConfiguration("PRANADYNOMITEOREGON1")
+        					.setPort(8101)
+        					.setLocalDC("dc")
+        					.setMaxConnsPerHost(100)
+        					.withTokenSupplier(new HttpEndpointBasedTokenMapSupplier("http://127.0.0.1:22222/cluster_describe",22222))
+        			)
         .build();
 		return dynoClient;
 }
