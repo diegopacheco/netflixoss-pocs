@@ -68,9 +68,6 @@ jar {
 }
 
 task execute(type:JavaExec) {
-	println "mc: "  + System.getProperty('mainClass', "")
-	if (!"".equals(System.getProperty('mainClass', ""))) {
-		main = mainClass
-		classpath = sourceSets.main.runtimeClasspath
-	}
- }
+	main = mainClass
+	classpath = sourceSets.main.runtimeClasspath
+}
