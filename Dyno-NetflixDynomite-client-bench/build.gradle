@@ -68,6 +68,9 @@ jar {
 	}
 }
 
+//
+// ./gradlew execute -DmainClass=com.github.diegopacheco.sandbox.java.jedis.bench.dyno.netflix.DynoClusterJedisAddValueMain -Dexec.args="kdiego v6"
+//
 task execute(type:JavaExec) {
 	main = System.getProperty("mainClass")
 	
