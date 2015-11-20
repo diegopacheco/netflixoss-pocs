@@ -70,11 +70,8 @@ jar {
 }
 
 task execute(type:JavaExec) {
-	if (!System.getProperty("mainClass", "").equals("")){
-		main = System.getProperty("mainClass", "")
-	}else {
-	    main = "" 
-	}
+	main = mainClass
+	
 	classpath = sourceSets.main.runtimeClasspath
 	
 	systemProperties System.getProperties()
