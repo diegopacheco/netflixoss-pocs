@@ -69,7 +69,7 @@ jar {
 }
 
 task execute(type:JavaExec) {
-	main = mainClass
+	main = System.getProperty("mainClass")
 	
 	classpath = sourceSets.main.runtimeClasspath
 	
