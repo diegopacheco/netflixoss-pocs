@@ -6,6 +6,8 @@ version = '1.0'
 sourceCompatibility = 1.8
 
 mainClassName = "com.github.diegopacheco.sandbox.java.jedis.bench.dyno.netflix.DynoClusterJedisMainBench"
+mainClass = ""
+
 applicationDefaultJvmArgs = [
 								 "-Djava.net.preferIPv4Stack=true",
 								 "-Djava.net.preferIPv6Addresses=false",
@@ -68,6 +70,14 @@ jar {
 }
 
 task execute(type:JavaExec) {
-	main = mainClass
+	if (!System.getProperty("mainClass", "").equals("")){
+		main = System.getProperty("mainClass", "")
+	}else {
+	    main = "" 
+	}
 	classpath = sourceSets.main.runtimeClasspath
+	
+	systemProperties System.getProperties()
+	
+	args System.getProperty("exec.args").split()
 }
