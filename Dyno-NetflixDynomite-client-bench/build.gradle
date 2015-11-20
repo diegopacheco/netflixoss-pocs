@@ -6,7 +6,6 @@ version = '1.0'
 sourceCompatibility = 1.8
 
 mainClassName = "com.github.diegopacheco.sandbox.java.jedis.bench.dyno.netflix.DynoClusterJedisMainBench"
-mainClass = ""
 
 applicationDefaultJvmArgs = [
 								 "-Djava.net.preferIPv4Stack=true",
