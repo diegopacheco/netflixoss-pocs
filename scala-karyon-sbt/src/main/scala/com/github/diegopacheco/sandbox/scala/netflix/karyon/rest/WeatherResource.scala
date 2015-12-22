@@ -34,7 +34,7 @@ class WeatherResource {
         	  var cc:ClientConfig = new DefaultClientConfig();
         	  cc.getProperties().put(ClientConfig.PROPERTY_FOLLOW_REDIRECTS, java.lang.Boolean.TRUE)
         	  var c:Client = Client.create(cc)
-        	  var r:WebResource = c.resource("http://api.openweathermap.org/data/2.5/weather?q=" + location)
+        	  var r:WebResource = c.resource("http://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=2de143494c0b295cca9337e1e96b00e0")
     	      
         	  r.accept(MediaType.APPLICATION_JSON_TYPE).get(classOf[String])
     	      var cr:ClientResponse = r.get(classOf[ClientResponse])
