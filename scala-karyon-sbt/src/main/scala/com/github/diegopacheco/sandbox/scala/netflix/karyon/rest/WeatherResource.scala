@@ -1,4 +1,4 @@
-package com.github.diegopacheco.sandbox.scala.netflix.karyon
+package com.github.diegopacheco.sandbox.scala.netflix.karyon.rest
 
 import javax.inject.Singleton
 import javax.ws.rs.GET
@@ -7,17 +7,16 @@ import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-
 import org.codehaus.jettison.json.JSONException
 import org.codehaus.jettison.json.JSONObject
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-
 import com.sun.jersey.api.client.Client
 import com.sun.jersey.api.client.ClientResponse
 import com.sun.jersey.api.client.WebResource
 import com.sun.jersey.api.client.config.ClientConfig
 import com.sun.jersey.api.client.config.DefaultClientConfig
+import scala.collection.JavaConversions
 
 @Singleton
 @Path("/weather")
