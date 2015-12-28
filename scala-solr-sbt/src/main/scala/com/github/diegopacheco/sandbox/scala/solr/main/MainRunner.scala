@@ -4,7 +4,7 @@ object MainRunner extends App {
     
     import jp.sf.amateras.solr.scala._
     
-    val client = new SolrClient("http://127.0.0.1:8983/solr")
+    val client = new SolrClient("http://127.0.0.1:8983/solr/")
     println("Client: " + client)
     
     val result = client.query("/").getResultAsMap()
