@@ -1,0 +1,72 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+version = '1.0'
+sourceCompatibility = 1.8
+
+mainClassName = ""
+
+applicationDefaultJvmArgs = [
+								 "-Djava.net.preferIPv4Stack=true",
+								 "-Djava.net.preferIPv6Addresses=false",
+								 "-server",
+								 "-Xmx2048m",
+								 "-Xms128m",
+							 ]
+
+run {
+	if (System.getProperty('DEBUG', 'false') == 'true') {
+		jvmArgs '-Xdebug',
+			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
+	}
+}
+
+repositories {
+	jcenter()
+	mavenLocal()
+}
+
+buildscript {
+	repositories {
+			jcenter()
+			mavenLocal()
+	}
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+	}
+}
+
+dependencies {
+	compile([
+				'com.netflix.ribbon:ribbon:2.1.0',
+				'com.netflix.ribbon:ribbon-core:2.1.0',
+				'com.netflix.ribbon:ribbon-loadbalancer:2.1.0',
+				'com.netflix.ribbon:ribbon-eureka:2.1.0',
+				'com.fasterxml.jackson.core:jackson-core:2.7.0'
+		    ])
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2'
+}
+
+jar {
+	from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+		exclude "META-INF/*.SF"
+		exclude "META-INF/*.DSA"
+		exclude "META-INF/*.RSA"
+	}
+
+	manifest {
+		attributes 'Implementation-Title': 'Foobar',
+				'Implementation-Version': version,
+				'Built-By': System.getProperty('user.name'),
+				'Built-Date': new Date(),
+				'Built-JDK': System.getProperty('java.version'),
+				'Main-Class': mainClassName
+	}
+}
