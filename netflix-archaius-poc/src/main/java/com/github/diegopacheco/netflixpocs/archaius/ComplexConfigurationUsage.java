@@ -64,9 +64,11 @@ public class ComplexConfigurationUsage {
 		
 		// Nothing happens
 		ConfigurationManager.getConfigInstance().setProperty("netflix.poc.a", "10");
+		System.out.println("1: " + ConfigurationManager.getConfigInstance().getProperty("netflix.poc.a"));
 		
 		// Nothing happens
 		System.setProperty("netflix.poc.a", "system");
+		System.out.println("2: " + ConfigurationManager.getConfigInstance().getProperty("netflix.poc.a"));
 		
 		while(true) Thread.sleep(3000);
 		// Go change the file meanwhile and see :-) = Stuff Happens
