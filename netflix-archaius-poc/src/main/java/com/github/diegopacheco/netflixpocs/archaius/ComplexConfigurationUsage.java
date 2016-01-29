@@ -14,6 +14,7 @@ import com.netflix.config.DynamicPropertyFactory;
 import com.netflix.config.DynamicStringProperty;
 import com.netflix.config.FixedDelayPollingScheduler;
 import com.netflix.config.PolledConfigurationSource;
+import com.netflix.config.jmx.ConfigJMXManager;
 import com.netflix.config.sources.URLConfigurationSource;
 
 public class ComplexConfigurationUsage {
@@ -51,6 +52,7 @@ public class ComplexConfigurationUsage {
 		// install with ConfigurationManager so that finalConfig
 		// becomes the source of dynamic properties
 		ConfigurationManager.install(finalConfig); 
+		ConfigJMXManager.registerConfigMbean(finalConfig);
 		
 		DynamicStringProperty prop = DynamicPropertyFactory.getInstance().getStringProperty("netflix.poc.a", "");
 		prop.addCallback(new Runnable() {
