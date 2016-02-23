@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java">
+		<attributes>
+			<attribute name="FROM_GRADLE_MODEL" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src/main/resources">
+		<attributes>
+			<attribute name="FROM_GRADLE_MODEL" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry exported="true" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.0/385fd3fda5deeec8f232b93f85c7118eb30a3f55/slf4j-api-1.7.0.jar" sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.0/dee86a75ab6942b0f3e381fb876a9270821176ad/slf4j-api-1.7.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-simple/1.7.0/e06c0b27b0ceda3b549c8f62133eccec65b8b7d7/slf4j-simple-1.7.0.jar" sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-simple/1.7.0/f49e2bc0625518bbb571098692f2bada4b5bfb8f/slf4j-simple-1.7.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.1/b494968f6050d494de55dc3ce005e59c7eb40012/rxjava-1.1.1.jar" sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.1/403c0215220d990f2856904658185a7b5ba8b521/rxjava-1.1.1-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
