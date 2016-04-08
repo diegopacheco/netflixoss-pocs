@@ -21,8 +21,9 @@ import com.netflix.governator.annotations.Modules;
         ShutdownModule.class,
         KaryonWebAdminModule.class,
         KaryonServoModule.class,
-        KaryonJerseyModuleImpl.class
-        ,KaryonEurekaModule.class 
+        KaryonJerseyModuleImpl.class,
+        KaryonEurekaModule.class ,
+        JerseyServletModuleHystrix.class
 })
 public interface KaryonJerseyServerApp {
 	 class KaryonJerseyModuleImpl extends KaryonJerseyModule {
