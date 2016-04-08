@@ -29,6 +29,7 @@ dependencies {
 			 'com.netflix.karyon:karyon2-archaius:2.2.0-rc.2',
 			 'com.netflix.karyon:karyon2-servo:2.2.0-rc.2',
 			 'com.netflix.karyon:karyon2-admin-web:2.2.0-rc.2',
-			 'com.netflix.karyon:karyon2-eureka:2.2.0-rc.2'
+			 'com.netflix.karyon:karyon2-eureka:2.2.0-rc.2',
+			 'com.netflix.hystrix:hystrix-metrics-event-stream:1.4.10'
 	 		 ])
 }
