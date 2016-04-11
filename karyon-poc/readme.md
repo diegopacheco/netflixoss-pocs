@@ -1,6 +1,8 @@
 Build
 =====
 
+You need to bootup eureka server bofore run this otherwise it wont work out. 
+
 ```bash
 ./gradlew build
 ```

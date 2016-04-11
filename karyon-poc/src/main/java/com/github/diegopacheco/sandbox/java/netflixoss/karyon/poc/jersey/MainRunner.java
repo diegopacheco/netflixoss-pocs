@@ -1,35 +1,36 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.karyon.poc.jersey;
 
-import com.netflix.appinfo.ApplicationInfoManager;
-import com.netflix.appinfo.HealthCheckHandler;
-import com.netflix.appinfo.InstanceInfo.InstanceStatus;
-import com.netflix.appinfo.MyDataCenterInstanceConfig;
-import com.netflix.discovery.DefaultEurekaClientConfig;
-import com.netflix.discovery.DiscoveryClient;
-import com.netflix.discovery.DiscoveryManager;
+import com.github.diegopacheco.sandbox.java.netflixoss.karyon.poc.rx.RxNettyHandler;
+
+import netflix.adminresources.resources.KaryonWebAdminModule;
+import netflix.karyon.Karyon;
+import netflix.karyon.KaryonBootstrapModule;
+import netflix.karyon.ShutdownModule;
+import netflix.karyon.archaius.ArchaiusBootstrapModule;
+import netflix.karyon.eureka.KaryonEurekaModule;
+import netflix.karyon.servo.KaryonServoModule;
+import netflix.karyon.transport.http.health.HealthCheckEndpoint;
 
 public class MainRunner {
 	public static void main(String[] args) {
 		System.setProperty("java.awt.headless","true");
 		System.setProperty("archaius.deployment.environment","dev");
+
+//      Jetty 		
+//		netflix.karyon.KaryonRunner.main(new String[]{KaryonJerseyServerApp.class.getCanonicalName()});
 		
-//		System.setProperty("eureka.region", "default");
-//        System.setProperty("eureka.environment", "test");
-//        System.setProperty("eureka.client.props", "eureka-client");
-//		
-//		 DiscoveryManager.getInstance().initComponent(
-//	                new MyDataCenterInstanceConfig(),
-//	                new DefaultEurekaClientConfig());
-//		 
-//		 ApplicationInfoManager.getInstance().setInstanceStatus(InstanceStatus.UP);
-//	     DiscoveryClient discoveryClient = DiscoveryManager.getInstance().getDiscoveryClient();
-//	     discoveryClient.registerHealthCheck(new HealthCheckHandler(){
-//			@Override
-//			public InstanceStatus getStatus(InstanceStatus currentStatus) {
-//				return InstanceStatus.UP;
-//			}
-//	     });
-//		
-		netflix.karyon.KaryonRunner.main(new String[]{KaryonJerseyServerApp.class.getCanonicalName()});
+//      RxNetty		
+		
+		HealthcheckResource healthCheckHandler = new HealthcheckResource();
+        Karyon.forRequestHandler(8888, new RxNettyHandler("/healthcheck", new HealthCheckEndpoint(healthCheckHandler)),
+
+        		new KaryonBootstrapModule(healthCheckHandler),
+                new ArchaiusBootstrapModule("simplemath-netflix-oss"),
+                KaryonEurekaModule.asBootstrapModule(),
+                Karyon.toBootstrapModule(KaryonWebAdminModule.class),
+                ShutdownModule.asBootstrapModule(),
+                KaryonServoModule.asBootstrapModule()
+        ).startAndWaitTillShutdown();
+		
 	}
 }
