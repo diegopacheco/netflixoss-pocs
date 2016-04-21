@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="GELF_TCP_APPENDER" class="me.moocar.logback.net.SocketEncoderAppender">
+		<remoteHost>127.0.0.1</remoteHost>
+		<port>12201</port>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="me.moocar.logbackgelf.GelfLayout">
+				<shortMessageLayout class="ch.qos.logback.classic.PatternLayout">
+					<pattern>%ex{short}%.100m</pattern>
+				</shortMessageLayout>
+				<fullMessageLayout class="ch.qos.logback.classic.html.HTMLLayout">
+					<pattern>%relative%thread%mdc%level%logger%msg</pattern>
+				</fullMessageLayout>
+				<useLoggerName>true</useLoggerName>
+				<useThreadName>true</useThreadName>
+				<useMarker>true</useMarker>
+				<host>localhost</host>
+				<includeFullMDC>true</includeFullMDC>
+				<additionalField>ipAddress:_ip_address</additionalField>
+				<additionalField>requestId:_request_id</additionalField>
+			</layout>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>Logback %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+    
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="GELF_TCP_APPENDER" />
+	</root>
+
+</configuration>
