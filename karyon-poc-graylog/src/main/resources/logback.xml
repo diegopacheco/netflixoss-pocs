@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<appender name="GELF_TCP_APPENDER" class="me.moocar.logback.net.SocketEncoderAppender">
+	<appender name="GELF_TCP_APPENDER" class="me.moocar.logbackgelf.GelfUDPAppender">
 		<remoteHost>127.0.0.1</remoteHost>
 		<port>12201</port>
 		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
