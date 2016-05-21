@@ -5,8 +5,8 @@ dyn_o_mite:
   listen: 0.0.0.0:8102
   dyn_seed_provider: simple_provider 
   dyn_seeds:
-  - 172.18.0.101:8101:rack1:default_dc:3610926873
-  - 172.18.0.103:8101:rack3:default_dc:1881048367
+  - 172.18.0.101:8101:rack1:default_dc:2093391979
+  - 172.18.0.103:8101:rack3:default_dc:2975898557
   servers:
   - 127.0.0.1:6379:1
-  tokens: '3669836985'
+  tokens: '4203913991'

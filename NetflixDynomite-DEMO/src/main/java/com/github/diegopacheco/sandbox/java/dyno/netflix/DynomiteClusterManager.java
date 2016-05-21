@@ -23,15 +23,17 @@ public class DynomiteClusterManager {
 			    hosts.add(new Host("172.18.0.101", 22222, Status.Up).setRack("default_dc"));
 			    hosts.add(new Host("172.18.0.102", 22222, Status.Up).setRack("default_dc"));
 			    hosts.add(new Host("172.18.0.103", 22222, Status.Up).setRack("default_dc"));
+//				hosts.add(new Host("127.0.0.1", 22222, Status.Up).setRack("localdc"));
 			    return hosts;
 			   }
 		};
 		
 		final String json = "["
-								+ " {\"token\":\"3610926873\",\"hostname\":\"172.18.0.101\",\"zone\":\"default_dc\"}, "
-								+ " {\"token\":\"3669836985\",\"hostname\":\"172.18.0.102\",\"zone\":\"default_dc\"}, "
-								+ " {\"token\":\"1881048367\",\"hostname\":\"172.18.0.103\",\"zone\":\"default_dc\"} "
+								+ " {\"token\":\"2093391979\",\"hostname\":\"172.18.0.101\",\"zone\":\"default_dc\"}, "
+								+ " {\"token\":\"4203913991\",\"hostname\":\"172.18.0.102\",\"zone\":\"default_dc\"}, "
+								+ " {\"token\":\"2975898557\",\"hostname\":\"172.18.0.103\",\"zone\":\"default_dc\"} "
 							+ " ]\"";
+//		final String json = "[{\"token\":\"2865567508\",\"hostname\":\"127.0.0.1\",\"zone\":\"localdc\"}]\"";		
 		TokenMapSupplier testTokenMapSupplier = new AbstractTokenMapSupplier() {
 		    @Override
 		    public String getTopologyJsonPayload(String hostname) {
@@ -48,9 +50,9 @@ public class DynomiteClusterManager {
 		            .withDynomiteClusterName("MY_CLUSTER")
 		            .withCPConfig( new ArchaiusConnectionPoolConfiguration("DYNOMITE_DEMO_APP")
 		            					.setPort(8101)
-		            					.setLocalDC("default_dc")
+		            					.setLocalDC("localdc")
 		            					.withTokenSupplier(testTokenMapSupplier)
-		            					.setMaxConnsPerHost(100) )
+		            					.setMaxConnsPerHost(5) )
 		            .withHostSupplier(customHostSupplier)
 		            .build();
 		return dynoClient;

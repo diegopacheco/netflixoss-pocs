@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN git clone https://github.com/Netflix/dynomite.git
 
+RUN cd /dynomite/ && git checkout tags/v0.5.6 
+
 ADD redis.conf /etc/redis/
 ADD start.sh /usr/local/dynomite/
 COPY redis_cluster_1.yml /dynomite/conf/redis_cluster_1.yml
@@ -39,6 +41,9 @@ EXPOSE 8102
 
 CMD ["/usr/local/dynomite/start.sh"]
 
+#
+# To gen the config: 
+#    python generate_yamls.py 172.18.0.101:rack1 172.18.0.102:rack2 172.18.0.103:rack3
 #
 # To clean up building env
 #
