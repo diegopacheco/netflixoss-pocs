@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+version = '1.0'
+sourceCompatibility = 1.8
+
+mainClassName = "com.github.diegopacheco.sandbox.java.dyno.netflix.DynoClusteMain"
+
+applicationDefaultJvmArgs = [
+								 "-Djava.net.preferIPv4Stack=true",
+								 "-Djava.net.preferIPv6Addresses=false",
+								 "-server",
+								 "-Xmx2048m",
+								 "-Xms128m",
+							 ]
+
+repositories {
+	jcenter()
+	mavenLocal()
+}
+
+buildscript {
+	repositories {
+			jcenter()
+			mavenLocal()
+	}
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+	}
+}
+
+dependencies {
+	compile([
+				'com.netflix.dyno:dyno-jedis:1.2.0'		
+		    ])
+}
