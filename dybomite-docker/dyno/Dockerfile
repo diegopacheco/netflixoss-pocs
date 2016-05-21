@@ -17,11 +17,7 @@ RUN git clone https://github.com/diegopacheco/netflixoss-pocs
 
 WORKDIR /netflixoss-pocs/NetflixDynomite-DEMO/
 
-RUN autoreconf -fvi \
-	&& ./configure --enable-debug=log \
-	&& CFLAGS="-ggdb3 -O0" ./configure --enable-debug=log \
-	&& make \
-	&& make install
+RUN /netflixoss-pocs/NetflixDynomite-DEMO/gradlew clean build
 
 EXPOSE 8101
 EXPOSE 6379
@@ -31,8 +27,8 @@ EXPOSE 8102
 CMD ["/bin/bash"]
 
 #
-# to Build: $ docker build -t diegopacheco/dynomite JavaDynoDockerfile
-# to Run  : $ docker run -d --net myDockerNetDynomite --ip 172.18.0.200 --name dyno diegopacheco/dynomite
+# to Build: $ docker build -t diegopacheco/dyno .
+# to Run  : $ docker run --net myDockerNet --ip 172.18.0.200 -i -t diegopacheco/dyno bash
 #
 #
 # $ ./gradlew build run
