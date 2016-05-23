@@ -37,7 +37,7 @@ WORKDIR /dynomite/
 
 EXPOSE 8080
 
-CMD ["/user/local/dynomite/start-florida.sh"]
+CMD ["/usr/local/dynomite/start-florida.sh"]
 
 #
 # To gen the config: 
