@@ -18,7 +18,16 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sL https://deb.nodesource.com/setup_0.12 | bash - && \
     apt-get install -y nodejs && \ 
     curl -L https://npmjs.org/install.sh | sh && \ 
-    npm install -g grunt
+    npm install -g grunt && \ 
+    npm install -g http && \ 
+    npm install -g url && \ 
+    npm install -g fs 
+
+RUN mkdir /etc/dynomite
+ADD seeds.list /etc/dynomite/seeds.list
+
+ADD start-florida.sh /usr/local/dynomite/
+RUN chmod 777 /usr/local/dynomite/start-florida.sh
 
 RUN git clone https://github.com/Netflix/dynomite.git
 
@@ -28,7 +37,7 @@ WORKDIR /dynomite/
 
 EXPOSE 8080
 
-CMD ["/bin/bash"]
+CMD ["/user/local/dynomite/start-florida.sh"]
 
 #
 # To gen the config: 
