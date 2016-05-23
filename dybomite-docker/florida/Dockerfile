@@ -50,26 +50,8 @@ CMD ["/user/local/dynomite/start-florida.sh"]
 # docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")
 #
 #
-# to Build: $ docker build -t diegopacheco/dynomite .
+# to Build: $ docker build -t diegopacheco/florida .
 # Network : $ docker network create --subnet=172.18.0.0/16 myDockerNetDynomite
-# to Run  : $ docker run -d --net myDockerNetDynomite --ip 172.18.0.101 --name dynomite1 -e DYNOMITE_NODE=1 diegopacheco/dynomite
-# to Run  : $ docker run -d --net myDockerNetDynomite --ip 172.18.0.102 --name dynomite2 -e DYNOMITE_NODE=2 diegopacheco/dynomite
-# to Run  : $ docker run -d --net myDockerNetDynomite --ip 172.18.0.103 --name dynomite3 -e DYNOMITE_NODE=3 diegopacheco/dynomite
-# 
+# to Run  : $ docker run -d --net myDockerNetDynomite --name florida -e DYNOMITE_RACK=rack1 -e DYNOMITE_TOKENS=0 diegopacheco/florida
 #
-# $ docker ps
-# $ docker exec -i -t dynomite1 bash
-# $ ps aux | grep redis
-# $ cat /var/log/dynomite/dynomite_log.txt
 #
-# $ docker ps
-# $ docker exec -i -t dynomite2 bash
-# $ ps aux | grep redis
-# $ cat /var/log/dynomite/dynomite_log.txt
-#
-# $ docker ps
-# $ docker exec -i -t dynomite3 bash
-# $ ps aux | grep redis
-# $ cat /var/log/dynomite/dynomite_log.txt
-#
-# $ ./gradlew build run
