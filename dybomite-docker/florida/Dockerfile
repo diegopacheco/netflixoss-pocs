@@ -52,6 +52,6 @@ CMD ["/usr/local/dynomite/start-florida.sh"]
 #
 # to Build: $ docker build -t diegopacheco/florida .
 # Network : $ docker network create --subnet=172.18.0.0/16 myDockerNetDynomite
-# to Run  : $ docker run -d --net myDockerNetDynomite --name florida -e DYNOMITE_RACK=rack1 -e DYNOMITE_TOKENS=0 diegopacheco/florida
+# to Run  : $ docker run -d -P --net myDockerNetDynomite --name florida diegopacheco/florida
 #
 #
