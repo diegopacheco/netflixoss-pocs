@@ -52,12 +52,20 @@ CMD ["/usr/local/dynomite/start.sh"]
 #
 # to Build: $ docker build -t diegopacheco/dynomite .
 # Network : $ docker network create --subnet=172.18.0.0/16 myDockerNetDynomite
-# to Run  : 
-# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.101 --name dynomite1 -e DYNOMITE_RACK=rack1 -e DYNOMITE_TOKENS=2093391979 diegopacheco/dynomite
-# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.102 --name dynomite2 -e DYNOMITE_RACK=rack2 -e DYNOMITE_TOKENS=4203913991 diegopacheco/dynomite
-# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.103 --name dynomite3 -e DYNOMITE_RACK=rack3 -e DYNOMITE_TOKENS=2975898557 diegopacheco/dynomite
-# 
 #
+# Run florida Container FIRST
+#
+## Test florida Container
+# $ curl -v http://127.0.0.1:32768/REST/v1/admin/get_seeds
+#
+# Get florida IP
+# $ docker inspect florida |python -c 'import json,sys;obj=json.load(sys.stdin);print obj[0]["NetworkSettings"]["Networks"]["myDockerNetDynomite"]["IPAddress"]'
+#
+# to Run  : 
+# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.101 --name dynomite1 -e DYNOMITE_RACK=rack1 -e DYNOMITE_TOKENS=2093391979 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
+# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.102 --name dynomite2 -e DYNOMITE_RACK=rack2 -e DYNOMITE_TOKENS=4203913991 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
+# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.103 --name dynomite3 -e DYNOMITE_RACK=rack3 -e DYNOMITE_TOKENS=2975898557 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
+# 
 # $ docker ps
 # $ docker exec -i -t dynomite1 bash
 # $ ps aux | grep redis
