@@ -66,6 +66,7 @@ public class DynoMain {
 		            					.withTokenSupplier(testTokenMapSupplier)
 		            					.setMaxConnsPerHost(100) 
 		            					
+		            					.setPoolShutdownDelay(0)
 		            					.setConnectTimeout(5)
 		            					.setFailOnStartupIfNoHosts(true)
 		            					.setFailOnStartupIfNoHostsSeconds(5)
