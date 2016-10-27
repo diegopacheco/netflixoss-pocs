@@ -10,9 +10,9 @@ import com.netflix.dyno.connectionpool.Host;
 import com.netflix.dyno.connectionpool.Host.Status;
 import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
+import com.netflix.dyno.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.dyno.connectionpool.impl.RetryNTimes;
 import com.netflix.dyno.connectionpool.impl.lb.AbstractTokenMapSupplier;
-import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
 import com.netflix.dyno.jedis.DynoJedisClient;
 
 public class DynoMain {
@@ -61,17 +61,17 @@ public class DynoMain {
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
 					.withApplicationName("MY_APP")
 		            .withDynomiteClusterName("MY_CLUSTER")
-		            .withCPConfig( new ArchaiusConnectionPoolConfiguration("MY_APP")
+		            .withCPConfig( new ConnectionPoolConfigurationImpl("MY_APP")
 		            					.setPort(8101)
 		            					.withTokenSupplier(testTokenMapSupplier)
 		            					.setMaxConnsPerHost(100) 
 		            					
 		            					.setPoolShutdownDelay(0)
-		            					.setConnectTimeout(5)
+		            					.setConnectTimeout(12)
 		            					.setFailOnStartupIfNoHosts(true)
-		            					.setFailOnStartupIfNoHostsSeconds(5)
-		            					.setMaxTimeoutWhenExhausted(5)
-		            					.setSocketTimeout(5)
+		            					.setFailOnStartupIfNoHostsSeconds(12)
+	                					.setMaxTimeoutWhenExhausted(12)
+		            					.setSocketTimeout(12)
 		            					.setRetryPolicyFactory(new RetryNTimes.RetryFactory(2))
 		            )
 		            .withHostSupplier(customHostSupplier)
