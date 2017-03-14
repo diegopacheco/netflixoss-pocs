@@ -45,7 +45,7 @@ public class SimpleCacheResource {
 				.withDynomiteClusterName("dynomiteCluster")
 				.withCPConfig(new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
 						.withTokenSupplier(tms).setMaxConnsPerHost(1).setConnectTimeout(2000)
-						.setRetryPolicyFactory(new RetryNTimes.RetryFactory(1)))
+						.setRetryPolicyFactory(new RetryNTimes.RetryFactory(3)))
 				.withHostSupplier(hs).build();
 		
 		this.dyno = dynoClient;
