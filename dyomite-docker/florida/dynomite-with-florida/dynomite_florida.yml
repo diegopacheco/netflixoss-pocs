@@ -1,5 +1,5 @@
 dyn_o_mite:
-  datacenter: default_dc
+  datacenter: dc
   rack: @rack
   dyn_listen: 0.0.0.0:8101
   listen: 0.0.0.0:8102

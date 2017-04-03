@@ -62,9 +62,9 @@ CMD ["/usr/local/dynomite/start.sh"]
 # $ docker inspect florida |python -c 'import json,sys;obj=json.load(sys.stdin);print obj[0]["NetworkSettings"]["Networks"]["myDockerNetDynomite"]["IPAddress"]'
 #
 # to Run  : 
-# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.101 --name dynomite1 -e DYNOMITE_RACK=rack1 -e DYNOMITE_TOKENS=2093391979 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
-# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.102 --name dynomite2 -e DYNOMITE_RACK=rack2 -e DYNOMITE_TOKENS=4203913991 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
-# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.103 --name dynomite3 -e DYNOMITE_RACK=rack3 -e DYNOMITE_TOKENS=2975898557 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
+# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.101 --name dynomite1 -e DYNOMITE_RACK=rack1 -e DYNOMITE_TOKENS=100 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
+# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.102 --name dynomite2 -e DYNOMITE_RACK=rack2 -e DYNOMITE_TOKENS=100 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
+# $ docker run -d --net myDockerNetDynomite --ip 172.18.0.103 --name dynomite3 -e DYNOMITE_RACK=rack3 -e DYNOMITE_TOKENS=100 -e DYNOMITE_FLORIDA_IP=0 -e DYNOMITE_FLORIDA_PORT=8080 diegopacheco/dynomite
 # 
 # $ docker ps
 # $ docker exec -i -t dynomite1 bash
