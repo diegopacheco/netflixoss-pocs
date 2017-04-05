@@ -1,0 +1,52 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+   mavenCentral()
+   mavenLocal()
+   jcenter()
+}
+
+/**
+dependencies {
+  compile('com.netflix.dyno:dyno-jedis:1.5.7')
+  compile('com.netflix.dyno:dyno-core:1.5.7')
+  compile([
+	  'ch.qos.logback:logback-classic:1.0.13',
+	  'org.slf4j:slf4j-log4j12:1.7.12',
+	  'org.slf4j:slf4j-jdk14:1.7.12'
+  ])
+}
+**/
+
+dependencies {
+	compile([
+			  'ch.qos.logback:logback-classic:1.0.13',
+			  'org.slf4j:slf4j-log4j12:1.7.12',
+			  'org.slf4j:slf4j-jdk14:1.7.12',
+			  'com.netflix.karyon:karyon2-core:2.7.2',
+			  'com.netflix.karyon:karyon2-jersey-blocking:2.7.2',
+			  'com.netflix.karyon:karyon2-archaius:2.7.2',
+			  'com.netflix.karyon:karyon2-servo:2.7.2',
+			  'com.netflix.karyon:karyon2-admin-web:2.7.2',
+			  'com.netflix.karyon:karyon2-eureka:2.7.2',
+			  'com.sun.jersey:jersey-client:1.18.4'		  
+		    ])
+		    
+    compile 'com.netflix.dyno:dyno-core:latest.release'
+    compile 'com.netflix.dyno:dyno-jedis:latest.release'		    
+		    
+}
+
+
+mainClassName = "com.github.diegopacheco.tr.dynomite.driver.client.main.DynomiteDriverMain"
+applicationDefaultJvmArgs = ["-Ddynomite.driver.seeds=172.18.0.101:8101:rack1:dc:100|172.18.0.102:8101:rack2:dc:100|172.18.0.103:8101:rack3:dc:100","-Ddynomite.driver.cluster.name=dyn_o_mite","-Ddynomite.driver.client.name=dyn_o_mite","-Ddyno.dyn_o_mite.retryPolicy=RetryNTimes:3:true"]
+
+eclipse {
+	classpath {
+		downloadSources = true
+	}
+}

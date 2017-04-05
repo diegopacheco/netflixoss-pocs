@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN git clone https://github.com/Netflix/dynomite.git
 
-RUN cd /dynomite/ && git checkout tags/v0.5.6 
+RUN cd /dynomite/ && git checkout tags/v0.5.7-14_whiteSpaceStats 
 
 ADD redis.conf /etc/redis/
 ADD start.sh /usr/local/dynomite/
