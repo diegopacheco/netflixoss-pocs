@@ -34,8 +34,11 @@ public class DynomiteDriverMain {
 		int count = 0;
 		for(DynomiteNodeInfo node: nodes){
 			jsonSB.append(" {\"token\":\""+ node.getTokens() 
-			                + "\",\"hostname\":\"" + node.getServer() 
-							+ "\",\"zone\":\"" +  node.getDc() 
+			                + "\",\"hostname\":\"" + node.getServer()
+			                + "\",\"ip\":\"" + node.getServer()			                
+							+ "\",\"zone\":\"" +  node.getRack()
+							+ "\",\"rack\":\"" +  node.getRack()
+							+ "\",\"dc\":\"" +  node.getDc() 
 							+ "\"} ");
 			count++;
 			if (count < nodes.size())
@@ -74,25 +77,27 @@ public class DynomiteDriverMain {
 	}
 	
 	private static Host buildHost(DynomiteNodeInfo node){
-		Host host = new Host(node.getServer(),8102,node.getDc());
-		host.setStatus(Status.Up);
+		Host host =  new Host(node.getServer(), node.getServer(), 8102, node.getRack(), node.getDc(), Status.Up);
+		//Host host = new Host(node.getServer(),8102,node.getDc());
+		//host.setStatus(Status.Up);
 		return host;
 	}
 	
-	
-	public DynomiteDriverMain(){
-		
+	public void connect(){
 		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.seeds", "172.18.0.101:8101:rack1:dc:100|172.18.0.102:8101:rack2:dc:100|172.18.0.103:8101:rack3:dc:100");
-		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.cluster.name","dyn_o_mite");
-		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.client.name","dyn_o_mite"); 
+		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.cluster.name","dynomiteCluster");
+		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.client.name","dynomiteCluster"); 
 		ConfigurationManager.getConfigInstance().setProperty("dyno.dyn_o_mite.retryPolicy","RetryNTimes:3:true");
 		
-		List<DynomiteNodeInfo> nodes = DynomiteSeedsParser.parse(ConfigurationManager.getConfigInstance().getString("dynomite.driver.seeds",""));
+		String client = ConfigurationManager.getConfigInstance().getString("dynomite.driver.client.name","");
+		String cluster = ConfigurationManager.getConfigInstance().getString("dynomite.driver.cluster.name","");
+		String seeds = ConfigurationManager.getConfigInstance().getString("dynomite.driver.seeds","");
+		List<DynomiteNodeInfo> nodes = DynomiteSeedsParser.parse(seeds);
 		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder()
-				.withApplicationName(ConfigurationManager.getConfigInstance().getString("dynomite.driver.client.name",""))
-	            .withDynomiteClusterName(ConfigurationManager.getConfigInstance().getString("dynomite.driver.cluster.name",""))
-	            .withCPConfig( new ArchaiusConnectionPoolConfiguration(ConfigurationManager.getConfigInstance().getString("dynomite.driver.client.name",""))
+				.withApplicationName(client)
+	            .withDynomiteClusterName(cluster)
+	            .withCPConfig( new ArchaiusConnectionPoolConfiguration(client)
 	            					.withTokenSupplier(toTokenMapSupplier(nodes))
 	            					.setMaxConnsPerHost(1)
                                     .setConnectTimeout(2000)
@@ -100,10 +105,12 @@ public class DynomiteDriverMain {
 	            )
 	            .withHostSupplier(toHostSupplier(nodes))
 	            .build();
-		
-		dynoClient.set("x","DriverWorks_v1.1.11-SNAPSHOT");
-		
 		this.dynoClient = dynoClient;
+	}
+	
+	public DynomiteDriverMain(){
+		connect();
+		dynoClient.set("x","DriverWorks_v1.1.11-SNAPSHOT");
 	}
 	
 	public DynoJedisClient getDynoClient() {
@@ -114,13 +121,19 @@ public class DynomiteDriverMain {
 		
 		DynomiteDriverMain ddm = new DynomiteDriverMain();
 		
+		Thread.sleep(25000L);
+		System.out.println("Starting.... ");
+		
 		while(true){
 			try{
 				Thread.sleep(5000L);
+				System.out.println("Calling Dynomite via dyno... ");
 				String result = ddm.getDynoClient().get("x");
 				System.out.println("PURE dyno 1.5.7 - Result " + result + " - " + System.currentTimeMillis());
 			}catch(Throwable t){
-				System.out.println(t.getMessage());
+				System.out.println("ERROR " + t.getMessage());
+				System.out.println("RECONNECT..... ");
+				ddm.connect();
 			}
 			
 		}
