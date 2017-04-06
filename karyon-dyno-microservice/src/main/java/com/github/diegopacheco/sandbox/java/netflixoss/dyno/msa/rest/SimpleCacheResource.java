@@ -17,6 +17,7 @@ import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.dynomite.Dynomit
 import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.dynomite.DynomiteSeedsParser;
 import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.dynomite.HostSupplierFactory;
 import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.dynomite.TokenMapSupplierFactory;
+import com.netflix.config.ConfigurationManager;
 import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
 import com.netflix.dyno.connectionpool.impl.RetryNTimes;
@@ -33,6 +34,9 @@ public class SimpleCacheResource {
 	private DynoJedisClient dyno;
 	
 	public SimpleCacheResource() {
+		
+		// With or Without this line does not make any difference. It works(SLOW) but it works.
+		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.retryPolicy","RetryNTimes:3:true");
 		
 		String seeds = System.getenv("DYNOMITE_SEEDS");
 		logger.info("Using Seeds: " + seeds );
