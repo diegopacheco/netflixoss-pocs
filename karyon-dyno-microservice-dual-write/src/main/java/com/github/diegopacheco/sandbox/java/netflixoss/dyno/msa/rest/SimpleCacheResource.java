@@ -22,7 +22,6 @@ import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
 import com.netflix.dyno.connectionpool.impl.RetryNTimes;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
-import com.netflix.dyno.contrib.DynoOPMonitor;
 import com.netflix.dyno.jedis.DynoDualWriterClient;
 import com.netflix.dyno.jedis.DynoJedisClient;
 
@@ -32,11 +31,14 @@ public class SimpleCacheResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(SimpleCacheResource.class);
 
-	private DynoJedisClient dyno;
+	private DynoJedisClient dyno = null;
+	private Boolean dualWriteEnabled = true;
 	
 	public SimpleCacheResource() {
-		
-		// With or Without this line does not make any difference. It works(SLOW) but it works.
+		connect();
+	}
+
+	private synchronized void connect() {
 		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.retryPolicy","RetryNTimes:3:true");
 		
 		String seeds = System.getenv("DYNOMITE_SEEDS");
@@ -50,41 +52,13 @@ public class SimpleCacheResource {
 		HostSupplier hs = HostSupplierFactory.build(nodes);
 		
 		List<DynomiteNodeInfo> nodesDW = DynomiteSeedsParser.parse(seedsDW);
-		TokenMapSupplier tmsDW = TokenMapSupplierFactory.build(nodesDW);
 		HostSupplier hsDW = HostSupplierFactory.build(nodesDW);
-		
-//		DynoJedisClient dynoClient = new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
-//				.withDynomiteClusterName("dynomiteCluster")
-//				.withCPConfig(
-//						new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
-//							.withTokenSupplier(tms)
-//							.setMaxConnsPerHost(1)
-//							.setConnectTimeout(2000)
-//						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true)))
-//				.withHostSupplier(hs)
-//				.build();
-		
-//		DynoJedisClient dynoClientShadow = new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
-//				.withDynomiteClusterName("dynomiteCluster")
-//				.withCPConfig(
-//						new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
-//							.withTokenSupplier(tmsDW)
-//							.setMaxConnsPerHost(1)
-//							.setConnectTimeout(2000)
-//						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true)))
-//				.withHostSupplier(hsDW)
-//				.build();
-		
-//		DynoDualWriterClient dynoClientDW = new DynoDualWriterClient(
-//					"dynomiteCluster",
-//					"dynomiteCluster",
-//					dynoClient.getConnPool(),
-//					new DynoOPMonitor("dynomiteCluster"),
-//					dynoClient.getConnPool().getMonitor(), 
-//					dynoClientShadow
-//		);
 
-		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.enabled", "true");
+		if (dualWriteEnabled)
+			ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.enabled", "true");
+		else
+			ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.enabled", "false");
+		
 		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.cluster", "dynomiteCluster");
 		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.percentage", "100");
 		
@@ -102,7 +76,6 @@ public class SimpleCacheResource {
 				.build();
 					
 		this.dyno = dynoClient;
-		
 	}
 	
 	@GET
@@ -129,5 +102,37 @@ public class SimpleCacheResource {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+//	@GET
+//	@Path("dw/off")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response disableDualWrite() {
+//		try {
+//			dualWriteEnabled = false;
+//			dyno.stopClient();
+//			dyno = null;
+//			connect();
+//			return Response.ok("200").build();
+//		} catch (Exception e) {
+//			logger.error("Error creating json response.", e);
+//			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+//		}
+//	}
+//	
+//	@GET
+//	@Path("dw/on")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response enableDualWrite() {
+//		try {
+//			dualWriteEnabled = true;
+//			dyno.stopClient();
+//			dyno = null;
+//			connect();
+//			return Response.ok("200").build();
+//		} catch (Exception e) {
+//			logger.error("Error creating json response.", e);
+//			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+//		}
+//	}
 
 }
