@@ -22,6 +22,8 @@ import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
 import com.netflix.dyno.connectionpool.impl.RetryNTimes;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
+import com.netflix.dyno.contrib.DynoOPMonitor;
+import com.netflix.dyno.jedis.DynoDualWriterClient;
 import com.netflix.dyno.jedis.DynoJedisClient;
 
 @Singleton
@@ -29,9 +31,8 @@ import com.netflix.dyno.jedis.DynoJedisClient;
 public class SimpleCacheResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(SimpleCacheResource.class);
-	
-	
-	private DynoJedisClient dyno;
+
+	private DynoDualWriterClient dyno;
 	
 	public SimpleCacheResource() {
 		
@@ -49,9 +50,10 @@ public class SimpleCacheResource {
 		HostSupplier hs = HostSupplierFactory.build(nodes);
 		
 		List<DynomiteNodeInfo> nodesDW = DynomiteSeedsParser.parse(seedsDW);
+		TokenMapSupplier tmsDW = TokenMapSupplierFactory.build(nodesDW);
 		HostSupplier hsDW = HostSupplierFactory.build(nodesDW);
 		
-		DynoJedisClient dynoClient = new DynoJedisClient.Builder().withApplicationName("dynomiteCluster")
+		DynoJedisClient dynoClient = new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
 				.withDynomiteClusterName("dynomiteCluster")
 				.withCPConfig(
 						new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
@@ -60,11 +62,29 @@ public class SimpleCacheResource {
 							.setConnectTimeout(2000)
 						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true)))
 				.withHostSupplier(hs)
-				.withDualWriteClusterName("dyn_O_mite")
-				.withDualWriteHostSupplier(hsDW)
 				.build();
 		
-		this.dyno = dynoClient;
+		DynoJedisClient dynoClientShadow = new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
+				.withDynomiteClusterName("dynomiteCluster")
+				.withCPConfig(
+						new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
+							.withTokenSupplier(tmsDW)
+							.setMaxConnsPerHost(1)
+							.setConnectTimeout(2000)
+						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true)))
+				.withHostSupplier(hsDW)
+				.build();
+		
+		DynoDualWriterClient dynoClientDW = new DynoDualWriterClient(
+					"dynomiteCluster",
+					"dynomiteCluster",
+					dynoClient.getConnPool(),
+					new DynoOPMonitor("dynomiteCluster"),
+					dynoClient.getConnPool().getMonitor(), 
+					dynoClientShadow
+		);
+					
+		this.dyno = dynoClientDW;
 		
 	}
 	
