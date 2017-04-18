@@ -40,17 +40,29 @@ public class SimpleCacheResource {
 		
 		String seeds = System.getenv("DYNOMITE_SEEDS");
 		logger.info("Using Seeds: " + seeds );
-
+		
+		String seedsDW = System.getenv("DYNOMITE_DW_SEEDS");
+		logger.info("Using Dual Write Seeds: " + seedsDW );
+		
 		List<DynomiteNodeInfo> nodes = DynomiteSeedsParser.parse(seeds);
 		TokenMapSupplier tms = TokenMapSupplierFactory.build(nodes);
 		HostSupplier hs = HostSupplierFactory.build(nodes);
 		
+		List<DynomiteNodeInfo> nodesDW = DynomiteSeedsParser.parse(seedsDW);
+		HostSupplier hsDW = HostSupplierFactory.build(nodesDW);
+		
 		DynoJedisClient dynoClient = new DynoJedisClient.Builder().withApplicationName("dynomiteCluster")
 				.withDynomiteClusterName("dynomiteCluster")
-				.withCPConfig(new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
-						.withTokenSupplier(tms).setMaxConnsPerHost(1).setConnectTimeout(2000)
-						.setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true)))
-				.withHostSupplier(hs).build();
+				.withCPConfig(
+						new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
+							.withTokenSupplier(tms)
+							.setMaxConnsPerHost(1)
+							.setConnectTimeout(2000)
+						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true)))
+				.withHostSupplier(hs)
+				.withDualWriteClusterName("dyn_O_mite")
+				.withDualWriteHostSupplier(hsDW)
+				.build();
 		
 		this.dyno = dynoClient;
 		
