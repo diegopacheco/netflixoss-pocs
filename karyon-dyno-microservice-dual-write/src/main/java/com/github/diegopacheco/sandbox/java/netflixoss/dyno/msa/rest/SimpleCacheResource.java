@@ -32,7 +32,7 @@ public class SimpleCacheResource {
 	public Response set(@PathParam("k") String k,@PathParam("v") String v) {
 		try {
 			dyno.getClient().set(k, v);
-			dyno.getShadowClient().set(k, v);
+			//dyno.getShadowClient().set(k, v);
 			return Response.ok("200").build();
 		} catch (Exception e) {
 			logger.error("Error creating json response.", e);
