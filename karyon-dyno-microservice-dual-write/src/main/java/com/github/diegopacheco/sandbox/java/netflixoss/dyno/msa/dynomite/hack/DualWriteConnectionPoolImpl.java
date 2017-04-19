@@ -32,19 +32,23 @@ public class DualWriteConnectionPoolImpl<CL> extends ConnectionPoolImpl<CL> {
 		super(cFactory, cpConfig, cpMon);
 	}
 	
+	public <R> OperationResult<R> executeWithFailoverSuper(Operation<CL, R> op) throws DynoException {
+		return super.executeWithFailover(op);
+	}
+	
 	@Override
 	public <R> OperationResult<R> executeWithFailover(Operation<CL, R> op) throws DynoException {
 		try{
 			 executor.execute(new Runnable() {
 				@Override
 				public void run() {
-					shadow.executeWithFailover(op);
+					shadow.executeWithFailoverSuper(op);
 				}
 			});
 		}catch(Exception e){
 			// do nothing
 		}
-		return super.executeWithFailover(op);
+		return executeWithFailoverSuper(op);
 	}
 
 	public DualWriteConnectionPoolImpl<CL> getShadow() {
