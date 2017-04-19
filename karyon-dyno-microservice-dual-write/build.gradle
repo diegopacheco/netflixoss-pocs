@@ -14,12 +14,12 @@ applicationDefaultJvmArgs = [
 								 "-Xms128m"
 							 ]
 
-run {
-	if (System.getProperty('DEBUG', 'false') == 'true') {
-		jvmArgs '-Xdebug',
-			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
-	}
-}
+//run {
+//	if (System.getProperty('DEBUG', 'false') == 'true') {
+//		jvmArgs '-Xdebug',
+//			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
+//	}
+//}
 
 repositories {
 	mavenLocal()
@@ -53,7 +53,10 @@ dependencies {
 			  'com.sun.jersey:jersey-client:1.18.4'		  
 		    ])
 		    
-    compile 'com.netflix.dyno:dyno-core:latest.release'
-    compile 'com.netflix.dyno:dyno-jedis:latest.release'		    
+    //compile 'com.netflix.dyno:dyno-core:1.5.8-rc.3'
+    //compile 'com.netflix.dyno:dyno-jedis:1.5.8-rc.3'
+    
+    compile 'com.netflix.dyno:dyno-core:1.5.7'
+    compile 'com.netflix.dyno:dyno-jedis:1.5.7'		    
 		    
 }
