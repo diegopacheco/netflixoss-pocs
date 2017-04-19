@@ -1,5 +1,8 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.dynomite;
 
+import com.netflix.dyno.connectionpool.Host;
+import com.netflix.dyno.connectionpool.Host.Status;
+
 public class DynomiteNodeInfo {
 	
 	private String server;
@@ -17,6 +20,21 @@ public class DynomiteNodeInfo {
 		this.rack = rack;
 		this.dc = dc;
 		this.tokens = tokens;
+	}
+	
+	public String toJsonTopology(){
+		return " { \"token\":\""+ this.getTokens() 
+        	   + "\",\"hostname\":\"" + this.getServer()
+        	   + "\",\"ip\":\"" + this.getServer()
+        	   + "\",\"zone\":\"" +  this.getRack()			                
+        	   + "\",\"rack\":\"" +  this.getRack()
+        	   + "\",\"dc\":\"" +  this.getDc()
+        	   + "\"} ";
+	}
+	
+	public Host toHOST(){
+		return new Host(this.getServer(),this.getServer(),new Integer(this.getPort()),this.getRack(),this.getDc(),Status.Up);
+		//return new Host(this.getServer(),8102,this.getRack(),Status.Up);
 	}
 
 	public String getServer() {

@@ -16,6 +16,7 @@ import com.netflix.dyno.connectionpool.TokenMapSupplier;
 import com.netflix.dyno.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.dyno.connectionpool.impl.RetryNTimes;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
+import com.netflix.dyno.contrib.DynoOPMonitor;
 import com.netflix.dyno.jedis.DynoDualWriterClient;
 import com.netflix.dyno.jedis.DynoDualWriterClient.Dial;
 import com.netflix.dyno.jedis.DynoJedisClient;
@@ -25,7 +26,7 @@ public class DynoManager {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DynoManager.class);
 
-	private DynoJedisClient dyno;
+	private DynoDualWriterClient dyno;
 	
 	public DynoManager() {
 		
@@ -42,6 +43,7 @@ public class DynoManager {
 		HostSupplier hs = HostSupplierFactory.build(nodes);
 		
 		List<DynomiteNodeInfo> nodesDW = DynomiteSeedsParser.parse(seedsDW);
+		TokenMapSupplier tmsDW = TokenMapSupplierFactory.build(nodesDW);
 		HostSupplier hsDW = HostSupplierFactory.build(nodesDW);
 		
 //		setOSProperty("EC2_AVAILABILITY_ZONE", "rack1");
@@ -52,7 +54,7 @@ public class DynoManager {
 //		System.setProperty("EC2_REGION","dc");
 //		ConfigurationManager.getConfigInstance().setProperty("EC2_REGION", "dc");
 		
-		 Dial customerDial = new DynoDualWriterClient.Dial() {
+		 Dial alwaysReplicatedDial = new DynoDualWriterClient.Dial() {
 		        @Override
 		        public boolean isInRange(String key) {
 		            return true;            
@@ -65,32 +67,67 @@ public class DynoManager {
 		        public void setRange(int range) {}
 		};
 
-		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.enabled", "true");
-		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.cluster", "dynomiteCluster");
-		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.percentage", "100");
+//		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.enabled", "true");
+//		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.cluster", "dynomiteCluster");
+//		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.percentage", "100");
+
+		// look at
+		// ConnectionPoolConfigurationImpl
+		// DynoDualWriterClient
 		
-		DynoJedisClient dynoClient = new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
+		DynoDualWriterClient dynoClient = (DynoDualWriterClient)new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
 				.withDynomiteClusterName("dynomiteCluster")
 				.withCPConfig(
-						new ConnectionPoolConfigurationImpl("dynomiteCluster")
-							.withTokenSupplier(tms)
-							.setMaxConnsPerHost(1)
-							.setConnectTimeout(2000)
-						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
-							.setLocalRack("rack1")
-							.setLocalZoneAffinity(true)
+						new ConnectionPoolConfigurationImpl(new ConnectionPoolConfigurationImpl("dynomiteCluster"){
+							@Override
+							public boolean isDualWriteEnabled() {
+								return true;
+							}
+							public int getDualWritePercentage() {
+								return 100;
+							};
+						}
+						.withTokenSupplier(tms))
+						.withHostSupplier(hs)
+						.setMaxConnsPerHost(1)
+						.setConnectTimeout(2000)
+					    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
 				)
+						//new ConnectionPoolConfigurationImpl("dynomiteCluster")
+						//new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
+//						new ConnectionPoolConfigurationImpl("dynomiteCluster")
+//							.withTokenSupplier(tms)
+//							.setMaxConnsPerHost(1)
+//							.setConnectTimeout(2000)
+//						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
+							//.setLocalRack("rack1")
+							//.setLocalZoneAffinity(true)
+//				)
 				.withHostSupplier(hs)
 				.withDualWriteClusterName("dynomiteCluster")
+				.withDualWriteDial(alwaysReplicatedDial)
 				.withDualWriteHostSupplier(hsDW)
-				.withDualWriteDial(customerDial)
 				.build();
-		
+
 		this.dyno = dynoClient;
+		
+//		DynoJedisClient dynoShadown = new DynoJedisClient.Builder().withApplicationName("dynomiteCluster_shadow")
+//				.withDynomiteClusterName("dynomiteCluster_shadow")
+//				.withCPConfig(
+//						new ArchaiusConnectionPoolConfiguration("dynomiteCluster_shadow")
+//							.withTokenSupplier(tmsDW)
+//							.setMaxConnsPerHost(1)
+//							.setConnectTimeout(2000)
+//						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
+//				)
+//				.withHostSupplier(hsDW)
+//				.build();
+		
+//		this.dyno = new DynoDualWriterClient("dynomiteClusterX", "dynomiteClusterX", dynoClient.getConnPool(), new DynoOPMonitor("dynomiteClusterX"), dynoClient.getConnPool().getMonitor(), dynoShadown,alwaysReplicatedDial);
 		
 	}
 	
-	public DynoJedisClient getClient(){
+	public DynoDualWriterClient getClient(){
 		return dyno;
 	}
 
