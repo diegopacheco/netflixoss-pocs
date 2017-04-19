@@ -23,6 +23,9 @@ ADD start.sh /usr/local/dynomite/
 COPY redis_cluster_1.yml /dynomite/conf/redis_cluster_1.yml
 COPY redis_cluster_2.yml /dynomite/conf/redis_cluster_2.yml
 COPY redis_cluster_3.yml /dynomite/conf/redis_cluster_3.yml
+COPY redis_cluster_21.yml /dynomite/conf/redis_cluster_21.yml
+COPY redis_cluster_22.yml /dynomite/conf/redis_cluster_22.yml
+COPY redis_cluster_23.yml /dynomite/conf/redis_cluster_23.yml
 
 RUN chmod 777 /usr/local/dynomite/start.sh
 
