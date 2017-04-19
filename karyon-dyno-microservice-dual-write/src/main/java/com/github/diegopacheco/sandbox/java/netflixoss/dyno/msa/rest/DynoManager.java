@@ -26,7 +26,8 @@ public class DynoManager {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DynoManager.class);
 
-	private DynoDualWriterClient dyno;
+	private DynoJedisClient dyno;
+	private DynoJedisClient dynoShadow;
 	
 	public DynoManager() {
 		
@@ -54,63 +55,82 @@ public class DynoManager {
 //		System.setProperty("EC2_REGION","dc");
 //		ConfigurationManager.getConfigInstance().setProperty("EC2_REGION", "dc");
 		
-		 Dial alwaysReplicatedDial = new DynoDualWriterClient.Dial() {
-		        @Override
-		        public boolean isInRange(String key) {
-		            return true;            
-		        }
-		        @Override
-		        public boolean isInRange(byte[] key) {
-		            return true;
-		        }
-		        @Override
-		        public void setRange(int range) {}
-		};
+//		 Dial alwaysReplicatedDial = new DynoDualWriterClient.Dial() {
+//		        @Override
+//		        public boolean isInRange(String key) {
+//		            return true;            
+//		        }
+//		        @Override
+//		        public boolean isInRange(byte[] key) {
+//		            return true;
+//		        }
+//		        @Override
+//		        public void setRange(int range) {}
+//		};
 
 //		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.enabled", "true");
 //		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.cluster", "dynomiteCluster");
 //		ConfigurationManager.getConfigInstance().setProperty("dyno.dynomiteCluster.dualwrite.percentage", "100");
 
-		// look at
+		DynoJedisClient dynoClient = new DynoJedisClient.Builder().withApplicationName("dynomiteCluster")
+		.withDynomiteClusterName("dynomiteCluster")
+		.withCPConfig(
+				new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
+					.withTokenSupplier(tms)
+					.setMaxConnsPerHost(1)
+					.setConnectTimeout(2000)
+				    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
+		)
+		.withHostSupplier(hs)
+		.build();
+		
+		DynoJedisClient dynoShadown = new DynoJedisClient.Builder().withApplicationName("dynomiteCluster_shadow")
+		.withDynomiteClusterName("dynomiteCluster_shadow")
+		.withCPConfig(
+				new ArchaiusConnectionPoolConfiguration("dynomiteCluster_shadow")
+					.withTokenSupplier(tmsDW)
+					.setMaxConnsPerHost(1)
+					.setConnectTimeout(2000)
+				    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
+		)
+		.withHostSupplier(hsDW)
+		.build();
+		
 		// ConnectionPoolConfigurationImpl
 		// DynoDualWriterClient
-		
-		DynoDualWriterClient dynoClient = (DynoDualWriterClient)new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
-				.withDynomiteClusterName("dynomiteCluster")
-				.withCPConfig(
-						new ConnectionPoolConfigurationImpl(new ConnectionPoolConfigurationImpl("dynomiteCluster"){
-							@Override
-							public boolean isDualWriteEnabled() {
-								return true;
-							}
-							public int getDualWritePercentage() {
-								return 100;
-							};
-						}
-						.withTokenSupplier(tms))
-						.withHostSupplier(hs)
-						.setMaxConnsPerHost(1)
-						.setConnectTimeout(2000)
-					    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
-				)
-						//new ConnectionPoolConfigurationImpl("dynomiteCluster")
-						//new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
-//						new ConnectionPoolConfigurationImpl("dynomiteCluster")
+//		DynoDualWriterClient dynoClient = (DynoDualWriterClient)new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
+//				.withDynomiteClusterName("dynomiteCluster")
+//				.withCPConfig(
+//						new ConnectionPoolConfigurationImpl(new ConnectionPoolConfigurationImpl("dynomiteCluster"){
+//							@Override
+//							public boolean isDualWriteEnabled() {
+//								return true;
+//							}
+//							public int getDualWritePercentage() {
+//								return 100;
+//							};
+//						}
+//						.withTokenSupplier(tms))
+//						.withHostSupplier(hs)
+//						.setMaxConnsPerHost(1)
+//						.setConnectTimeout(2000)
+//					    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
+//				)
+//				.withCPConfig(
+//						new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
 //							.withTokenSupplier(tms)
 //							.setMaxConnsPerHost(1)
 //							.setConnectTimeout(2000)
 //						    .setRetryPolicyFactory(new RetryNTimes.RetryFactory(3,true))
-							//.setLocalRack("rack1")
-							//.setLocalZoneAffinity(true)
-//				)
-				.withHostSupplier(hs)
-				.withDualWriteClusterName("dynomiteCluster")
-				.withDualWriteDial(alwaysReplicatedDial)
-				.withDualWriteHostSupplier(hsDW)
-				.build();
+//							.setLocalRack("rack1")
+//							.setLocalZoneAffinity(true)
+//				)						
+//				.withHostSupplier(hs)
+//				.withDualWriteClusterName("dynomiteCluster")
+//				.withDualWriteDial(alwaysReplicatedDial)
+//				.withDualWriteHostSupplier(hsDW)
+//				.build();
 
-		this.dyno = dynoClient;
-		
 //		DynoJedisClient dynoShadown = new DynoJedisClient.Builder().withApplicationName("dynomiteCluster_shadow")
 //				.withDynomiteClusterName("dynomiteCluster_shadow")
 //				.withCPConfig(
@@ -124,11 +144,18 @@ public class DynoManager {
 //				.build();
 		
 //		this.dyno = new DynoDualWriterClient("dynomiteClusterX", "dynomiteClusterX", dynoClient.getConnPool(), new DynoOPMonitor("dynomiteClusterX"), dynoClient.getConnPool().getMonitor(), dynoShadown,alwaysReplicatedDial);
+
+		this.dyno = dynoClient;
+		this.dynoShadow = dynoShadown;
 		
 	}
 	
-	public DynoDualWriterClient getClient(){
+	public DynoJedisClient getClient(){
 		return dyno;
+	}
+	
+	public DynoJedisClient getShadowClient(){
+		return dynoShadow;
 	}
 
 	//	@SuppressWarnings({"unchecked"})
