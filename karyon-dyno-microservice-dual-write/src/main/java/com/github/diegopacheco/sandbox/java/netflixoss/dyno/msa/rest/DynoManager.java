@@ -13,6 +13,7 @@ import com.google.inject.Singleton;
 import com.netflix.config.ConfigurationManager;
 import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
+import com.netflix.dyno.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.dyno.connectionpool.impl.RetryNTimes;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
 import com.netflix.dyno.jedis.DynoDualWriterClient;
@@ -71,7 +72,7 @@ public class DynoManager {
 		DynoJedisClient dynoClient = new DynoDualWriterClient.Builder().withApplicationName("dynomiteCluster")
 				.withDynomiteClusterName("dynomiteCluster")
 				.withCPConfig(
-						new ArchaiusConnectionPoolConfiguration("dynomiteCluster")
+						new ConnectionPoolConfigurationImpl("dynomiteCluster")
 							.withTokenSupplier(tms)
 							.setMaxConnsPerHost(1)
 							.setConnectTimeout(2000)
