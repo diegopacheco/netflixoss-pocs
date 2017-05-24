@@ -1,7 +1,7 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.msa.rest;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 public class SimpleCacheResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(SimpleCacheResource.class);
-	private Map<String,String> cache = new ConcurrentHashMap<>();
+	private Map<String,String> cache = new HashMap<>();
 	
 	@GET
 	@Path("set/{k}/{v}")
