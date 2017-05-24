@@ -1,4 +1,4 @@
-package com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa;
+package com.github.diegopacheco.sandbox.java.netflixoss.msa;
 
 public class ServerRunner {
 	public static void main(String[] args) {

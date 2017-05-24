@@ -1,4 +1,4 @@
-package com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa;
+package com.github.diegopacheco.sandbox.java.netflixoss.msa;
 
 import io.netty.buffer.ByteBuf;
 import io.reactivex.netty.protocol.http.server.HttpServerRequest;

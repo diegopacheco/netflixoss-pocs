@@ -1,4 +1,4 @@
-package com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa;
+package com.github.diegopacheco.sandbox.java.netflixoss.msa;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

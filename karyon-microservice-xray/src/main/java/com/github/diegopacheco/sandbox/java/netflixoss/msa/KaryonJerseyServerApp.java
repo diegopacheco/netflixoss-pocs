@@ -1,7 +1,6 @@
-package com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa;
+package com.github.diegopacheco.sandbox.java.netflixoss.msa;
 
-import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.KaryonJerseyServerApp.KaryonJerseyModuleImpl;
-import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.rest.DynoManager;
+import com.github.diegopacheco.sandbox.java.netflixoss.msa.KaryonJerseyServerApp.KaryonJerseyModuleImpl;
 import com.netflix.governator.annotations.Modules;
 
 import netflix.adminresources.resources.KaryonWebAdminModule;
@@ -12,7 +11,7 @@ import netflix.karyon.jersey.blocking.KaryonJerseyModule;
 import netflix.karyon.servo.KaryonServoModule;
 
 @ArchaiusBootstrap
-@KaryonBootstrap(name = "karyon-dyno-microservice", healthcheck = HealthcheckResource.class)
+@KaryonBootstrap(name = "karyon-microservice-xray", healthcheck = HealthcheckResource.class)
 @Modules(include = {
         ShutdownModule.class,
         KaryonWebAdminModule.class,
@@ -25,7 +24,6 @@ public interface KaryonJerseyServerApp {
 	        @Override
 	        protected void configureServer() {
 	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
-	            bind(DynoManager.class).asEagerSingleton();
 	            
 	            interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
 	            interceptorSupport().forUri("/cache").interceptIn(AuthInterceptor.class);
