@@ -11,15 +11,19 @@ applicationDefaultJvmArgs = [
 								 "-Djava.net.preferIPv6Addresses=false",
 								 "-server",
 								 "-Xmx2048m",
-								 "-Xms128m"
-							 ]
+								 "-Xms128m" 
+							]
 
-run {
-	if (System.getProperty('DEBUG', 'false') == 'true') {
-		jvmArgs '-Xdebug',
-			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
-	}
-}
+//	
+// commented since I have in global gradle settings.							 
+//
+//run {
+//	if (System.getProperty('DEBUG', 'false') == 'true') {
+//		jvmArgs '-Xdebug',
+//			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
+//	}
+//}
+// 
 
 repositories {
 	mavenLocal()
