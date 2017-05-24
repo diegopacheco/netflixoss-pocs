@@ -27,8 +27,9 @@ public class HostSupplierFactory {
 	}
 	
 	private static Host buildHost(DynomiteNodeInfo node){
-		Host host = new Host(node.getServer(),8102,node.getDc());
-		host.setStatus(Status.Up);
+		//Host host = new Host(node.getServer(),8102,node.getDc());
+		//host.setStatus(Status.Up);
+		Host host = new Host(node.getServer(),node.getServer(),8102,node.getRack(),node.getDc(),Status.Up);
 		return host;
 	}
 	

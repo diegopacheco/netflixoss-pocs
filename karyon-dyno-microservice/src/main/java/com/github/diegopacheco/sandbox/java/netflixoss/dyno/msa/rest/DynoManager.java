@@ -49,6 +49,7 @@ public class DynoManager {
 							 	.withTokenSupplier(tms)
 							    .setMaxConnsPerHost(1)
 							    .setConnectTimeout(2000)
+							    .setLocalRack("rack1")
 							    .setRetryPolicyFactory(
 									new RetryNTimes.RetryFactory(3,true)
 					))

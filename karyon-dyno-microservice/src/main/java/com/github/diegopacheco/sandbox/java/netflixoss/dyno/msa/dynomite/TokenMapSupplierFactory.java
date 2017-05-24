@@ -15,7 +15,8 @@ public class TokenMapSupplierFactory {
 		for(DynomiteNodeInfo node: nodes){
 			jsonSB.append(" {\"token\":\""+ node.getTokens() 
 			                + "\",\"hostname\":\"" + node.getServer() 
-							+ "\",\"zone\":\"" +  node.getDc() 
+							+ "\",\"zone\":\"" +  node.getRack()
+							+ "\",\"dc\":\"" +  node.getDc()
 							+ "\"} ");
 			count++;
 			if (count < nodes.size())
