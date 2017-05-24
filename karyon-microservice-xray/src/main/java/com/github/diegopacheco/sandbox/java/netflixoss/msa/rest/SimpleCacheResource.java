@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 public class SimpleCacheResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(SimpleCacheResource.class);
-	private Map<String,String> cache = new HashMap<>();
+	private static Map<String,String> cache = new HashMap<>();
 	
 	@GET
 	@Path("set/{k}/{v}")
