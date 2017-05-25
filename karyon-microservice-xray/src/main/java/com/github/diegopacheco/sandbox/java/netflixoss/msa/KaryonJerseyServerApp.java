@@ -26,7 +26,7 @@ public interface KaryonJerseyServerApp {
 	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
 	            
 	            interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
-	            interceptorSupport().forUri("/cache").interceptIn(AuthInterceptor.class);
+	            interceptorSupport().forUri("/cache/*").interceptIn(AuthInterceptor.class);
 	            
 	            interceptorSupport().forUri("/cache/").intercept(AWSXrayInterceptor.class);
 	            
