@@ -39,7 +39,6 @@ public class AWSXrayInterceptor implements DuplexInterceptor<HttpServerRequest<B
     	metadata.put("path", request.getPath());
     	metadata.put("uri", request.getUri());
     	metadata.put("method", request.getHttpMethod());
-    	metadata.put("headers", request.getHeaders());
     	AWSXRay.getCurrentSegment().getMetadata().put("params", metadata);
 
     	logger.info("Logging interceptor with AWS XRAY inboud.");
