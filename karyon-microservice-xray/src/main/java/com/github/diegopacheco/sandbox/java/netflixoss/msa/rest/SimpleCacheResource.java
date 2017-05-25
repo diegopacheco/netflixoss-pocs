@@ -28,8 +28,10 @@ public class SimpleCacheResource {
 	@Path("set/{k}/{v}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response set(@PathParam("k") String k,@PathParam("v") String v) {
-		Subsegment subsegment = AWSXRay.beginSubsegment("## Cache.set");
+		Subsegment subsegment = AWSXRay.getCurrentSubsegment(); //AWSXRay.beginSubsegment("## Cache.set");
 		try {
+			 subsegment.putMetadata("paramters", "key", k);
+			 subsegment.putMetadata("paramters", "value", v);
 			cache.put(k, v);
 			return Response.ok("200").build();
 		} catch (Exception e) {
@@ -45,8 +47,9 @@ public class SimpleCacheResource {
 	@Path("get/{k}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@PathParam("k") String k) {
-		Subsegment subsegment = AWSXRay.beginSubsegment("## Cache.get");
+		Subsegment subsegment = AWSXRay.getCurrentSubsegment(); // AWSXRay.beginSubsegment("## Cache.get");
 		try {
+			subsegment.putMetadata("paramters", "key", k);
 			return Response.ok( cache.get(k) ).build();
 		} catch (Exception e) {
 			subsegment.addException(e);
