@@ -33,7 +33,7 @@ public class AWSXrayInterceptor implements DuplexInterceptor<HttpServerRequest<B
     
     @Override
     public Observable<Void> in(HttpServerRequest<ByteBuf> request, HttpServerResponse<ByteBuf> response) {
-    	AWSXRay.beginSegment("cache/" + request.getPath());
+    	AWSXRay.beginSegment(request.getPath());
     	
     	Map<String,Object> metadata = new HashMap<>();
     	metadata.put("path", request.getPath());
