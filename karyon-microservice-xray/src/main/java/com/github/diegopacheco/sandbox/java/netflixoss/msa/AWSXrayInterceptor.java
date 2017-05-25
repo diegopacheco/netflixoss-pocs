@@ -1,6 +1,8 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.msa;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +34,12 @@ public class AWSXrayInterceptor implements DuplexInterceptor<HttpServerRequest<B
     @Override
     public Observable<Void> in(HttpServerRequest<ByteBuf> request, HttpServerResponse<ByteBuf> response) {
     	AWSXRay.beginSegment("cache");
-    	AWSXRay.beginSubsegment(request.getPath());
+    	
+    	Map<String,Object> metadata = new HashMap<>();
+    	metadata.put("path", request.getPath());
+    	AWSXRay.getCurrentSegment().getMetadata().put("params", metadata);
+    	
     	logger.info("Logging interceptor with AWS XRAY inboud.");
-    	AWSXRay.endSubsegment();
     	AWSXRay.endSegment();
         return Observable.empty();
     }
