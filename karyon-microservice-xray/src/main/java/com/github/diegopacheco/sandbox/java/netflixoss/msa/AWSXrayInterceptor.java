@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.amazonaws.xray.AWSXRay;
 import com.amazonaws.xray.AWSXRayRecorderBuilder;
+import com.amazonaws.xray.entities.Subsegment;
 import com.amazonaws.xray.plugins.EC2Plugin;
 import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
 
