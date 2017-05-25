@@ -1,6 +1,5 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.msa.rest;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,10 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazonaws.xray.AWSXRay;
-import com.amazonaws.xray.AWSXRayRecorderBuilder;
-import com.amazonaws.xray.plugins.EC2Plugin;
-import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
-import com.github.diegopacheco.sandbox.java.netflixoss.msa.AWSXrayInterceptor;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -27,16 +22,6 @@ public class SimpleCacheResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(SimpleCacheResource.class);
 	private static Map<String,String> cache = new HashMap<>();
-	
-	static{
-		AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard().withPlugin(new EC2Plugin());
-        URL ruleFile = AWSXrayInterceptor.class.getResource("/sampling-rules.json");
-        builder.withSamplingStrategy(new LocalizedSamplingStrategy(ruleFile));
-        AWSXRay.setGlobalRecorder(builder.build());
-        
-        com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.test");
-        segment.end();
-	}
 	
 	@GET
 	@Path("set/{k}/{v}")
