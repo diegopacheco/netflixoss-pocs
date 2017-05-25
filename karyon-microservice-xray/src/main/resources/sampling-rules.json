@@ -5,7 +5,7 @@
       "description": "Simple Karyon Server.",
       "service_name": "*",
       "http_method": "*",
-      "url_path": "/cache/*",
+      "url_path": "/*",
       "fixed_target": 0,
       "rate": 0.05
     }

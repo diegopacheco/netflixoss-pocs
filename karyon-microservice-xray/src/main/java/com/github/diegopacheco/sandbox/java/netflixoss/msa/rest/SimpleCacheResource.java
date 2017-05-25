@@ -1,5 +1,6 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.msa.rest;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazonaws.xray.AWSXRay;
+import com.amazonaws.xray.AWSXRayRecorderBuilder;
+import com.amazonaws.xray.plugins.EC2Plugin;
+import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
+import com.github.diegopacheco.sandbox.java.netflixoss.msa.AWSXrayInterceptor;
 import com.google.inject.Singleton;
 
 @Singleton
@@ -23,11 +28,21 @@ public class SimpleCacheResource {
 	private static final Logger logger = LoggerFactory.getLogger(SimpleCacheResource.class);
 	private static Map<String,String> cache = new HashMap<>();
 	
+	static{
+		AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard().withPlugin(new EC2Plugin());
+        URL ruleFile = AWSXrayInterceptor.class.getResource("/sampling-rules.json");
+        builder.withSamplingStrategy(new LocalizedSamplingStrategy(ruleFile));
+        AWSXRay.setGlobalRecorder(builder.build());
+        
+        com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.test");
+        segment.end();
+	}
+	
 	@GET
 	@Path("set/{k}/{v}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response set(@PathParam("k") String k,@PathParam("v") String v) {
-		com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.set");  //AWSXRay.beginSubsegment("## Cache.set");
+		com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.set"); 
 		try {
 			 segment.putMetadata("paramters", "key", k);
 			 segment.putMetadata("paramters", "value", v);
@@ -46,7 +61,7 @@ public class SimpleCacheResource {
 	@Path("get/{k}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@PathParam("k") String k) {
-		com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.get"); // AWSXRay.beginSubsegment("## Cache.get");
+		com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.get");
 		try {
 			segment.putMetadata("paramters", "key", k);
 			return Response.ok( cache.get(k) ).build();
