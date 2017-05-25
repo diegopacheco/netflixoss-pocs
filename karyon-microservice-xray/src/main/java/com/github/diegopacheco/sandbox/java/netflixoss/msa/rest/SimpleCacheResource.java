@@ -27,18 +27,18 @@ public class SimpleCacheResource {
 	@Path("set/{k}/{v}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response set(@PathParam("k") String k,@PathParam("v") String v) {
-		com.amazonaws.xray.entities.Segment subsegment = AWSXRay.beginSegment("Cache.set");  //AWSXRay.beginSubsegment("## Cache.set");
+		com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.set");  //AWSXRay.beginSubsegment("## Cache.set");
 		try {
-			 subsegment.putMetadata("paramters", "key", k);
-			 subsegment.putMetadata("paramters", "value", v);
+			 segment.putMetadata("paramters", "key", k);
+			 segment.putMetadata("paramters", "value", v);
 			cache.put(k, v);
 			return Response.ok("200").build();
 		} catch (Exception e) {
-			subsegment.addException(e);
+			segment.addException(e);
 			logger.error("Error creating json response.", e);
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}finally{
-			AWSXRay.endSubsegment();
+			segment.end();
 		}
 	}
 	
@@ -46,16 +46,16 @@ public class SimpleCacheResource {
 	@Path("get/{k}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@PathParam("k") String k) {
-		com.amazonaws.xray.entities.Segment subsegment = AWSXRay.beginSegment("Cache.get"); // AWSXRay.beginSubsegment("## Cache.get");
+		com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.get"); // AWSXRay.beginSubsegment("## Cache.get");
 		try {
-			subsegment.putMetadata("paramters", "key", k);
+			segment.putMetadata("paramters", "key", k);
 			return Response.ok( cache.get(k) ).build();
 		} catch (Exception e) {
-			subsegment.addException(e);
+			segment.addException(e);
 			logger.error("Error creating json response.", e);
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 		}finally{
-			AWSXRay.endSubsegment();
+			segment.end();
 		}
 	}
 
