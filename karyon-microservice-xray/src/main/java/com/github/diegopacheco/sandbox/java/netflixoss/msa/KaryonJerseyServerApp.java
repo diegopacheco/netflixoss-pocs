@@ -26,8 +26,12 @@ public interface KaryonJerseyServerApp {
 	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
 	            
 	            interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
+	            interceptorSupport().forUri("/*").intercept(AWSXrayInterceptor.class);
+	            
 	            interceptorSupport().forUri("/cache").interceptIn(AuthInterceptor.class);
+	            
 	            server().port(6002).threadPoolSize(400);
+	            
 	        }
 	 }
 }
