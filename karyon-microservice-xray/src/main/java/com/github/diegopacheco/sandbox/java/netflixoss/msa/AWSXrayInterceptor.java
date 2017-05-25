@@ -27,25 +27,20 @@ public class AWSXrayInterceptor implements DuplexInterceptor<HttpServerRequest<B
         URL ruleFile = AWSXrayInterceptor.class.getResource("/sampling-rules.json");
         builder.withSamplingStrategy(new LocalizedSamplingStrategy(ruleFile));
         AWSXRay.setGlobalRecorder(builder.build());
-        
-        com.amazonaws.xray.entities.Segment segment = AWSXRay.beginSegment("Cache.test");
-        System.out.println("Testing segments...");
-        segment.end();
 	}
     
     @Override
     public Observable<Void> in(HttpServerRequest<ByteBuf> request, HttpServerResponse<ByteBuf> response) {
     	AWSXRay.beginSegment("cache");
+    	AWSXRay.beginSubsegment(request.getPath());
     	logger.info("Logging interceptor with AWS XRAY inboud.");
+    	AWSXRay.endSubsegment();
     	AWSXRay.endSegment();
         return Observable.empty();
     }
 
     @Override
     public Observable<Void> out(HttpServerResponse<ByteBuf> response) {
-    	AWSXRay.beginSegment("cache");
-    	logger.info("Logging interceptor with AWS XRAY Outbound.");
-    	AWSXRay.endSegment();
         return Observable.empty();
     }
 }
