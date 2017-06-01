@@ -33,23 +33,27 @@ public class AWSXrayInterceptor implements DuplexInterceptor<HttpServerRequest<B
     
     @Override
     public Observable<Void> in(HttpServerRequest<ByteBuf> request, HttpServerResponse<ByteBuf> response) {
-    	AWSXRay.beginSegment(request.getPath());
-    	
-    	Map<String,Object> metadata = new HashMap<>();
-    	metadata.put("path", request.getPath());
-    	metadata.put("uri", request.getUri().toString());
-    	metadata.put("method", request.getHttpMethod().name());
-    	
-    	Map<String,String> headers = new HashMap<>();
-    	for(Map.Entry<String,String> h : request.getHeaders().entries()){
-    		headers.put(h.getKey().toString(), h.getValue().toString());
+    	try{
+    		logger.info("Logging interceptor with AWS XRAY inboud.");
+    		
+    		AWSXRay.beginSegment(request.getPath());
+        	
+        	Map<String,Object> metadata = new HashMap<>();
+        	metadata.put("path", request.getPath());
+        	metadata.put("method", request.getHttpMethod().name());
+        	
+        	Map<String,String> headers = new HashMap<>();
+        	for(Map.Entry<String,String> h : request.getHeaders().entries()){
+        		headers.put(h.getKey().toString(), h.getValue().toString());
+        	}
+        	metadata.put("httpRequestHeaders", headers);
+        	
+        	AWSXRay.getCurrentSegment().getMetadata().put("params", metadata);
+        	AWSXRay.endSegment();
+    	}catch(Exception e){
+    		logger.error("AWS XRAY error: " + e);
     	}
-    	metadata.put("httpRequestHeaders", headers);
     	
-    	AWSXRay.getCurrentSegment().getMetadata().put("params", metadata);
-    	
-    	logger.info("Logging interceptor with AWS XRAY inboud.");
-    	AWSXRay.endSegment();
         return Observable.empty();
     }
 
@@ -57,4 +61,5 @@ public class AWSXrayInterceptor implements DuplexInterceptor<HttpServerRequest<B
     public Observable<Void> out(HttpServerResponse<ByteBuf> response) {
         return Observable.empty();
     }
+    
 }
