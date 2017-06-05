@@ -1,0 +1,16 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8 
+targetCompatibility = 1.8 
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/groups/public/" } 
+    mavenLocal()
+}
+
+dependencies {
+	compile([         
+	   'biz.paluch.redis:lettuce:4.3.2.Final'
+	])
+}
