@@ -1,5 +1,6 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.karyon.rest;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,8 +11,6 @@ import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.inject.Inject;
 
 @Singleton
 @Path("/math")

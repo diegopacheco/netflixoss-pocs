@@ -1,14 +1,17 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.karyon.rest;
 
-import com.github.diegopacheco.sandbox.java.netflixoss.karyon.ribbon.RibbonClient;
-import com.google.inject.Inject;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
+import com.github.diegopacheco.sandbox.java.netflixoss.karyon.ribbon.RibbonMathClient;
+
+@Singleton
 public class CalcService {
 	
-	private RibbonClient client;
+	private RibbonMathClient client;
 	
 	@Inject
-	public CalcService(RibbonClient client) {
+	public CalcService(RibbonMathClient client) {
 		this.client = client;
 	}
 	

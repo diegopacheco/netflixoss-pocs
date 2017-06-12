@@ -17,7 +17,7 @@ import io.netty.buffer.ByteBuf;
 import rx.Observable;
 
 @SuppressWarnings("unchecked")
-public class RibbonClient {
+public class RibbonMathClient { 
 	
 	private String callService(String microservice,String path,Double a,Double b){
 			

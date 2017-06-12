@@ -46,15 +46,15 @@ dependencies {
 			  'com.netflix.karyon:karyon2-eureka:2.7.2',
 			  
 			  'com.sun.jersey:jersey-client:1.18.4',
-			  
+
 			  'com.netflix.ribbon:ribbon:2.1.0',
 			  'com.netflix.ribbon:ribbon-core:2.1.0',
 			  'com.netflix.ribbon:ribbon-httpclient:2.1.0',
 			  'com.netflix.ribbon:ribbon-transport:2.1.0',
 			  'com.netflix.ribbon:ribbon-loadbalancer:2.1.0',
 			  'com.netflix.ribbon:ribbon-httpasyncclient:0.3.13',
-			  
-			  'com.netflix.eureka:eureka-core:1.2.1'
+			  'com.netflix.ribbon:ribbon-eureka:2.1.0',
+    		  'com.google.code.gson:gson:2.3.1'
 			  		  
 		    ])
     
