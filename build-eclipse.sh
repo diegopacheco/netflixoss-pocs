@@ -1,11 +1,13 @@
 #!/bin/bash
 
 function traverse() {
-    for file in $(ls "$1")
+    for directory in $(ls "$1")
     do
-        if [[ -d ${1}/${file} ]]; then
-            echo "Processing ${1}/${file}... "
+        if [[ -d ${1}/${directory} ]]; then
+            echo "Processing ${1}/${directory}... "
+            cd "${1}/${directory}"
             ./gradlew build eclipse
+            cd ../
         fi
     done
 }
