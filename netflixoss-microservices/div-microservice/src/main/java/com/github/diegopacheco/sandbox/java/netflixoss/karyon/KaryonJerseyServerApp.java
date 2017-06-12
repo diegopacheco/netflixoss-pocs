@@ -25,7 +25,6 @@ public interface KaryonJerseyServerApp {
 	 class KaryonJerseyModuleImpl extends KaryonJerseyModule {
 	        @Override
 	        protected void configureServer() {
-	        	
 	        	bind(DivService.class).asEagerSingleton();
 	        	
 	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
