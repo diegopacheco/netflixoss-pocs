@@ -5,8 +5,8 @@
 	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer" exported="true"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER" exported="true"/>
 	<classpathentry path="bin" kind="output"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.2.5.RELEASE/ac62fc7fe2bda919ffb8b0f5019187e723ff7159/spring-boot-starter-web-1.2.5.RELEASE-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.2.5.RELEASE/afe2043ba5aa7d112a4ef0c907ebc6dbf8b93ce5/spring-boot-starter-web-1.2.5.RELEASE.jar"/>
 	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/io.gatling/gatling-core/2.1.7/2c9ad2ab02ac15eb75021848a03f58273be759a0/gatling-core-2.1.7-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/io.gatling/gatling-core/2.1.7/73974e83fe7e7d860395f1255f0b1998b06b6d71/gatling-core-2.1.7.jar"/>
 	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/io.gatling/gatling-http/2.1.7/2b980779dee615a4d709907f07d786253d82f579/gatling-http-2.1.7-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/io.gatling/gatling-http/2.1.7/e4dfdc85bbab5c552c10520205bf577c8f4cc8e1/gatling-http-2.1.7.jar"/>
