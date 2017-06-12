@@ -8,6 +8,7 @@ import netflix.adminresources.resources.KaryonWebAdminModule;
 import netflix.karyon.KaryonBootstrap;
 import netflix.karyon.ShutdownModule;
 import netflix.karyon.archaius.ArchaiusBootstrap;
+import netflix.karyon.eureka.KaryonEurekaModule;
 import netflix.karyon.jersey.blocking.KaryonJerseyModule;
 import netflix.karyon.servo.KaryonServoModule;
 
@@ -18,7 +19,7 @@ import netflix.karyon.servo.KaryonServoModule;
         KaryonWebAdminModule.class,
         KaryonServoModule.class,
         KaryonJerseyModuleImpl.class,
-        //KaryonEurekaModule.class 
+        KaryonEurekaModule.class 
 })
 public interface KaryonJerseyServerApp {
 	 class KaryonJerseyModuleImpl extends KaryonJerseyModule {

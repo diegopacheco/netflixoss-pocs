@@ -19,7 +19,7 @@ import netflix.karyon.servo.KaryonServoModule;
         KaryonWebAdminModule.class,
         KaryonServoModule.class,
         KaryonJerseyModuleImpl.class,
-        //KaryonEurekaModule.class 
+        KaryonEurekaModule.class 
 })
 public interface KaryonJerseyServerApp {
 	 class KaryonJerseyModuleImpl extends KaryonJerseyModule {
