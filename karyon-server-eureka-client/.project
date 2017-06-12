@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<filteredResources>
-		<filter>
-			<id>1440909325480</id>
-			<name/>
-			<type>26</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-false-false-build</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1440909325484</id>
-			<name/>
-			<type>26</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-projectRelativePath-matches-false-false-.gradle</arguments>
-			</matcher>
-		</filter>
-	</filteredResources>
 	<name>karyon-server-eureka-client</name>
-	<comment/>
+	<comment></comment>
 	<projects/>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
@@ -38,4 +18,24 @@
 		</buildCommand>
 	</buildSpec>
 	<linkedResources/>
+	<filteredResources>
+		<filter>
+			<id>1</id>
+			<type>26</type>
+			<name/>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-projectRelativePath-matches-false-false-build</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>2</id>
+			<type>26</type>
+			<name/>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-projectRelativePath-matches-false-false-.gradle</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
 </projectDescription>

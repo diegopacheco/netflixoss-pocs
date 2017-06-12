@@ -2,7 +2,15 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_45"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer" exported="true"/>
+	<classpathentry path="bin" kind="output"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/5be7bd3f38e43c8fc83699bbb5328c62adb95bbf/reactive-streams-1.0.0-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.0/14b8c877d98005ba3941c9257cfe09f6ed0e0d74/reactive-streams-1.0.0.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams-tck/1.0.0/a6cf8c7ba9ddf7f2921acf1bb1e93b727b318cb/reactive-streams-tck-1.0.0-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams-tck/1.0.0/11e21b2db8e9ba0a89813d1fdc7a639d92268a19/reactive-streams-tck-1.0.0.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams-examples/1.0.0/7a238ffebe48eba67057e960fe5b8b8a468a5d5a/reactive-streams-examples-1.0.0-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams-examples/1.0.0/8363893cdd0f12b9393a723bb010111ee0dc0974/reactive-streams-examples-1.0.0.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.testng/testng/5.14.10/4b51b81803b3d737d0115f01fd00b479c3e65337/testng-5.14.10-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.testng/testng/5.14.10/29944bce4d63741f55ee90a30d74750341c5b39d/testng-5.14.10.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/junit/junit/3.8.1/525753763e53f6f76da052b316d0f2e3bfa4d73/junit-3.8.1-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/junit/junit/3.8.1/99129f16442844f6a4a11ae22fbbee40b14d774f/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.beanshell/bsh/2.0b4/a05f0a0feefa8d8467ac80e16e7de071489f0d9c/bsh-2.0b4.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.beust/jcommander/1.12/b48b3ece6fb6272e00bd76c377fedb1bfa83fe59/jcommander-1.12-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.beust/jcommander/1.12/7409692b48022f9eca7445861defbcdb9ee3c2a8/jcommander-1.12.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.6/ad2f59fe7bbbf758ee5f7282de133f18d5d3eda3/snakeyaml-1.6-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.6/a1e23e31c424d566ee27382e373d73a28fdabd88/snakeyaml-1.6.jar"/>
 </classpath>

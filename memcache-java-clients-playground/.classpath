@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
 	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer" exported="true"/>
 	<classpathentry kind="output" path="bin"/>
-	<classpathentry sourcepath="C:/Users/diego/.gradle/caches/modules-2/files-2.1/com.googlecode.xmemcached/xmemcached/2.0.0/43db1ed4d797df9f556375ab999e0345cd7582b5/xmemcached-2.0.0-sources.jar" kind="lib" path="C:/Users/diego/.gradle/caches/modules-2/files-2.1/com.googlecode.xmemcached/xmemcached/2.0.0/ea40216a659cf5c6df82e03af906afab08e26257/xmemcached-2.0.0.jar" exported="true"/>
-	<classpathentry sourcepath="C:/Users/diego/.m2/repository/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5-sources.jar" kind="lib" path="C:/Users/diego/.m2/repository/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar" exported="true"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.googlecode.xmemcached/xmemcached/2.0.0/43db1ed4d797df9f556375ab999e0345cd7582b5/xmemcached-2.0.0-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.googlecode.xmemcached/xmemcached/2.0.0/ea40216a659cf5c6df82e03af906afab08e26257/xmemcached-2.0.0.jar" exported="true"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.5/654135274d4c27132ea208a4ec07f344bdb83bcb/slf4j-api-1.7.5-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.5/6b262da268f8ad9eff941b25503a9198f0a0ac93/slf4j-api-1.7.5.jar" exported="true"/>
 </classpath>

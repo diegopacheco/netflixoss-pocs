@@ -2,7 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer" exported="true"/>
+	<classpathentry path="bin" kind="output"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.0.13/bc4a7a6ffde71a7604bceed00d396193e4836543/rxjava-1.0.13-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.0.13/b8668706414b5936d38c8a9e4c2be16e3c999c62/rxjava-1.0.13.jar"/>
 </classpath>

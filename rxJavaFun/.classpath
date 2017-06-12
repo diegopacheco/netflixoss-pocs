@@ -2,13 +2,23 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/scala"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer" exported="true"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry path="target/classes" kind="output"/>
+	<classpathentry path="bin" kind="output"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-scala/0.20.4/fb58939ff408e1a76feac067e18057efa8101e9b/rxjava-scala-0.20.4-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-scala/0.20.4/5d9166e2abdd8f424e521a432be631a57156267e/rxjava-scala-0.20.4.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-apache-http/0.20.4/f231aead6617f9a9c3c822330686c7b9303437b6/rxjava-apache-http-0.20.4-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-apache-http/0.20.4/a72e68dcd570f429da9d1f394b43f24d82600349/rxjava-apache-http-0.20.4.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-core/0.20.4/1e03877b6d71a4bc28540f112217985d548c5bda/rxjava-core-0.20.4-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-core/0.20.4/bbb645aee7782cd4ba838442f42edf1a1d352604/rxjava-core-0.20.4.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpasyncclient/4.0/5e23adc8ee17546d4ca0bac70fef750394b11e15/httpasyncclient-4.0-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpasyncclient/4.0/7998e17d83fce5f41337bccebb73a9345e5ef256/httpasyncclient-4.0.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore-nio/4.3/1cb5bffeb2cd1aa2aeaeb90d7bf746eeda2f8584/httpcore-nio-4.3-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore-nio/4.3/d2d9f8c1fc7b2acf4240c6fd77f31a0efe66d2ef/httpcore-nio-4.3.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.3/738a12248cd70aa816499cb6b42dd493bc3a34cd/httpcore-4.3-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.3/11393498b38e9695d0850cac26fde5613ae268b9/httpcore-4.3.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.3/28bb0405fddaf04f15058fbfbe01fe2780d7d3b6/commons-logging-1.1.3-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.3/f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f/commons-logging-1.1.3.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.6/61e9f9d11fe3e12ec62f633006e99d75fd7f19c8/commons-codec-1.6-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.6/b7f0fc8f61ecadeb3695f0b9464755eee44374d4/commons-codec-1.6.jar"/>
+	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.3.1/9276b487382d11537802275ef71050f17d5f4305/httpclient-4.3.1-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.3.1/ec13f6423eb6d5858e229939a2bc118473ef94c/httpclient-4.3.1.jar"/>
 </classpath>

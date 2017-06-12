@@ -2,17 +2,22 @@
 <projectDescription>
 	<name>feign-client-fun</name>
 	<comment></comment>
-	<projects>
-	</projects>
-	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
+	<projects/>
 	<natures>
 		<nature>org.springsource.ide.eclipse.gradle.core.nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.scala-ide.sdt.core.scalanature</nature>
 	</natures>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments/>
+		</buildCommand>
+		<buildCommand>
+			<name>org.scala-ide.sdt.core.scalabuilder</name>
+			<arguments/>
+		</buildCommand>
+	</buildSpec>
+	<linkedResources/>
+	<filteredResources/>
 </projectDescription>
