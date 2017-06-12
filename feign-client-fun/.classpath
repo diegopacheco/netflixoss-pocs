@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer" exported="true"/>
 	<classpathentry path="bin" kind="output"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.feign/feign-core/8.1.1/711f44affc4e4a813f271c2a6afc36b8b2bdb5c2/feign-core-8.1.1-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.feign/feign-core/8.1.1/b22a4e898d7929d6a5313a8e312e93665ce15a15/feign-core-8.1.1.jar"/>
 	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.feign/feign-jackson/8.1.1/21c903e2b6582bd8098842f3eeb12756d63645c9/feign-jackson-8.1.1-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.feign/feign-jackson/8.1.1/30433d7e0f5368271fde0fad18399de6d6e65b2/feign-jackson-8.1.1.jar"/>
 	<classpathentry sourcepath="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.feign/feign-gson/8.1.1/241cd8b496d7babdb9561489f4e81593e5561919/feign-gson-8.1.1-sources.jar" kind="lib" path="/home/diego/.gradle/caches/modules-2/files-2.1/com.netflix.feign/feign-gson/8.1.1/10041935ae83a3aafa9a5385454a5d68b89e1c0d/feign-gson-8.1.1.jar"/>
