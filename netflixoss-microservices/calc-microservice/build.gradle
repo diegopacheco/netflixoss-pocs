@@ -5,7 +5,7 @@ apply plugin: 'eclipse'
 version = '1.0'
 sourceCompatibility = 1.8
 
-mainClassName = "com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.ServerRunner"
+mainClassName = "com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa.ServerRunner"
 applicationDefaultJvmArgs = [
 								 "-Djava.net.preferIPv4Stack=true",
 								 "-Djava.net.preferIPv6Addresses=false",

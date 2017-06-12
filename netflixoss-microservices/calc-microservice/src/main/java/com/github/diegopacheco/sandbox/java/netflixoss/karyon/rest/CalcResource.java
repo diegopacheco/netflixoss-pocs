@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Inject;
+
 @Singleton
 @Path("/math")
 public class CalcResource {
@@ -19,6 +21,7 @@ public class CalcResource {
 	
 	private CalcService service;
 	
+	@Inject
 	public CalcResource(CalcService service) {
 		this.service = service;
 	}
