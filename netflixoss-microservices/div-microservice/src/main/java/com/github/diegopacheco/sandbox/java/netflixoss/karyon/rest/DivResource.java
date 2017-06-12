@@ -28,10 +28,10 @@ public class DivResource {
 	
 	@GET
 	@Path("div/{a}/{b}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public Response set(@PathParam("a") Double a,@PathParam("b") Double b) {
 		try {
-			return Response.ok( service.div(a, b)  ).build();
+			return Response.ok( service.div(a, b) + "" ).build();
 		} catch (Exception e) {
 			logger.error("Error creating json response.", e);
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

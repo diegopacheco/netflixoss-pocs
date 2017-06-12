@@ -27,10 +27,10 @@ public class CalcResource {
 	
 	@GET
 	@Path("calc/{expr}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public Response set(@PathParam("expr") String expr) {
 		try {
-			return Response.ok( service.calc(expr)  ).build();
+			return Response.ok( service.calc(expr) + ""  ).build();
 		} catch (Exception e) {
 			logger.error("Error creating json response.", e);
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
