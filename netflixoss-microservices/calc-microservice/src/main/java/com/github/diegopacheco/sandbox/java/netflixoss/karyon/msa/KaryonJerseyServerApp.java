@@ -2,6 +2,7 @@ package com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa;
 
 import com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa.KaryonJerseyServerApp.KaryonJerseyModuleImpl;
 import com.github.diegopacheco.sandbox.java.netflixoss.karyon.rest.CalcService;
+import com.github.diegopacheco.sandbox.java.netflixoss.karyon.ribbon.RibbonClient;
 import com.netflix.governator.annotations.Modules;
 
 import netflix.adminresources.resources.KaryonWebAdminModule;
@@ -25,6 +26,7 @@ public interface KaryonJerseyServerApp {
 	        @Override
 	        protected void configureServer() {
 	        	
+	        	bind(RibbonClient.class).asEagerSingleton();
 	        	bind(CalcService.class).asEagerSingleton();
 	        	
 	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
