@@ -1,7 +1,6 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa;
 
 import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.KaryonJerseyServerApp.KaryonJerseyModuleImpl;
-import com.github.diegopacheco.sandbox.java.netflixoss.dyno.msa.rest.DynoManager;
 import com.netflix.governator.annotations.Modules;
 
 import netflix.adminresources.resources.KaryonWebAdminModule;
@@ -25,8 +24,6 @@ public interface KaryonJerseyServerApp {
 	        @Override
 	        protected void configureServer() {
 	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
-	            bind(DynoManager.class).asEagerSingleton();
-	            
 	            interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
 	            interceptorSupport().forUri("/cache").interceptIn(AuthInterceptor.class);
 	            server().port(6002).threadPoolSize(400);
