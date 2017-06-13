@@ -118,10 +118,10 @@ public class HystrixStreamResource {
 						Thread.sleep(delay);
 						count++;
 						if(count==9){
-							response.flush();
-							count=0;
+							break;
 						}
 					}
+					response.flush();
 				} catch (InterruptedException e) {
 					poller.shutdown();
 					logger.debug("InterruptedException. Will stop polling.");

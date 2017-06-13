@@ -38,14 +38,21 @@ dependencies {
 			  'org.slf4j:slf4j-log4j12:1.7.12',
 			  'org.slf4j:slf4j-jdk14:1.7.12',
 			  
-			  'com.netflix.karyon:karyon2-core:2.7.2',
-			  'com.netflix.karyon:karyon2-jersey-blocking:2.7.2',
-			  'com.netflix.karyon:karyon2-archaius:2.7.2',
-			  'com.netflix.karyon:karyon2-servo:2.7.2',
-			  'com.netflix.karyon:karyon2-admin-web:2.7.2',
-			  'com.netflix.karyon:karyon2-eureka:2.7.2',
+			  'com.netflix.karyon:karyon2-core:2.7.5',
+			  'com.netflix.karyon:karyon2-jersey-blocking:2.7.5',
+			  'com.netflix.karyon:karyon2-archaius:2.7.5',
+			  'com.netflix.karyon:karyon2-servo:2.7.5',
+			  'com.netflix.karyon:karyon2-admin-web:2.7.5',
+			  'com.netflix.karyon:karyon2-eureka:2.7.5',
+			  'com.scmspain.karyon:karyon2-hystrix-stream:0.1.1',
+			  
+			  'io.reactivex:rxnetty:0.5.1',
 			  
 			  'com.sun.jersey:jersey-client:1.18.4',
+
+  			  'org.eclipse.jetty:jetty-server:9.3.13.v20161014',
+  			  'org.eclipse.jetty:jetty-servlet:9.3.13.v20161014',
+  			  'com.google.inject.extensions:guice-servlet:3.0',
 
 			  'com.netflix.ribbon:ribbon:2.1.0',
 			  'com.netflix.ribbon:ribbon-core:2.1.0',
@@ -57,9 +64,9 @@ dependencies {
     		  'com.google.code.gson:gson:2.3.1',
     		  
     		  'com.netflix.hystrix:hystrix-core:1.4.14',
-			  'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.4.14',
-			  'com.netflix.hystrix:hystrix-metrics-event-stream:1.4.14',
-			  'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.4.14'	
+			  'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.5.12',
+			  'com.netflix.hystrix:hystrix-metrics-event-stream:1.5.12',
+			  'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.5.12'	
 			  		  
 		    ])
     

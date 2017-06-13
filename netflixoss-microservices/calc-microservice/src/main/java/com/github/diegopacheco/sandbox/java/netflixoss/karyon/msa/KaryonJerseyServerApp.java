@@ -1,15 +1,14 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa;
 
 import com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa.KaryonJerseyServerApp.KaryonJerseyModuleImpl;
-import com.github.diegopacheco.sandbox.java.netflixoss.karyon.rest.CalcService;
-import com.github.diegopacheco.sandbox.java.netflixoss.karyon.ribbon.RibbonMathClient;
 import com.netflix.governator.annotations.Modules;
+import com.scmspain.karyon.hystrixstreamendpoint.module.HystrixStreamEndPointModule;
 
 import netflix.adminresources.resources.KaryonWebAdminModule;
 import netflix.karyon.KaryonBootstrap;
 import netflix.karyon.archaius.ArchaiusBootstrap;
 import netflix.karyon.eureka.KaryonEurekaModule;
-import netflix.karyon.jersey.blocking.JerseyBasedRouter;
+import netflix.karyon.jersey.blocking.KaryonJerseyModule;
 import netflix.karyon.servo.KaryonServoModule;
 
 @ArchaiusBootstrap
@@ -18,27 +17,21 @@ import netflix.karyon.servo.KaryonServoModule;
         ShutdownModule.class,
         KaryonWebAdminModule.class,
         KaryonServoModule.class,
-        KaryonJerseyModuleImpl.class,
-        KaryonEurekaModule.class 
+        KaryonEurekaModule.class,
+        GuiceBindingsModule.class,
+        HystrixStreamEndPointModule.class,
+        KaryonJerseyModuleImpl.class
 })
 public interface KaryonJerseyServerApp {
-	 class KaryonJerseyModuleImpl extends KaryonHystrixModule {
-		
-		@javax.inject.Inject
-	    public KaryonJerseyModuleImpl(JerseyBasedRouter jerseyRouter) {
-			super(jerseyRouter);
-		}
-
-		@Override
-	    protected void configureServer() {
-	    	
-	    	bind(RibbonMathClient.class);
-	    	bind(CalcService.class);
-	    	
-	        bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
-	        interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
-	        interceptorSupport().forUri("/*").interceptIn(AuthInterceptor.class);
-	        server().port(6005).threadPoolSize(400);
-	    }
-	 }
+	class KaryonJerseyModuleImpl extends KaryonJerseyModule {
+        @Override
+        protected void configureServer() {
+    		bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
+    		
+    		interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
+            interceptorSupport().forUri("/*").interceptIn(AuthInterceptor.class);
+            
+            server().port(6005).threadPoolSize(400);		
+        }
+	}	
 }
