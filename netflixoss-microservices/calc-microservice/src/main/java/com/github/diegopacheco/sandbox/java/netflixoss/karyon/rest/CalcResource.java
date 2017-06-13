@@ -12,6 +12,8 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.diegopacheco.sandbox.java.netflixoss.karyon.hystrix.SimpleCommand;
+
 @Singleton
 @Path("/math")
 public class CalcResource {
@@ -31,6 +33,23 @@ public class CalcResource {
 	public Response set(@PathParam("expr") String expr) {
 		try {
 			return Response.ok( service.calc(expr) + ""  ).
+							header("CREATED_BY", ArchaiusPropsManager.getInstance().getCreator()).
+							build();
+		} catch (Exception e) {
+			logger.error("Error creating json response.", e);
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Path("ops")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response ops() {
+		try {
+			
+			String result = new SimpleCommand("+-/*").observe().toBlocking().first();
+			
+			return Response.ok( result ).
 							header("CREATED_BY", ArchaiusPropsManager.getInstance().getCreator()).
 							build();
 		} catch (Exception e) {

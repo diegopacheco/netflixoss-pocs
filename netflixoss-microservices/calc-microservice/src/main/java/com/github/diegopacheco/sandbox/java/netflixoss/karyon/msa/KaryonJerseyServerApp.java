@@ -23,7 +23,8 @@ import netflix.karyon.servo.KaryonServoModule;
 })
 public interface KaryonJerseyServerApp {
 	 class KaryonJerseyModuleImpl extends KaryonHystrixModule {
-		 
+		
+		@javax.inject.Inject
 	    public KaryonJerseyModuleImpl(JerseyBasedRouter jerseyRouter) {
 			super(jerseyRouter);
 		}
@@ -36,8 +37,7 @@ public interface KaryonJerseyServerApp {
 	    	
 	        bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
 	        interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
-	        interceptorSupport().forUri("/math").interceptIn(AuthInterceptor.class);
-	        interceptorSupport().forUri("/metrics").interceptIn(AuthInterceptor.class);
+	        interceptorSupport().forUri("/*").interceptIn(AuthInterceptor.class);
 	        server().port(6005).threadPoolSize(400);
 	    }
 	 }

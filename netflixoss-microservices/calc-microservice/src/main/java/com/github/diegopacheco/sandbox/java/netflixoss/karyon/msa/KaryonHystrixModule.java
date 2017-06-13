@@ -11,14 +11,14 @@ import netflix.karyon.jersey.blocking.JerseyBasedRouter;
 import netflix.karyon.jersey.blocking.KaryonJerseyModule;
 import rx.Observable;
 
-public class KaryonHystrixModule extends KaryonJerseyModule implements RequestHandler<ByteBuf, ByteBuf>  {
+public class KaryonHystrixModule extends KaryonJerseyModule implements RequestHandler<ByteBuf, ByteBuf> {
 
 	private final HystrixMetricsStreamHandler<ByteBuf, ByteBuf> hystrixStreamHandler;
 
-	@Inject 
-	  public KaryonHystrixModule(JerseyBasedRouter jerseyRouter) {
-	    this.hystrixStreamHandler = new HystrixMetricsStreamHandler<ByteBuf, ByteBuf>(jerseyRouter);
-	  }
+	@Inject
+	public KaryonHystrixModule(JerseyBasedRouter jerseyRouter) {
+		this.hystrixStreamHandler = new HystrixMetricsStreamHandler<ByteBuf, ByteBuf>(jerseyRouter);
+	}
 
 	@Override
 	public Observable<Void> handle(HttpServerRequest<ByteBuf> request, HttpServerResponse<ByteBuf> response) {
