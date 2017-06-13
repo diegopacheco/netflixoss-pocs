@@ -1,8 +1,10 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.karyon.rest;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -27,7 +29,7 @@ import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsPoller;
 
 @Singleton
 @Path("/metrics")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_OCTET_STREAM)
 public class HystrixStreamResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(HystrixStreamResource.class);
@@ -38,7 +40,6 @@ public class HystrixStreamResource {
 
 	@GET
 	@Path("hystrix.stream")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response getHystrixStreamResource(@QueryParam("delay") Integer delay) {
 		int numberConnections = concurrentConnections.incrementAndGet();
 
@@ -50,11 +51,10 @@ public class HystrixStreamResource {
 			delay = Integer.valueOf(500);
 
 		return Response.ok(new HystrixMetrics(delay)).header("Content-Type", "text/event-stream;charset=UTF-8")
-				.header("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate").
-				 header("Pragma", "no-cache")
+				.header("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate").header("Pragma", "no-cache")
 				.build();
 	}
-	
+
 	private static class MetricJsonListener implements HystrixMetricsPoller.MetricsAsJsonPollerListener {
 		private LinkedBlockingQueue<String> jsonMetrics;
 
@@ -90,8 +90,7 @@ public class HystrixStreamResource {
 		@Override
 		public void write(OutputStream output) throws IOException, WebApplicationException {
 			HystrixMetricsPoller poller = null;
-
-			final PrintWriter response = new PrintWriter(output);
+			final Writer response = new BufferedWriter(new OutputStreamWriter(output));
 
 			try {
 				int queueSize = metricListenerQueueSize.get();
@@ -106,21 +105,18 @@ public class HystrixStreamResource {
 					while (poller.isRunning() && !isDestroyed) {
 						List<String> jsonMessages = jsonListener.getJsonMetrics();
 						if (jsonMessages.isEmpty()) {
-							response.println("ping: \n");
+							response.write("ping: \n");
 						} else {
 							for (String json : jsonMessages) {
-								response.println("data: " + json + "\n");
+								response.write("data: " + json + "\n");
 							}
 						}
 						if (isDestroyed) {
 							break;
 						}
 						response.flush();
-						if (response.checkError()) {
-							throw new IOException("io error");
-						}
-
 						Thread.sleep(delay);
+						break;
 					}
 				} catch (InterruptedException e) {
 					poller.shutdown();
@@ -129,7 +125,9 @@ public class HystrixStreamResource {
 
 				} catch (IOException e) {
 					poller.shutdown();
-					logger.debug("IOException while trying to write (generally caused by client disconnecting). Will stop polling.",e);
+					logger.debug(
+							"IOException while trying to write (generally caused by client disconnecting). Will stop polling.",
+							e);
 				} catch (Exception e) {
 					poller.shutdown();
 					logger.error("Failed to write Hystrix metrics. Will stop polling.", e);
