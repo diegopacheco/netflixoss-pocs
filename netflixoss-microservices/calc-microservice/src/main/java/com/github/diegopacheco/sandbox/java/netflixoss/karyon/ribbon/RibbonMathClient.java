@@ -19,19 +19,33 @@ import rx.Observable;
 @SuppressWarnings("unchecked")
 public class RibbonMathClient { 
 	
+	private EurekaClient eurekaClient;
+	
+	private EurekaClient getEurekaClient(){
+		if (eurekaClient==null){
+			LifecycleInjectorBuilder builder = LifecycleInjector.builder();
+			Injector injector = builder.build().createInjector();
+			eurekaClient = injector.getInstance(EurekaClient.class);
+		}
+		return eurekaClient;
+	}
+	
+	private String getServerIP(String microservice){
+		try{
+			InstanceInfo info = getEurekaClient().getApplication(microservice.toUpperCase()).getInstances().get(0);
+			String serverPort =  "http://" + info.getVIPAddress() + ":" + info.getPort();
+			return serverPort;
+		}catch(Exception e){
+			throw new RuntimeException("Could not get Microservice IP:PORT. EX: " + e);
+		}
+	}
+	
 	private String callService(String microservice,String path,Double a,Double b){
-			
-		LifecycleInjectorBuilder builder = LifecycleInjector.builder();
-		Injector injector = builder.build().createInjector();
-		EurekaClient client = injector.getInstance(EurekaClient.class);
-		
-		InstanceInfo info = client.getApplication(microservice).getInstances().get(0);
-		String serverPort =  "http://" + info.getVIPAddress() + ":" + info.getPort();
-		
+
 		HttpResourceGroup httpRG = Ribbon.createHttpResourceGroup("apiGroup",
 	            ClientOptions.create()
                 .withMaxAutoRetriesNextServer(1)
-                .withConfigurationBasedServerList(serverPort));
+                .withConfigurationBasedServerList(getServerIP(microservice)));
 		
 		HttpRequestTemplate<ByteBuf> apiTemplate = httpRG.newTemplateBuilder("apiCall",ByteBuf.class)
 		            .withMethod("GET")
@@ -50,19 +64,19 @@ public class RibbonMathClient {
 	}
 	
 	public Observable<Double> sum(Double a, Double b){
-		return Observable.just(new Double(callService("sum-microservice","/math/sum/",a,b)));
+		return Observable.just(new Double(callService("sum-service","/math/sum/",a,b)));
 	}
 	
 	public Observable<Double> sub(Double a, Double b){
-		return Observable.just(new Double(callService("sub-microservice", "/math/sub/",a,b)));
+		return Observable.just(new Double(callService("sub-service", "/math/sub/",a,b)));
 	}
 	
 	public Observable<Double> mul(Double a, Double b){
-		return Observable.just(new Double(callService("mul-microservice" ,"/math/mul/",a,b)));
+		return Observable.just(new Double(callService("mul-service" ,"/math/mul/",a,b)));
 	}
 	
 	public Observable<Double> div(Double a, Double b){
-		return Observable.just(new Double(callService("div-microservice", "/math/div/",a,b)));
+		return Observable.just(new Double(callService("div-service", "/math/div/",a,b)));
 	}
 	
 }
