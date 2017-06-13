@@ -35,6 +35,7 @@ eclipse {
 
 configurations {
     all*.exclude group: 'org.mortbay.jetty', module: 'servlet-api'
+    all*.exclude group: 'org.mortbay.jetty', module: 'jetty'
 }
 
 dependencies {
