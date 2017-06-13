@@ -37,7 +37,7 @@ public class HystrixStreamResource {
 	private static AtomicInteger concurrentConnections = new AtomicInteger(0);
 	private static DynamicIntProperty maxConnections = DynamicPropertyFactory.getInstance().getIntProperty("hystrix.stream.maxConnections", 5);
 	private static DynamicIntProperty metricListenerQueueSize = DynamicPropertyFactory.getInstance().getIntProperty("hystrix.stream.metricListenerQueueSize", 1000);
-
+	
 	@GET
 	@Path("hystrix.stream")
 	public Response getHystrixStreamResource(@QueryParam("delay") Integer delay) {
@@ -102,7 +102,8 @@ public class HystrixStreamResource {
 				logger.debug("Starting poller");
 
 				try {
-					while (poller.isRunning() && !isDestroyed) {
+					int count = 0;
+					while (poller.isRunning() && !isDestroyed && count<=10) {
 						List<String> jsonMessages = jsonListener.getJsonMetrics();
 						if (jsonMessages.isEmpty()) {
 							response.write("ping: \n");
@@ -114,9 +115,12 @@ public class HystrixStreamResource {
 						if (isDestroyed) {
 							break;
 						}
-						response.flush();
 						Thread.sleep(delay);
-						break;
+						count++;
+						if(count==9){
+							response.flush();
+							count=0;
+						}
 					}
 				} catch (InterruptedException e) {
 					poller.shutdown();
