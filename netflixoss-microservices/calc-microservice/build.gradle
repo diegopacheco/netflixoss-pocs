@@ -54,7 +54,12 @@ dependencies {
 			  'com.netflix.ribbon:ribbon-loadbalancer:2.1.0',
 			  'com.netflix.ribbon:ribbon-httpasyncclient:0.3.13',
 			  'com.netflix.ribbon:ribbon-eureka:2.1.0',
-    		  'com.google.code.gson:gson:2.3.1'
+    		  'com.google.code.gson:gson:2.3.1',
+    		  
+    		  'com.netflix.hystrix:hystrix-core:1.4.14',
+			  'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.4.14',
+			  'com.netflix.hystrix:hystrix-metrics-event-stream:1.4.14',
+			  'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.4.14'	
 			  		  
 		    ])
     

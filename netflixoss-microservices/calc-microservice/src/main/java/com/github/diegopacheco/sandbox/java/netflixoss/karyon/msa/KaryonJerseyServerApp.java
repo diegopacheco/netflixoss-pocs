@@ -9,7 +9,7 @@ import netflix.adminresources.resources.KaryonWebAdminModule;
 import netflix.karyon.KaryonBootstrap;
 import netflix.karyon.archaius.ArchaiusBootstrap;
 import netflix.karyon.eureka.KaryonEurekaModule;
-import netflix.karyon.jersey.blocking.KaryonJerseyModule;
+import netflix.karyon.jersey.blocking.JerseyBasedRouter;
 import netflix.karyon.servo.KaryonServoModule;
 
 @ArchaiusBootstrap
@@ -22,17 +22,23 @@ import netflix.karyon.servo.KaryonServoModule;
         KaryonEurekaModule.class 
 })
 public interface KaryonJerseyServerApp {
-	 class KaryonJerseyModuleImpl extends KaryonJerseyModule {
-	        @Override
-	        protected void configureServer() {
-	        	
-	        	bind(RibbonMathClient.class);
-	        	bind(CalcService.class);
-	        	
-	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
-	            interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
-	            interceptorSupport().forUri("/math").interceptIn(AuthInterceptor.class);
-	            server().port(6005).threadPoolSize(400);
-	        }
+	 class KaryonJerseyModuleImpl extends KaryonHystrixModule {
+		 
+	    public KaryonJerseyModuleImpl(JerseyBasedRouter jerseyRouter) {
+			super(jerseyRouter);
+		}
+
+		@Override
+	    protected void configureServer() {
+	    	
+	    	bind(RibbonMathClient.class);
+	    	bind(CalcService.class);
+	    	
+	        bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
+	        interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
+	        interceptorSupport().forUri("/math").interceptIn(AuthInterceptor.class);
+	        interceptorSupport().forUri("/metrics").interceptIn(AuthInterceptor.class);
+	        server().port(6005).threadPoolSize(400);
+	    }
 	 }
 }
