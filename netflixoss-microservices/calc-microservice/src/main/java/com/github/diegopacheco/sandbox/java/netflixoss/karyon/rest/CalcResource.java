@@ -30,7 +30,9 @@ public class CalcResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response set(@PathParam("expr") String expr) {
 		try {
-			return Response.ok( service.calc(expr) + ""  ).build();
+			return Response.ok( service.calc(expr) + ""  ).
+							header("CREATED_BY", ArchaiusPropsManager.getInstance().getCreator()).
+							build();
 		} catch (Exception e) {
 			logger.error("Error creating json response.", e);
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
