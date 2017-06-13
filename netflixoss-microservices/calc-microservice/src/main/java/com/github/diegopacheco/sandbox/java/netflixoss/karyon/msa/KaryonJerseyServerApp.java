@@ -1,7 +1,9 @@
 package com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa;
 
 import com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa.KaryonJerseyServerApp.KaryonJerseyModuleImpl;
+import com.google.inject.servlet.ServletModule;
 import com.netflix.governator.annotations.Modules;
+import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import com.scmspain.karyon.hystrixstreamendpoint.module.HystrixStreamEndPointModule;
 
 import netflix.adminresources.resources.KaryonWebAdminModule;
@@ -19,8 +21,8 @@ import netflix.karyon.servo.KaryonServoModule;
         KaryonServoModule.class,
         KaryonEurekaModule.class,
         GuiceBindingsModule.class,
-        HystrixStreamEndPointModule.class,
-        KaryonJerseyModuleImpl.class
+        KaryonJerseyServerApp.HystrixServletModule.class,
+        KaryonJerseyServerApp.KaryonJerseyModuleImpl.class
 })
 public interface KaryonJerseyServerApp {
 	class KaryonJerseyModuleImpl extends KaryonJerseyModule {
@@ -34,4 +36,10 @@ public interface KaryonJerseyServerApp {
             server().port(6005).threadPoolSize(400);		
         }
 	}	
+	class HystrixServletModule extends ServletModule{
+	     @Override
+	     protected void configureServlets() {
+	    	 serve("/hd/hystrix.stream").with(HystrixMetricsStreamServlet.class);
+	     }
+	}
 }

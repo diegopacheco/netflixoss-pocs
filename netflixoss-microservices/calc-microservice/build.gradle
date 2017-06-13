@@ -35,7 +35,6 @@ eclipse {
 
 configurations {
     all*.exclude group: 'org.mortbay.jetty', module: 'servlet-api'
-    //all*.exclude group: 'org.mortbay.jetty', module: 'jetty'
 }
 
 dependencies {
@@ -59,7 +58,7 @@ dependencies {
 
   			  'org.eclipse.jetty:jetty-server:9.3.13.v20161014',
   			  'org.eclipse.jetty:jetty-servlet:9.3.13.v20161014',
-  			  'com.google.inject.extensions:guice-servlet:3.0',
+  			  'com.google.inject.extensions:guice-servlet:4.0',
 
 			  'com.netflix.ribbon:ribbon:2.1.0',
 			  'com.netflix.ribbon:ribbon-core:2.1.0',
@@ -72,7 +71,11 @@ dependencies {
     		  'com.netflix.hystrix:hystrix-core:1.4.14',
 			  'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.5.12',
 			  'com.netflix.hystrix:hystrix-metrics-event-stream:1.5.12',
-			  'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.5.12'	
+			  'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.5.12',	
+			  
+			  'com.google.inject.extensions:guice-assistedinject:3.0',
+			  'com.google.inject.extensions:guice-multibindings:3.0',
+			  
 			  		  
 		    ])
 	
