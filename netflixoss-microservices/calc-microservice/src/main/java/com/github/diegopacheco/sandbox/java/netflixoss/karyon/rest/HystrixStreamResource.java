@@ -103,7 +103,7 @@ public class HystrixStreamResource {
 
 				try {
 					int count = 0;
-					while (poller.isRunning() && !isDestroyed && count<=10) {
+					while (poller.isRunning() && !isDestroyed) {
 						List<String> jsonMessages = jsonListener.getJsonMetrics();
 						if (jsonMessages.isEmpty()) {
 							response.write("ping: \n");
@@ -115,13 +115,14 @@ public class HystrixStreamResource {
 						if (isDestroyed) {
 							break;
 						}
+						response.flush();
 						Thread.sleep(delay);
-						count++;
-						if(count==9){
-							break;
-						}
+//						count++;
+//						if(count==9){
+//							break;
+//						}
 					}
-					response.flush();
+//					response.flush();
 				} catch (InterruptedException e) {
 					poller.shutdown();
 					logger.debug("InterruptedException. Will stop polling.");
