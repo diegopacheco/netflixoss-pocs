@@ -38,6 +38,7 @@ configurations {
 }
 
 dependencies {
+
 	compile([
 			  'ch.qos.logback:logback-classic:1.0.13',
 			  'org.slf4j:slf4j-log4j12:1.7.12',
@@ -68,14 +69,11 @@ dependencies {
 			  'com.netflix.ribbon:ribbon-httpasyncclient:0.3.13',
     		  'com.google.code.gson:gson:2.3.1',
     		  
-    		  'com.netflix.hystrix:hystrix-core:1.4.14',
-			  'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.5.12',
-			  'com.netflix.hystrix:hystrix-metrics-event-stream:1.5.12',
-			  'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.5.12',	
+    		  'com.netflix.hystrix:hystrix-core:1.4.26',
+			  'com.netflix.hystrix:hystrix-metrics-event-stream:1.4.26',
 			  
 			  'com.google.inject.extensions:guice-assistedinject:3.0',
 			  'com.google.inject.extensions:guice-multibindings:3.0',
-			  
 			  		  
 		    ])
 	
@@ -89,7 +87,7 @@ dependencies {
 	compile (group: 'com.netflix.karyon', name: 'karyon2-admin-web', version: '2.7.5'){
 	   exclude group: 'javax.servlet'
 	   exclude group: 'org.mortbay.jetty'
-	   exclude group: 'org.mortbay.jetty', module: 'servlet-api'
+	   exclude group: 'org.mortbay.jetty', module: 'servlet1-api'
 	}
 	
 	compile (group: 'com.netflix.karyon', name: 'karyon2-eureka', version: '2.7.5'){

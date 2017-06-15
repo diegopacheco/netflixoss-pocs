@@ -7,7 +7,7 @@ import rx.Observable;
 import rx.Subscriber;
 
 public class SimpleCommand extends HystrixObservableCommand<String> {
-
+	
     private final String ops;
 
     public SimpleCommand(String ops) {
