@@ -2,9 +2,6 @@ package com.github.diegopacheco.sandbox.java.netflixoss.karyon.rest;
 
 import java.io.File;
 
-import org.mortbay.jetty.Server;
-
-import com.google.inject.Injector;
 import com.netflix.config.AbstractPollingScheduler;
 import com.netflix.config.ConfigurationManager;
 import com.netflix.config.DynamicConfiguration;
@@ -13,8 +10,6 @@ import com.netflix.config.DynamicStringProperty;
 import com.netflix.config.FixedDelayPollingScheduler;
 import com.netflix.config.PolledConfigurationSource;
 import com.netflix.config.sources.URLConfigurationSource;
-import com.netflix.governator.guice.LifecycleInjector;
-import com.netflix.governator.guice.LifecycleInjectorBuilder;
 
 public class ArchaiusPropsManager {
 	
@@ -23,14 +18,6 @@ public class ArchaiusPropsManager {
 	public static ArchaiusPropsManager getInstance(){
 		if (instance==null){
 			instance = new ArchaiusPropsManager();
-			
-            LifecycleInjectorBuilder builder = LifecycleInjector.builder();
-			Injector injector = builder.build().createInjector();
-			Server server = injector.getInstance(Server.class);
-			
-//			Context handler = new Context();
-//			handler.addServlet(new ServletHolder(new HystrixMetricsStreamServlet()), "/metrics/hs");
-//			server.setHandler(handler);
 		}
 		return instance;
 	}
