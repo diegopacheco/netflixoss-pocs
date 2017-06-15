@@ -3,7 +3,7 @@ package com.github.diegopacheco.sandbox.java.netflixoss.karyon.msa;
 import io.netty.buffer.ByteBuf;
 import netflix.karyon.transport.http.KaryonHttpModule;
 
-public class KaryonHystrixJerseyModule extends KaryonHttpModule<ByteBuf, ByteBuf> {
+public abstract class KaryonHystrixJerseyModule extends KaryonHttpModule<ByteBuf, ByteBuf> {
 
     public KaryonHystrixJerseyModule() {
         super("KaryonHystrixJerseyModule", ByteBuf.class, ByteBuf.class);
@@ -18,7 +18,4 @@ public class KaryonHystrixJerseyModule extends KaryonHttpModule<ByteBuf, ByteBuf
         bindRouter().to(JerseyHystrixBasedRouter.class);
         super.configure();
     }
-
-	@Override
-	protected void configureServer() {}
 }
