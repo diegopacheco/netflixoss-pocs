@@ -26,11 +26,12 @@ public class SimpleCacheResource {
 	}
 	
 	@GET
-	@Path("set/{k}/{v}")
+	@Path("set/{k}/{s}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response set(@PathParam("k") String k,@PathParam("v") String v) {
+	public Response set(@PathParam("k") String k,@PathParam("s") String s) {
 		try {
-			dynoManager.getClient().set(k, v);
+			String bigString = BigStringFactory.create(new Integer(s));
+			dynoManager.getClient().set(k, bigString);
 			return Response.ok("200").build();
 		} catch (Exception e) {
 			logger.error("Error creating json response.", e);
