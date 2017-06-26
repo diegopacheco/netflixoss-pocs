@@ -43,10 +43,23 @@ dependencies {
 			  'com.netflix.karyon:karyon2-servo:2.7.2',
 			  'com.netflix.karyon:karyon2-admin-web:2.7.2',
 			  'com.netflix.karyon:karyon2-eureka:2.7.2',
-			  'com.sun.jersey:jersey-client:1.18.4'
+			  'com.sun.jersey:jersey-client:1.18.4',
 		    ])
 
     compile 'com.netflix.dyno:dyno-core:latest.release'
     compile 'com.netflix.dyno:dyno-jedis:latest.release'
+    
+    compileOnly([
+		  'io.gatling:gatling-core:2.2.5',
+		  'io.gatling:gatling-http:2.2.5',
+		  'org.scala-lang:scala-reflect:2.12.2',
+		  'org.scala-lang:scala-compiler:2.12.2', 
+		  'org.scala-lang:scala-library:2.12.2',       
+    ])
 
+}
+
+task runGatling(type: Exec) {
+   executable "sh"
+   args "-c", "$System.env.GATLING_HOME/bin/gatling.sh -m -sf /src/main/gatling/scala/"
 }
