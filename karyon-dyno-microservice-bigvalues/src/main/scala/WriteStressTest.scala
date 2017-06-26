@@ -14,9 +14,8 @@ class WriteStressTest extends Simulation {
   
   val scn = scenario("Stress_Test_Write")
     .exec(http("write")
-    .get("/set/k1/20000")
+    .get("/set/k1/20000"))
     .pause(5)
-  )
 
   setUp(scn.inject(atOnceUsers(1)).protocols(httpConf))
   

@@ -59,7 +59,13 @@ dependencies {
 
 }
 
-task runGatling(type: Exec) {
+task readStress(type: Exec) { 
    executable "sh"
-   args "-c", "$System.env.GATLING_HOME/bin/gatling.sh -m -sf /src/main/gatling/scala/"
+   args "-c", "$System.env.GATLING_HOME/bin/gatling.sh -m -sf " + new File(".").absolutePath + "/src/main/scala/ --simulation ReadStressTest"
 }
+
+task writeStress(type: Exec) { 
+   executable "sh"
+   args "-c", "$System.env.GATLING_HOME/bin/gatling.sh -m -sf " + new File(".").absolutePath + "/src/main/scala/ --simulation WriteStressTest"
+}
+

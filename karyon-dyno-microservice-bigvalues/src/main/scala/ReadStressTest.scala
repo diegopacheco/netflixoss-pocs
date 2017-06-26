@@ -14,9 +14,8 @@ class ReadStressTest extends Simulation {
   
   val scn = scenario("Stress_Test_Read")
     .exec(http("read")
-    .get("/get/k1")
+    .get("/get/k1"))
     .pause(5)
-  )
 
   setUp(scn.inject(atOnceUsers(1)).protocols(httpConf))
   
