@@ -30,8 +30,11 @@ public class SimpleCacheResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response set(@PathParam("k") String k,@PathParam("s") String s) {
 		try {
+
 			String bigString = BigStringFactory.create(new Integer(s));
 			dynoManager.getClient().set(k, bigString);
+			bigString = null;
+			
 			return Response.ok("200").build();
 		} catch (Exception e) {
 			logger.error("Error creating json response.", e);
@@ -44,7 +47,10 @@ public class SimpleCacheResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@PathParam("k") String k) {
 		try {
-			return Response.ok( dynoManager.getClient().get(k) ).build();
+			String result = dynoManager.getClient().get(k);
+			if (result != null) result = BigStringFactory.readableFileSize(result.length());
+			
+			return Response.ok( result ).build();
 		} catch (Exception e) {
 			logger.error("Error creating json response.", e);
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
