@@ -17,6 +17,6 @@ class ReadStressTest extends Simulation {
     .get("/get/k1"))
     .pause(5)
 
-  setUp(scn.inject(atOnceUsers(1)).protocols(httpConf))
+  setUp(sc.inject(constantUsersPerSec(100).during(60 seconds))).protocols(httpConf)
   
 }
