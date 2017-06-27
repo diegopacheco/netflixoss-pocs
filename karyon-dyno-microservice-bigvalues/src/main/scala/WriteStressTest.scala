@@ -17,6 +17,6 @@ class WriteStressTest extends Simulation {
     .get("/set/k1/20000"))
     .pause(5)
 
-  setUp(sc.inject(constantUsersPerSec(100).during(60 seconds))).protocols(httpConf)
+  setUp(scn.inject(constantUsersPerSec(100).during(60 seconds))).protocols(httpConf)
   
 }
