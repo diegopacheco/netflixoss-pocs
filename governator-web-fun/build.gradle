@@ -1,0 +1,32 @@
+apply plugin: "java"
+apply plugin: "application"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = "com.github.diegopacheco.netflix.pocs.archaius2.Main"
+
+sourceSets {
+    main.java.srcDirs = ["src/main/java"]
+}
+
+repositories {
+    mavenCentral()
+    maven {
+       url "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
+dependencies {
+	compile([
+	           'com.netflix.governator:governator:1.17.4',
+			   'com.netflix.governator:governator-annotations:1.17.4',
+			   'com.netflix.governator:governator-jetty:1.17.4',
+			   'com.netflix.governator:governator-jersey:1.17.4',
+	           
+			   'javax.servlet:servlet-api:2.5',
+	           
+	           'org.slf4j:slf4j-api:1.7.0',
+		       'org.slf4j:slf4j-simple:1.7.0'
+	        ])
+}
