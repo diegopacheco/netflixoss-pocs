@@ -116,7 +116,7 @@ public class MainHealth {
 			}
 		}
 				
-		//, new EurekaHealthStatusBridgeModule()
+		, new EurekaHealthStatusBridgeModule()
 		
 		).createInjector();
 
