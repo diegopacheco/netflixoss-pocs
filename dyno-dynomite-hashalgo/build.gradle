@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+version = '1.0'
+sourceCompatibility = 1.8
+
+mainClassName = "com.github.diegopacheco.netflixoss.dyno.hashalgo.DynoMain"
+
+applicationDefaultJvmArgs = [
+								 "-Djava.net.preferIPv4Stack=true",
+								 "-Djava.net.preferIPv6Addresses=false",
+								 "-server",
+								 "-Xmx2048m",
+								 "-Xms128m",
+							 ]
+
+run {
+	if (System.getProperty('DEBUG', 'false') == 'true') {
+		jvmArgs '-Xdebug',
+			'-agentlib:jdwp=transport=dt_socket,address=9009,server=y,suspend=y'
+	}
+}
+
+repositories {
+	jcenter()
+	mavenLocal()
+}
+
+dependencies {
+	compile([
+				'com.netflix.dyno:dyno-jedis:1.6.0',
+		    ])
+}
+
