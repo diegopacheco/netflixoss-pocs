@@ -1,11 +1,18 @@
 package com.github.diegopacheco.netflixpocs.dyno.scatter.getter;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.netflix.config.ConfigurationManager;
+import com.netflix.dyno.connectionpool.Operation;
+import com.netflix.dyno.connectionpool.OperationResult;
 import com.netflix.dyno.connectionpool.impl.RetryNTimes;
 import com.netflix.dyno.contrib.ArchaiusConnectionPoolConfiguration;
 import com.netflix.dyno.jedis.DynoJedisClient;
+
+import redis.clients.jedis.Jedis;
 
 public class Main {
 	public static void main(String[] args) {
@@ -33,8 +40,27 @@ public class Main {
 	            .build();
 		
 		dynoClient.set("x", "100");
-		System.out.println(dynoClient.get("x"));
-		System.out.println(dynoClient.keys("*"));
+		System.out.println("get x: " + dynoClient.get("x"));
+		
+		Collection<OperationResult<Set<String>>>  scatterGetter =  dynoClient.getConnPool().executeWithRing(new Operation<Jedis, Set<String>>() {
+			public Set<String> execute(Jedis client, com.netflix.dyno.connectionpool.ConnectionContext state) throws com.netflix.dyno.connectionpool.exception.DynoException {
+				client.set("x" + (Math.random() * 10000), "value"+(Math.random() * 10000));
+				return client.keys("x*");
+			}
+			@Override
+			public String getName() {
+				return "keys";
+			}
+			@Override
+			public String getKey() {
+				return "1";
+			};
+		});
+		System.out.println("Scatter Getter Results");
+		Iterator<OperationResult<Set<String>>> it = scatterGetter.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next().getResult());
+		}
 		
 	}
 }
