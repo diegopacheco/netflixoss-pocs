@@ -43,10 +43,13 @@ public class Main {
 		System.out.println("keys x*: " + dynoClient.keys("x*"));
 		
 		Collection<OperationResult<Set<String>>>  scatterGetter =  dynoClient.getConnPool().executeWithRing(new Operation<Jedis, Set<String>>() {
-			public Set<String> execute(Jedis client, com.netflix.dyno.connectionpool.ConnectionContext state) throws com.netflix.dyno.connectionpool.exception.DynoException {
+			
+			public Set<String> execute(Jedis client, com.netflix.dyno.connectionpool.ConnectionContext state)
+			throws com.netflix.dyno.connectionpool.exception.DynoException {
 				client.set("x" + (Math.random() * 10000), "value"+(Math.random() * 10000));
 				return client.keys("x*");
 			}
+			
 			@Override
 			public String getName() {
 				return "keys";
@@ -56,6 +59,7 @@ public class Main {
 				return "1";
 			};
 		});
+		
 		System.out.println("Scatter Getter Results");
 		Iterator<OperationResult<Set<String>>> it = scatterGetter.iterator();
 		while(it.hasNext()){
