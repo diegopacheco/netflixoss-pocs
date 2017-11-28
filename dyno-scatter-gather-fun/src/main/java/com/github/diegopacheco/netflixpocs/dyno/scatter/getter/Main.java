@@ -17,7 +17,7 @@ import redis.clients.jedis.Jedis;
 public class Main {
 	public static void main(String[] args) {
 		
-		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.seeds", "179.18.0.101:8102:rack1:dc:100|179.18.0.102:8102:rack2:dc:100|179.18.0.103:8102:rack3:dc:100");
+		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.seeds", "179.18.0.101:8102:rack1:dc:100|179.18.0.102:8102:rack2:dc:100|179.18.0.103:8102:rack3:dc:100|179.18.0.201:8102:rack1:dc:200|179.18.0.202:8102:rack2:dc:200|179.18.0.203:8102:rack3:dc:200");
 		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.cluster.name","dynomiteCluster");
 		ConfigurationManager.getConfigInstance().setProperty("dynomite.driver.client.name","dynomiteCluster"); 
 		ConfigurationManager.getConfigInstance().setProperty("dyno.dyn_o_mite.retryPolicy","RetryNTimes:3:true");
@@ -40,7 +40,7 @@ public class Main {
 	            .build();
 		
 		dynoClient.set("x", "100");
-		System.out.println("get x: " + dynoClient.get("x"));
+		System.out.println("keys x*: " + dynoClient.keys("x*"));
 		
 		Collection<OperationResult<Set<String>>>  scatterGetter =  dynoClient.getConnPool().executeWithRing(new Operation<Jedis, Set<String>>() {
 			public Set<String> execute(Jedis client, com.netflix.dyno.connectionpool.ConnectionContext state) throws com.netflix.dyno.connectionpool.exception.DynoException {
