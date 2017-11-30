@@ -1,0 +1,34 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'com.github.diegopacheco.sandbox.java.Main'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/groups/public/' }
+}
+
+dependencies {
+
+  compile group: 'com.netflix.dyno', name: 'dyno-core',    version: '1.6.0'
+  compile group: 'com.netflix.dyno', name: 'dyno-jedis',   version: '1.6.0'
+  compile group: 'com.netflix.dyno', name: 'dyno-contrib', version: '1.6.0'
+  
+  compile group: 'com.netflix.dyno', name: 'dyno-queues-redis', version: '0.1.3'
+
+  compile 'org.slf4j:slf4j-api:1.7.25'
+  compile 'org.slf4j:slf4j-jdk14:1.7.25'
+  
+  testCompile([
+      'junit:junit:4.12'
+  ])		
+}
+
+run {    
+  systemProperties System.getProperties()
+}
+
+
