@@ -36,6 +36,8 @@ public class DynoQueuesMain {
 		int count = 10;
 		List<Message> polled = queue.pop(count, 1, TimeUnit.SECONDS);	
 		System.out.println(polled);
+		
+		queue.ack("id1");
 	}
 	
 }
