@@ -13,11 +13,9 @@ import com.netflix.astyanax.AstyanaxContext;
 import com.netflix.astyanax.Keyspace;
 import com.netflix.astyanax.connectionpool.Host;
 import com.netflix.astyanax.connectionpool.NodeDiscoveryType;
-import com.netflix.astyanax.connectionpool.OperationResult;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolType;
 import com.netflix.astyanax.connectionpool.impl.CountingConnectionPoolMonitor;
-import com.netflix.astyanax.cql.CqlStatementResult;
 import com.netflix.astyanax.impl.AstyanaxConfigurationImpl;
 import com.netflix.astyanax.model.ColumnFamily;
 import com.netflix.astyanax.model.Rows;
@@ -35,7 +33,7 @@ public class Main {
 	private final String BOOT_CLUSTER = "Test Cluster";
 	private final String KS_NAME = "cluster_test";
 	private final ColumnFamily<String, String> CF_TEST = new ColumnFamily<String, String>("test", StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
-	private final String CASSANDRA_SEEDS = System.getProperty("CASS_SEEDS","");
+	private final String CASSANDRA_SEEDS = System.getProperty("CASS_SEEDS","127.0.0.1");
 	
 	public Main() {
 		ctx = initWithThriftDriverWithExternalHostsSupplier();
