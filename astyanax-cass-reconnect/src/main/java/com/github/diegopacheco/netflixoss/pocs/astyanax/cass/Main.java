@@ -17,12 +17,12 @@ import com.netflix.astyanax.connectionpool.OperationResult;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolConfigurationImpl;
 import com.netflix.astyanax.connectionpool.impl.ConnectionPoolType;
 import com.netflix.astyanax.connectionpool.impl.CountingConnectionPoolMonitor;
+import com.netflix.astyanax.cql.CqlStatementResult;
 import com.netflix.astyanax.impl.AstyanaxConfigurationImpl;
 import com.netflix.astyanax.model.ColumnFamily;
 import com.netflix.astyanax.model.Rows;
 import com.netflix.astyanax.serializers.StringSerializer;
 import com.netflix.astyanax.thrift.ThriftFamilyFactory;
-import com.netflix.astyanax.util.RangeBuilder;
 
 public class Main {
 	
@@ -32,9 +32,9 @@ public class Main {
 	private final Keyspace bootKeyspace;
 	
 	private final Integer THRIFT_PORT = 9160;
-	private final String BOOT_CLUSTER = "TEST";
-	private final String KS_NAME = "TEST";
-	public  final ColumnFamily<String, String> CF_TEST = new ColumnFamily<String, String>(KS_NAME,StringSerializer.get(), StringSerializer.get());
+	private final String BOOT_CLUSTER = "Test Cluster";
+	private final String KS_NAME = "cluster_test";
+	private final ColumnFamily<String, String> CF_TEST = new ColumnFamily<String, String>("test", StringSerializer.get(), StringSerializer.get(), StringSerializer.get());
 	private final String CASSANDRA_SEEDS = System.getProperty("CASS_SEEDS","");
 	
 	public Main() {
@@ -80,10 +80,14 @@ public class Main {
 		
 		while(true) {
 			try {
-				OperationResult<Rows<String, String>> result = m.bootKeyspace.prepareQuery(m.CF_TEST)
-					  .getAllRows()  
-					  .execute();
-				System.out.println("Query Cassandra " + result.getResult().getKeys());
+				Rows<String, String> result = m.bootKeyspace.prepareQuery(m.CF_TEST)
+				    .getAllRows()
+				    .execute().getResult();
+				
+				System.out.print("Cassandra Result: ");
+				result.forEach( r -> System.out.print(r.getKey() + " "));
+				System.out.print("\n");
+				
 			}catch(Exception e) {
 				System.out.println("Error: " + e);
 			}finally{
