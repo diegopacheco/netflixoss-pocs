@@ -1,0 +1,47 @@
+apply plugin: "java"
+apply plugin: "application"
+apply plugin: "eclipse"
+
+sourceCompatibility = 1.8 
+targetCompatibility = 1.8 
+
+sourceSets {
+    main.java.srcDirs = ["src/main/java"]
+}
+
+mainClassName="com.github.diegopacheco.sandbox.java.netflixoss.karyon.poc.jersey.MainRunner"
+
+repositories {
+	mavenLocal() 
+    mavenCentral()
+    maven {
+       url "https://oss.sonatype.org/content/groups/public/"
+    } 
+}
+
+dependencies {
+	compile([
+	
+			 // karyon 2.2.0-rc.2
+	
+			 'com.google.inject:guice:3.0',
+			 'org.slf4j:slf4j-api:1.7.0',
+			 'org.slf4j:slf4j-simple:1.7.0',
+			 'org.codehaus.jettison:jettison:1.2',
+			 
+			 'com.netflix.karyon:karyon2-core:2.7.0',
+			 'com.netflix.karyon:karyon2-jersey-blocking:2.7.0',
+			 'com.netflix.karyon:karyon2-archaius:2.7.0',
+			 'com.netflix.karyon:karyon2-servo:2.7.0',
+			 'com.netflix.karyon:karyon2-admin-web:2.7.0',
+			 'com.netflix.karyon:karyon2-eureka:2.7.0',
+			 
+			 'com.netflix.hystrix:hystrix-core:1.4.20',
+			 'com.netflix.hystrix:hystrix-rx-netty-metrics-stream:1.4.20',
+			 'com.netflix.hystrix:hystrix-servo-metrics-publisher:1.4.20',
+			 'com.netflix.hystrix:hystrix-request-servlet:1.4.20',
+			 'com.netflix.hystrix:hystrix-metrics-event-stream:1.4.20',
+			 
+			 //'com.scmspain.karyon:karyon2-hystrix-stream:0.1.1'			 
+	 		 ])
+}
