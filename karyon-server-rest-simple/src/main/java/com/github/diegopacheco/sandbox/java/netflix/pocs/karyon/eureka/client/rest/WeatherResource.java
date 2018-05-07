@@ -52,7 +52,7 @@ public class WeatherResource {
 	}
 	
 	@GET
-	@Path("math/div/{a}/{b}")
+	@Path("div/{a}/{b}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response sum(@PathParam("a") Double a,@PathParam("b") Double b) {
 		

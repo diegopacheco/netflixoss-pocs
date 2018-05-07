@@ -1,5 +1,6 @@
 package com.github.diegopacheco.sandbox.java.netflix.pocs.karyon.eureka.client.server;
 
+import com.github.diegopacheco.sandbox.java.netflix.pocs.karyon.eureka.client.rest.MyMyExceptionMapper;
 import com.github.diegopacheco.sandbox.java.netflix.pocs.karyon.eureka.client.server.KaryonJerseyServerApp.KaryonJerseyModuleImpl;
 import com.netflix.governator.annotations.Modules;
 
@@ -17,14 +18,16 @@ import netflix.karyon.servo.KaryonServoModule;
         ShutdownModule.class,
         KaryonWebAdminModule.class,
         KaryonServoModule.class,
-        KaryonJerseyModuleImpl.class,
-        KaryonEurekaModule.class 
+        KaryonJerseyModuleImpl.class
+        //, KaryonEurekaModule.class 
 })
 public interface KaryonJerseyServerApp {
 	 class KaryonJerseyModuleImpl extends KaryonJerseyModule {
 	        @Override
 	        protected void configureServer() {
 	            bind(AuthenticationService.class).to(AuthenticationServiceImpl.class);
+	            bind(MyMyExceptionMapper.class).asEagerSingleton();
+	            
 	            interceptorSupport().forUri("/*").intercept(LoggingInterceptor.class);
 	            interceptorSupport().forUri("/weather").interceptIn(AuthInterceptor.class);
 	            server().port(6002).threadPoolSize(400);

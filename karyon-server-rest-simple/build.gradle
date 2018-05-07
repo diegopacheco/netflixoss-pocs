@@ -50,6 +50,8 @@ dependencies {
 			  'com.netflix.karyon:karyon2-servo:2.7.2',
 			  'com.netflix.karyon:karyon2-admin-web:2.7.2',
 			  'com.netflix.karyon:karyon2-eureka:2.7.2',
-			  'com.sun.jersey:jersey-client:1.18.4'		  
+			  'com.sun.jersey:jersey-client:1.18.4',
+			  
+			  'com.sun.jersey:jersey-json:1.18.4'     		  
 		    ])
 }
